@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+
+import { PoMenuItem } from '@po-ui/ng-components'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'po-condomynium';
+
+  readonly menus: Array<PoMenuItem> = [
+    { label: 'Inicio', link: '/' },
+    { label: 'Pessoas', link: '/people' }
+  ];
+
+  private onClick() {
+    alert('Clicked in menu item')
+  }
+
 }
