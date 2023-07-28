@@ -8,18 +8,19 @@ import {
   PoPageDynamicTableCustomTableAction,
   PoPageDynamicTableOptions
 } from '@po-ui/ng-templates'
+import { PeopleService } from '../people.service'
 
-import { PeopleService } from './people.service'
+
 
 
 @Component({
-  selector: 'app-people',
-  templateUrl: './people.component.html',
-  styleUrls: ['./people.component.css'],
+  selector: 'app-people-list',
+  templateUrl: './people-list.component.html',
+  styleUrls: ['./people-list.component.css'],
   providers: [PeopleService]
 })
 
-export class PeopleComponent {
+export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
@@ -32,7 +33,7 @@ export class PeopleComponent {
   fixedFilter = false;
 
   readonly actions: PoPageDynamicTableActions = {
-    new: '/documentation/po-page-dynamic-edit',
+    new: 'people/new',
     remove: true,
     removeAll: true
   };

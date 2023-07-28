@@ -7,7 +7,8 @@ import { PoModule } from '@po-ui/ng-components'
 import { PoPageDynamicTableModule, PoTemplatesModule } from '@po-ui/ng-templates'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { PeopleComponent } from './people/people.component'
+import { PeopleListComponent } from './people/people-list/people-list.component'
+import { PeopleNewComponent } from './people/people-new/people-new.component'
 @NgModule({
   declarations: [
     AppComponent
@@ -19,7 +20,8 @@ import { PeopleComponent } from './people/people.component'
     HttpClientModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent },
-      {path: 'people', component: PeopleComponent },
+      {path: 'people', component: PeopleListComponent },
+      {path: 'people/new', component: PeopleNewComponent },
     ]),
     PoTemplatesModule,
     PoPageDynamicTableModule
