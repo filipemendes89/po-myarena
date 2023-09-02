@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router'
 import { PeopleModule } from './people/people.module'
 
 const routes: Routes = [
-  { path: 'people', loadChildren: () => PeopleModule },
+  { 
+    path: 'people', 
+    loadChildren: () => PeopleModule
+  },
 ];
 
 @NgModule({

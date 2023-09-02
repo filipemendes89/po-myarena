@@ -19,7 +19,9 @@ import { PeopleNewComponent } from './people/people-new/people-new.component'
     PoModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: AppComponent },
+      {
+        path: '', 
+      component: AppComponent },
       {path: 'people', component: PeopleListComponent },
       {path: 'people/new', component: PeopleNewComponent },
     ]),

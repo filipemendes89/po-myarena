@@ -34,6 +34,7 @@ export class PeopleListComponent {
 
   readonly actions: PoPageDynamicTableActions = {
     new: 'people/new',
+    edit: 'people/edit/:id',
     remove: true,
     removeAll: true
   };
@@ -68,15 +69,16 @@ export class PeopleListComponent {
   ];
 
   readonly detailFields: Array<PoDynamicViewField> = [
-    { property: 'status', tag: true, gridLgColumns: 4, divider: 'Personal Data' },
-    { property: 'name', gridLgColumns: 4 },
-    { property: 'nickname', label: 'User name', gridLgColumns: 4 },
-    { property: 'email', gridLgColumns: 4 },
-    { property: 'birthdate', gridLgColumns: 4, type: 'date' },
-    { property: 'genre', gridLgColumns: 4, gridSmColumns: 6 },
-    { property: 'cityName', label: 'City', divider: 'Address' },
-    { property: 'state' },
-    { property: 'country' }
+    { property: 'id', key: true, visible: false },
+    { property: 'nome', label: 'Name', divider: 'Pessoa', gridColumns: 6 },
+    { property: 'genero', label: 'Genre', gridColumns: 6},
+    { property: 'bloco', label: 'Bloco', gridColumns: 6 },
+    {
+      property: 'dtNascimento',
+      label: 'Birthdate',
+      type: 'date',
+      gridColumns: 6
+    }
   ];
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
@@ -116,13 +118,6 @@ export class PeopleListComponent {
     {
       label: 'Details',
       action: this.onClickUserDetail.bind(this),
-      disabled: this.isUserInactive.bind(this),
-      icon: 'po-icon-user'
-    },
-    {
-      label: 'Dependents',
-      action: this.onClickDependents.bind(this),
-      visible: this.hasDependents.bind(this),
       icon: 'po-icon-user'
     }
   ];
