@@ -24,7 +24,7 @@ export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
-  readonly serviceApi = 'https://po-sample-api.fly.dev/v1/people';
+  readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
 
   actionsRight = false;
   detailedUser: any;
@@ -53,18 +53,18 @@ export class PeopleListComponent {
 
   fields: Array<any> = [
     { property: 'id', key: true, visible: false, filter: true },
-    { property: 'name', label: 'Name', filter: true, gridColumns: 6 },
-    { property: 'genre', label: 'Genre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
+    { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
+    { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
     { property: 'search', filter: true, visible: false },
     {
-      property: 'birthdate',
+      property: 'dtNascimento',
       label: 'Birthdate',
       type: 'date',
       gridColumns: 6,
       visible: false,
       allowColumnsManager: true
     },
-    { property: 'city', label: 'City', filter: true, duplicate: true, options: this.cityOptions, gridColumns: 12 }
+    { property: 'cidade', label: 'City', filter: true, duplicate: true, options: this.cityOptions, gridColumns: 12 }
   ];
 
   readonly detailFields: Array<PoDynamicViewField> = [
@@ -133,11 +133,11 @@ export class PeopleListComponent {
     return {
       fields: [
         { property: 'id', key: true, visible: true, filter: true },
-        { property: 'name', label: 'Name', filter: true, gridColumns: 6 },
-        { property: 'genre', label: 'Genre', filter: true, gridColumns: 6, duplicate: true },
-        { property: 'search', initValue: 'São Paulo' },
+        { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
+        { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true },
+        { property: 'bloco', label: 'Bloco', filter: true, gridColumns: 6, duplicate: true },
         {
-          property: 'birthdate',
+          property: 'dtNascimento',
           label: 'Birthdate',
           type: 'date',
           gridColumns: 6,

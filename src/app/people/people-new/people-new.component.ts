@@ -12,34 +12,36 @@ import { PoPageDynamicEditActions, PoPageDynamicEditLiterals } from '@po-ui/ng-t
 })
 
 export class PeopleNewComponent {
-  public readonly serviceApi = 'https://po-sample-api.fly.dev/v1/people';
+  public readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
 
   public readonly actions: PoPageDynamicEditActions = {
-    saveNew: '/documentation/po-page-dynamic-edit'
+    saveNew: '/people/new',
+    save: '/people',
+    cancel: '/people'
   };
 
   public readonly literals: PoPageDynamicEditLiterals = {
     pageActionCancel: 'Descartar',
-    pageActionSave: 'Gravar'
+    pageActionSave: 'Gravar',
+    pageActionSaveNew: 'Salvar e Novo'
   };
 
   public readonly breadcrumb: PoBreadcrumb = {
     items: [
       { label: 'Home', link: '/' },
-      { label: 'People', link: '/documentation/po-page-dynamic-table' },
+      { label: 'People', link: '/people' },
       { label: 'New' }
     ]
   };
 
   public readonly fields: Array<PoDynamicFormField> = [
-    { property: 'code', divider: 'Unidade', required: true, label: "Bloco", gridColumns: 1, optionsService: 'https://condomynium.free.beeceptor.com/torres' },
-    { property: 'unit', required: true, label: "Unidade", gridColumns: 1 },
-    { property: 'name', divider: 'Dados Pessoais', required: true, label: "Nome" },
+    { property: 'bloco', divider: 'Unidade', required: true, label: "Bloco", gridColumns: 1, optionsService: 'https://condomynium.free.beeceptor.com/torres' },
+    { property: 'numero', required: true, label: "Unidade", gridColumns: 1 },
+    { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
     { property: 'email', label: 'E-mail' },
-    { property: 'birthdate', label: 'Nascimento', type: 'date' },
-    { property: 'genre', options: ['Feminino', 'Masculino', 'others'], gridLgColumns: 6, label: "Genero"  },
-    { property: 'nationality', options: ['Brasileiro', 'Estrangeiro'], label: "Nacionalidade"   },
-    { property: 'birthPlace', label: 'Local de Nascimento' },
+    { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
+    { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 4, label: "Genero"  },
+    { property: 'nacionalidade', options: ['Brasileiro', 'Estrangeiro'], gridColumns: 4, label: "Nacionalidade"   },
     {
       property: 'cep',
       divider: 'Endereço',
@@ -47,17 +49,17 @@ export class PeopleNewComponent {
       label: "CEP"
     },
     {
-      property: 'street',
+      property: 'endereco',
       gridColumns: 6,
       label: "Endereço"
     },
     {
-      property: 'city',
+      property: 'cidade',
       gridColumns: 3,
       label: "Cidade"
     },
     {
-      property: 'state',
+      property: 'estado',
       label: "Estado",
       gridColumns: 1
     }
