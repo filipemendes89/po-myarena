@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { PeopleNewComponent } from './people/people-new/people-new.component'
+import { UnitListComponent } from './unit/unit-list/unit-list.component'
 @NgModule({
   declarations: [
     AppComponent
@@ -23,6 +24,7 @@ import { PeopleNewComponent } from './people/people-new/people-new.component'
         path: '', 
       component: AppComponent },
       {path: 'people', component: PeopleListComponent },
+      {path: 'unit', component: UnitListComponent },
       {path: 'people/new', component: PeopleNewComponent },
     ]),
     PoTemplatesModule,
