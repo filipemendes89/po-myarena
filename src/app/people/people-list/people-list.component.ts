@@ -35,8 +35,7 @@ export class PeopleListComponent {
   readonly actions: PoPageDynamicTableActions = {
     new: 'people/new',
     edit: 'people/edit/:id',
-    remove: true,
-    removeAll: true
+    remove: true
   };
 
   readonly breadcrumb: PoBreadcrumb = {
@@ -57,14 +56,6 @@ export class PeopleListComponent {
     { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
     { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
     { property: 'search', filter: true, visible: false },
-    {
-      property: 'dtNascimento',
-      label: 'Birthdate',
-      type: 'date',
-      gridColumns: 6,
-      visible: false,
-      allowColumnsManager: true
-    },
     { property: 'cidade', label: 'City', filter: true, duplicate: true, options: this.cityOptions, gridColumns: 12 }
   ];
 
