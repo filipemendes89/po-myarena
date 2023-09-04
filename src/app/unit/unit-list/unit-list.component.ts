@@ -17,13 +17,12 @@ import { UnitService } from '../unit.service'
   styleUrls: ['./unit-list.component.css']
 })
 export class UnitListComponent {
-  @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
-  @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
+  @ViewChild('peopleModal') peopleModal!: PoModalComponent;
 
   readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/unit';
 
   detailedUser: any;
-  dependents: any;
+  people: any;
   quickSearchWidth: number = 3;
   fixedFilter = false;
 
@@ -50,7 +49,8 @@ export class UnitListComponent {
     { property: 'id', key: true, visible: false, filter: true },
     { property: 'grupo', filter: true, gridColumns: 6 },
     { property: 'torre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
-    { property: 'numero', filter: true, visible: false }
+    { property: 'endereco', filter: true, visible: true },
+    { property: 'numero', filter: true, visible: true }
   ];
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
@@ -71,8 +71,9 @@ export class UnitListComponent {
 
   tableCustomActions: Array<PoPageDynamicTableCustomTableAction> = [
     {
-      label: 'Details',
-      action: this.onClickUserDetail.bind(this),
+      label: 'Pessoas',
+      action: this.onClickDependents.bind(this),
+      visible: this.hasDependents.bind(this),
       icon: 'po-icon-user'
     }
   ];
@@ -85,7 +86,8 @@ export class UnitListComponent {
         { property: 'id', key: true, visible: false, filter: true },
         { property: 'grupo', filter: true, gridColumns: 6 },
         { property: 'torre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
-        { property: 'numero', filter: true, visible: false }
+        { property: 'endereco', filter: true, visible: true },
+        { property: 'numero', filter: true, visible: true }
       ]
     };
   }
@@ -95,23 +97,17 @@ export class UnitListComponent {
   }
 
   hasDependents(person: any) {
-    return person.dependents.length !== 0;
+    return person.pessoas.length !== 0;
   }
 
   printPage() {
     window.print();
   }
 
-  private onClickUserDetail(user: any) {
-    this.detailedUser = user;
-
-    this.userDetailModal.open();
-  }
-
   private onClickDependents(user: any) {
-    this.dependents = user.dependents;
+    this.people = user.pessoas;
 
-    this.dependentsModal.open();
+    this.peopleModal.open();
   }
 
   private onClickFixedFilter() {
