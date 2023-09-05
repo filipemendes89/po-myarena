@@ -8,12 +8,14 @@ import {
   PoPageDynamicTableCustomTableAction,
   PoPageDynamicTableOptions
 } from '@po-ui/ng-templates'
+import { UnitService } from '../unit.service';
 
 
 @Component({
   selector: 'app-unit-list',
   templateUrl: './unit-list.component.html',
-  styleUrls: ['./unit-list.component.css']
+  styleUrls: ['./unit-list.component.css'],
+  providers: [UnitService]
 })
 export class UnitListComponent {
   @ViewChild('peopleModal') peopleModal!: PoModalComponent;
@@ -46,15 +48,6 @@ export class UnitListComponent {
     items: [{ label: 'Home', link: '/' }, { label: 'Unit' }]
   };
 
-  readonly cityOptions: Array<object> = [
-    { value: 'São Paulo', label: 'São Paulo' },
-    { value: 'Joinville', label: 'Joinville' },
-    { value: 'São Bento', label: 'São Bento' },
-    { value: 'Araquari', label: 'Araquari' },
-    { value: 'Campinas', label: 'Campinas' },
-    { value: 'Osasco', label: 'Osasco' }
-  ];
-
   fields: Array<any> = [
     { property: 'id', key: true, visible: false, filter: true },
     { property: 'grupo', filter: true, gridColumns: 6 },
@@ -75,7 +68,7 @@ export class UnitListComponent {
     }
   ];
 
-  constructor(public poNotification: PoNotificationService) {}
+  constructor(public poNotification: PoNotificationService,public unitService: UnitService) {}
   onLoad(): PoPageDynamicTableOptions {
     return {
       fields: [
@@ -100,5 +93,9 @@ export class UnitListComponent {
     this.people = user.pessoas;
 
     this.peopleModal.open();
+  }
+
+  public onInsertPeopleOnUnit(novaPessoa: any) {
+    this.unitService.putUnit(novaPessoa)
   }
 }

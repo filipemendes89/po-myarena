@@ -25,7 +25,7 @@
     <po-button
       class="po-lg-6"
       p-label="Incluir"
-      (p-click)="poNotification.success('Data saved successfully!'); dynamicForm.form.reset()"
+      (p-click)="onInsertPeopleOnUnit(this.dynamicForm);poNotification.success('Data saved successfully!'); dynamicForm.form.reset()"
     >
     </po-button>
   </div>
