@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoDynamicViewField, PoModalComponent } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoModalComponent } from '@po-ui/ng-components'
 
 import {
   PoPageDynamicTableActions,
@@ -9,7 +9,6 @@ import {
   PoPageDynamicTableOptions
 } from '@po-ui/ng-templates'
 
-import { UnitService } from '../unit.service'
 
 @Component({
   selector: 'app-unit-list',
@@ -24,7 +23,6 @@ export class UnitListComponent {
   detailedUser: any;
   people: any;
   quickSearchWidth: number = 3;
-  fixedFilter = false;
 
   readonly actions: PoPageDynamicTableActions = {
     new: 'unit/new',
@@ -54,18 +52,6 @@ export class UnitListComponent {
   ];
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
-    {
-      label: 'Fixed Filter',
-      action: this.onClickFixedFilter.bind(this),
-      visible: this.isVisibleFixedFilter.bind(this),
-      icon: 'po-icon-lock'
-    },
-    {
-      label: 'Not Fixed Filter',
-      action: this.onClickFixedFilter.bind(this),
-      visible: this.isVisibleNotFixedFilter.bind(this),
-      icon: 'po-icon-lock-off'
-    },
     { label: 'Print', action: this.printPage.bind(this), icon: 'po-icon-print' }
   ];
 
@@ -108,39 +94,5 @@ export class UnitListComponent {
     this.people = user.pessoas;
 
     this.peopleModal.open();
-  }
-
-  private onClickFixedFilter() {
-    this.fixedFilter = !this.fixedFilter;
-    const fieldsDefault = [...this.fields];
-
-    if (this.fixedFilter) {
-      fieldsDefault
-        .filter(field => field.property === 'search')
-        .map(field => {
-          field.initValue = 'Joinville';
-          field.filter = true;
-          field.fixed = true;
-        });
-
-      this.fields = fieldsDefault;
-    } else {
-      fieldsDefault
-        .filter(field => field.property === 'search')
-        .map(field => {
-          field.initValue = 'São Paulo';
-          field.fixed = false;
-        });
-
-      this.fields = fieldsDefault;
-    }
-  }
-
-  private isVisibleFixedFilter() {
-    return !this.fixedFilter;
-  }
-
-  private isVisibleNotFixedFilter() {
-    return this.fixedFilter;
   }
 }
