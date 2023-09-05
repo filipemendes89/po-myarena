@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { PoContainerModule, PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule } from '@po-ui/ng-components'
+import { PoButtonModule, PoContainerModule, PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule } from '@po-ui/ng-components'
 import { PoPageDynamicEditModule, PoPageDynamicTableModule } from '@po-ui/ng-templates'
 import { UnitListComponent } from './unit-list/unit-list.component'
 import { UnitNewComponent } from './unit-new/unit-new.component'
@@ -23,7 +23,9 @@ import { UnitRoutingModule } from './unit-routing.module'
     PoStepperModule,
     PoLoadingModule,
     PoPageDynamicEditModule,
-    PoContainerModule
+    PoContainerModule,
+    PoDynamicModule,
+    PoButtonModule
   ]
 })
 export class UnitModule { }

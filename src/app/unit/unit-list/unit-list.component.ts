@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoModalComponent } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoModalComponent, PoNotificationService } from '@po-ui/ng-components'
 
 import {
   PoPageDynamicTableActions,
@@ -19,6 +19,18 @@ export class UnitListComponent {
   @ViewChild('peopleModal') peopleModal!: PoModalComponent;
 
   readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/unit';
+
+  fieldsPessoas = [{
+    property: 'novaPessoa',
+    gridColumns: 6,
+    gridSmColumns: 12,
+    label: 'Nova Pessoa',
+    searchService: 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people',
+    columns: [
+      { property: 'nome', label: 'Nome' }
+    ],
+    format: ['nome']
+  }]
 
   detailedUser: any;
   people: any;
@@ -59,13 +71,11 @@ export class UnitListComponent {
     {
       label: 'Pessoas',
       action: this.onClickDependents.bind(this),
-      visible: this.hasDependents.bind(this),
       icon: 'po-icon-user'
     }
   ];
 
-  //constructor(private usersService: UnitService) {}
-
+  constructor(public poNotification: PoNotificationService) {}
   onLoad(): PoPageDynamicTableOptions {
     return {
       fields: [
@@ -80,10 +90,6 @@ export class UnitListComponent {
 
   isUserInactive(person: any) {
     return person.status === 'inactive';
-  }
-
-  hasDependents(person: any) {
-    return person.pessoas.length !== 0;
   }
 
   printPage() {

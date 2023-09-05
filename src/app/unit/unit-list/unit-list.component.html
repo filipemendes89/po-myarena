@@ -16,5 +16,23 @@
 </po-page-dynamic-table>
 
 <po-modal #peopleModal p-title="Pessoas">
-  <po-table [p-items]="people"> </po-table>
+  <po-container >
+  <po-dynamic-form
+  #dynamicForm
+  [p-fields]="fieldsPessoas"
+  ></po-dynamic-form>
+  <div class="po-row">
+    <po-button
+      class="po-lg-6"
+      p-label="Incluir"
+      (p-click)="poNotification.success('Data saved successfully!'); dynamicForm.form.reset()"
+    >
+    </po-button>
+  </div>
+</po-container>
+  
+  <po-table 
+  [p-items]="people"
+  [p-selectable]="true"
+  > </po-table>
 </po-modal>
