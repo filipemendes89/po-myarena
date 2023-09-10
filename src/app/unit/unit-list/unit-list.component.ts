@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoModalComponent, PoNotificationService } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoModalAction, PoModalComponent, PoNotificationService } from '@po-ui/ng-components'
 
 import {
   PoPageDynamicTableActions,
@@ -8,7 +8,7 @@ import {
   PoPageDynamicTableCustomTableAction,
   PoPageDynamicTableOptions
 } from '@po-ui/ng-templates'
-import { UnitService } from '../unit.service';
+import { UnitService } from '../unit.service'
 
 
 @Component({
@@ -19,23 +19,14 @@ import { UnitService } from '../unit.service';
 })
 export class UnitListComponent {
   @ViewChild('peopleModal') peopleModal!: PoModalComponent;
-
+ 
   readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/unit';
-
-  fieldsPessoas = [{
-    property: 'novaPessoa',
-    gridColumns: 6,
-    gridSmColumns: 12,
-    label: 'Nova Pessoa',
-    searchService: 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people',
-    columns: [
-      { property: 'nome', label: 'Nome' }
-    ],
-    format: ['nome']
-  }]
-
+  
+  isHideLoading = true;
+  
   detailedUser: any;
   people: any;
+  unit: any;
   quickSearchWidth: number = 3;
 
   readonly actions: PoPageDynamicTableActions = {
@@ -91,11 +82,40 @@ export class UnitListComponent {
 
   private onClickDependents(user: any) {
     this.people = user.pessoas;
-
+    this.unit = user
     this.peopleModal.open();
   }
 
-  public onInsertPeopleOnUnit(novaPessoa: any) {
-    this.unitService.putUnit(novaPessoa)
+  public onPessoaSelected(novaPessoa: any) {
+    this.people.find((pessoa:any) => pessoa.id === novaPessoa.id) ? null : this.people.push(novaPessoa)
+    this.unit.pessoas = this.people
+    //this.unitService.putUnit(novaPessoa.get('novaPessoa'))
   }
+  
+  confirm: PoModalAction = {
+    action: () => {
+      this.isHideLoading = false
+      this.unitService.putUnit(this.unit).subscribe(
+        {
+          complete: () => { 
+            this.isHideLoading = true
+            this.poNotification.success(`Seu registro foi alterado com sucesso!`) 
+            this.peopleModal.close()
+          },
+          error: (error) => { 
+            this.poNotification.error(error)
+            this.isHideLoading = true
+          }
+        }
+      );
+    },
+    label: 'Confirmar'
+  };
+
+  cancel: PoModalAction = {
+    action: () => {
+      this.peopleModal.close()
+    },
+    label: 'Cancelar'
+  };
 }
