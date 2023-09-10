@@ -10,9 +10,6 @@ import {
 } from '@po-ui/ng-templates'
 import { PeopleService } from '../people.service'
 
-
-
-
 @Component({
   selector: 'app-people-list',
   templateUrl: './people-list.component.html',
