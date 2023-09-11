@@ -28,6 +28,10 @@ export class UnitListComponent {
   people: any;
   unit: any;
   quickSearchWidth: number = 3;
+  columns: Array<any> = [
+    { property: 'nome', width: '8%' },
+    { property: 'email' },
+    { property: 'dtNascimento' } ]
 
   readonly actions: PoPageDynamicTableActions = {
     new: 'unit/new',
@@ -81,7 +85,7 @@ export class UnitListComponent {
   }
 
   private onClickDependents(user: any) {
-    this.people = user.pessoas;
+    this.people = user.pessoas.filter(Boolean)
     this.unit = user
     this.peopleModal.open();
   }
@@ -90,6 +94,22 @@ export class UnitListComponent {
     this.people.find((pessoa:any) => pessoa.id === novaPessoa.id) ? null : this.people.push(novaPessoa)
     this.unit.pessoas = this.people
     //this.unitService.putUnit(novaPessoa.get('novaPessoa'))
+  }
+
+  public onPessoaDeleted(event:any) {
+    this.unitService.putUnit(this.unit).subscribe(
+      {
+        complete: () => { 
+          this.isHideLoading = true
+          this.poNotification.success(`Seu registro foi alterado com sucesso!`) 
+          this.peopleModal.close()
+        },
+        error: (error) => { 
+          this.poNotification.error(error)
+          this.isHideLoading = true
+        }
+      }
+    );
   }
   
   confirm: PoModalAction = {

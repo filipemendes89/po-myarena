@@ -30,6 +30,8 @@
   <po-table 
   [p-items]="people"
   [p-selectable]="true"
+  [p-columns]="columns"
+  (p-delete-items)=" onPessoaDeleted($event)"
   > </po-table>
 
   <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
