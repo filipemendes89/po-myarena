@@ -96,18 +96,22 @@ export class UnitListComponent {
     //this.unitService.putUnit(novaPessoa.get('novaPessoa'))
   }
 
+  private onActionComplete = () => { 
+    this.isHideLoading = true
+    this.poNotification.success(`Seu registro foi alterado com sucesso!`) 
+    this.peopleModal.close()
+  }
+
+  private onActionError = (error:any) => { 
+    this.poNotification.error(error)
+    this.isHideLoading = true
+  }
+
   public onPessoaDeleted(event:any) {
     this.unitService.putUnit(this.unit).subscribe(
       {
-        complete: () => { 
-          this.isHideLoading = true
-          this.poNotification.success(`Seu registro foi alterado com sucesso!`) 
-          this.peopleModal.close()
-        },
-        error: (error) => { 
-          this.poNotification.error(error)
-          this.isHideLoading = true
-        }
+        complete: this.onActionComplete,
+        error: (error) => this.onActionError(error)
       }
     );
   }
@@ -117,15 +121,8 @@ export class UnitListComponent {
       this.isHideLoading = false
       this.unitService.putUnit(this.unit).subscribe(
         {
-          complete: () => { 
-            this.isHideLoading = true
-            this.poNotification.success(`Seu registro foi alterado com sucesso!`) 
-            this.peopleModal.close()
-          },
-          error: (error) => { 
-            this.poNotification.error(error)
-            this.isHideLoading = true
-          }
+          complete: this.onActionComplete,
+          error: (error) => this.onActionError(error)
         }
       );
     },
