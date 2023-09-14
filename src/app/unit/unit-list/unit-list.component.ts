@@ -108,6 +108,7 @@ export class UnitListComponent {
   }
 
   public onPessoaDeleted(event:any) {
+    this.unit.pessoas = event.map((pessoa:any) => { pessoa.$selected = false; return pessoa })
     this.unitService.putUnit(this.unit).subscribe(
       {
         complete: this.onActionComplete,
@@ -119,6 +120,7 @@ export class UnitListComponent {
   confirm: PoModalAction = {
     action: () => {
       this.isHideLoading = false
+      this.unit.pessoas = this.unit.pessoas.map((pessoa:any) => { pessoa.$selected = false; return pessoa })
       this.unitService.putUnit(this.unit).subscribe(
         {
           complete: this.onActionComplete,
