@@ -57,7 +57,7 @@ export class UnitListComponent {
 
   tableCustomActions: Array<PoPageDynamicTableCustomTableAction> = [
     {
-      label: 'Pessoas',
+      label: 'Moradores',
       action: this.onClickDependents.bind(this),
       icon: 'po-icon-user'
     }

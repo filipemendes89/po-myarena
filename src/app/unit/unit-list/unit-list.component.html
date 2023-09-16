@@ -15,24 +15,25 @@
 >
 </po-page-dynamic-table>
 
-<po-modal #peopleModal p-title="Pessoas" [p-primary-action]="confirm" [p-secondary-action]="cancel">
-  <po-container >
+<po-modal #peopleModal p-title="Moradores" [p-primary-action]="confirm" [p-secondary-action]="cancel" p-size="xl">
+  
+  <po-container>
     <po-lookup
   name="pessoa"
   p-field-label="label"
   p-field-value="value"
   p-filter-service="https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people"
-  p-label="Pessoa"
+  p-label="Inserir Pessoa"
   (p-selected)="onPessoaSelected($event)"
 ></po-lookup>
 </po-container>
-  
   <po-table 
   [p-items]="people"
   [p-selectable]="true"
   [p-columns]="columns"
   (p-delete-items)="onPessoaDeleted($event)"
-  > </po-table>
+  ></po-table>
 
   <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
+
 </po-modal>

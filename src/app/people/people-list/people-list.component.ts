@@ -51,16 +51,15 @@ export class PeopleListComponent {
   fields: Array<any> = [
     { property: 'id', key: true, visible: false, filter: true },
     { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
+    { property: 'email', label: 'E-mail', filter: true, gridColumns: 6 },
     { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
-    { property: 'search', filter: true, visible: false },
-    { property: 'cidade', label: 'City', filter: true, duplicate: true, options: this.cityOptions, gridColumns: 12 }
+    { property: 'search', filter: true, visible: false }
   ];
 
   readonly detailFields: Array<PoDynamicViewField> = [
     { property: 'id', key: true, visible: false },
     { property: 'nome', label: 'Name', divider: 'Pessoa', gridColumns: 6 },
     { property: 'genero', label: 'Genre', gridColumns: 6},
-    { property: 'bloco', label: 'Bloco', gridColumns: 6 },
     {
       property: 'dtNascimento',
       label: 'Birthdate',
@@ -118,7 +117,6 @@ export class PeopleListComponent {
         { property: 'id', key: true, visible: true, filter: true },
         { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
         { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true },
-        { property: 'bloco', label: 'Bloco', filter: true, gridColumns: 6, duplicate: true },
         {
           property: 'dtNascimento',
           label: 'Birthdate',

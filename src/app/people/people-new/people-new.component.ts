@@ -35,33 +35,13 @@ export class PeopleNewComponent {
   };
 
   public readonly fields: Array<PoDynamicFormField> = [
-    { property: 'bloco', divider: 'Unidade', required: true, label: "Bloco", gridColumns: 1, optionsService: 'https://condomynium.free.beeceptor.com/torres' },
-    { property: 'numero', required: true, label: "Unidade", gridColumns: 1 },
     { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
-    { property: 'email', label: 'E-mail' },
     { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
     { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 4, label: "Genero"  },
     { property: 'nacionalidade', options: ['Brasileiro', 'Estrangeiro'], gridColumns: 4, label: "Nacionalidade"   },
-    {
-      property: 'cep',
-      divider: 'Endereço',
-      gridColumns: 1,
-      label: "CEP"
-    },
-    {
-      property: 'endereco',
-      gridColumns: 6,
-      label: "Endereço"
-    },
-    {
-      property: 'cidade',
-      gridColumns: 3,
-      label: "Cidade"
-    },
-    {
-      property: 'estado',
-      label: "Estado",
-      gridColumns: 1
-    }
+    { property: 'rg', divider: 'Documentos', required: true, label: "RG" },
+    { property: 'cpf',  required: true, label: "CPF" },
+    { property: 'email', divider: 'Contatos', gridColumns: 6, icon: 'po-icon-mail' },
+    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 6 },
   ];
 }
