@@ -65,34 +65,12 @@ export class PeopleListComponent {
       label: 'Birthdate',
       type: 'date',
       gridColumns: 6
-    }
+    },
+    { property: 'cpf', divider: 'Documentos', label: 'CPF', gridColumns: 6},
+    { property: 'rg', label: 'RG', gridColumns: 6}
   ];
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
-    {
-      label: 'Actions Right',
-      action: this.onClickActionsSide.bind(this),
-      visible: this.isVisibleActionsRight.bind(this),
-      icon: 'po-icon-arrow-right'
-    },
-    {
-      label: 'Actions Left',
-      action: this.onClickActionsSide.bind(this),
-      visible: this.isVisibleActionsLeft.bind(this),
-      icon: 'po-icon-arrow-left'
-    },
-    {
-      label: 'Fixed Filter',
-      action: this.onClickFixedFilter.bind(this),
-      visible: this.isVisibleFixedFilter.bind(this),
-      icon: 'po-icon-lock'
-    },
-    {
-      label: 'Not Fixed Filter',
-      action: this.onClickFixedFilter.bind(this),
-      visible: this.isVisibleNotFixedFilter.bind(this),
-      icon: 'po-icon-lock-off'
-    },
     { label: 'Print', action: this.printPage.bind(this), icon: 'po-icon-print' },
     {
       label: 'Download .csv',

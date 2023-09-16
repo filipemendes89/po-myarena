@@ -13,13 +13,18 @@
   [p-service-api]="serviceApi"
   [p-quick-search-width]="quickSearchWidth"
   [p-load]="onLoad.bind(this)"
+  [p-infinite-scroll]="false"
 >
 </po-page-dynamic-table>
 
-<po-modal #userDetailModal p-title="User Detail">
+<po-modal #userDetailModal p-title="Detalhes">
+  <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>
+  <h1>{{detailedUser?.nome}}</h1>
+  <h6>E-mail: {{detailedUser?.email}}</h6>
+  <h6>Tel: {{detailedUser?.phone}}</h6>
   <po-dynamic-view [p-fields]="detailFields" [p-value]="detailedUser"> </po-dynamic-view>
 </po-modal>
 
-<po-modal #dependentsModal p-title="Dependents">
+<po-modal #dependentsModal p-title="Dependents" p-size="auto">
   <po-table [p-items]="dependents"> </po-table>
 </po-modal>
