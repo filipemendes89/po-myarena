@@ -9,7 +9,8 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { PeopleNewComponent } from './people/people-new/people-new.component'
-import { UnitListComponent } from './unit/unit-list/unit-list.component'
+import { UnitListComponent } from './unit/unit-list/unit-list.component';
+import { ObjectListComponent } from './object/object-list/object-list.component'
 @NgModule({
   declarations: [
     AppComponent
@@ -20,12 +21,10 @@ import { UnitListComponent } from './unit/unit-list/unit-list.component'
     PoModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {
-        path: '', 
-      component: AppComponent },
+      {path: '', component: AppComponent },
       {path: 'people', component: PeopleListComponent },
       {path: 'unit', component: UnitListComponent },
-      {path: 'people/new', component: PeopleNewComponent },
+      {path: 'object', component: ObjectListComponent },
     ]),
     PoTemplatesModule,
     PoPageDynamicTableModule
