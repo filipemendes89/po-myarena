@@ -11,9 +11,9 @@ export class AppComponent {
 
   readonly menus: Array<PoMenuItem> = [
     { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
-    { label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' },
+    { label: 'Alunos', link: '/people', icon: 'po-icon-user', shortLabel: 'Alunos' },
     { label: 'Unidades', link: '/unit', icon: 'po-icon-company', shortLabel: 'Unidades' },
-    { label: 'Pacotes', link: '/object', icon: 'po-icon-stock', shortLabel: 'Pacotes' }
+    { label: 'Estoque', link: '/object', icon: 'po-icon-stock', shortLabel: 'Estoque' }
   ];
 
   private onClick() {

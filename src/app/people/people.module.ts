@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule, PoPageModule, PoAvatarModule } from '@po-ui/ng-components'
+import { PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule, PoPageModule, PoAvatarModule, PoButtonModule, PoNotificationModule } from '@po-ui/ng-components'
 import { PoPageDynamicEditModule, PoPageDynamicTableModule } from '@po-ui/ng-templates'
 import { PeopleListComponent } from './people-list/people-list.component'
 import { PeopleNewComponent } from './people-new/people-new.component'
 import { PeopleRoutingModule } from './people-routing.module'
+import { PeopleService } from './people.service'
 @NgModule({
   declarations: [
     PeopleListComponent,
@@ -24,7 +25,9 @@ import { PeopleRoutingModule } from './people-routing.module'
     PoLoadingModule,
     PoPageDynamicEditModule,
     PoPageModule,
-    PoAvatarModule
+    PoAvatarModule,
+    PoButtonModule,
+    PoNotificationModule
   ]
 })
 export class PeopleModule { }

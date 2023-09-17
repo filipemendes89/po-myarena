@@ -72,11 +72,6 @@ export class PeopleListComponent {
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
     { label: 'Print', action: this.printPage.bind(this), icon: 'po-icon-print' },
-    {
-      label: 'Download .csv',
-      action: this.usersService.downloadCsv.bind(this.usersService, this.serviceApi),
-      icon: 'po-icon-download'
-    }
   ];
 
   tableCustomActions: Array<PoPageDynamicTableCustomTableAction> = [
@@ -123,57 +118,5 @@ export class PeopleListComponent {
     this.detailedUser = user;
 
     this.userDetailModal.open();
-  }
-
-  private onClickDependents(user: any) {
-    this.dependents = user.dependents;
-
-    this.dependentsModal.open();
-  }
-
-  private onClickActionsSide(value: any) {
-    this.actionsRight = !this.actionsRight;
-  }
-
-  private isVisibleActionsRight() {
-    return !this.actionsRight;
-  }
-
-  private isVisibleActionsLeft() {
-    return this.actionsRight;
-  }
-
-  private onClickFixedFilter() {
-    this.fixedFilter = !this.fixedFilter;
-    const fieldsDefault = [...this.fields];
-
-    if (this.fixedFilter) {
-      fieldsDefault
-        .filter(field => field.property === 'search')
-        .map(field => {
-          field.initValue = 'Joinville';
-          field.filter = true;
-          field.fixed = true;
-        });
-
-      this.fields = fieldsDefault;
-    } else {
-      fieldsDefault
-        .filter(field => field.property === 'search')
-        .map(field => {
-          field.initValue = 'São Paulo';
-          field.fixed = false;
-        });
-
-      this.fields = fieldsDefault;
-    }
-  }
-
-  private isVisibleFixedFilter() {
-    return !this.fixedFilter;
-  }
-
-  private isVisibleNotFixedFilter() {
-    return this.fixedFilter;
   }
 }
