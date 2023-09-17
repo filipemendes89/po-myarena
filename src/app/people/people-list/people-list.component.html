@@ -1,12 +1,31 @@
-<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+<po-page-default p-title="Alunos" [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+<form #formData>
+  <po-input
+  #nome
+  class="po-md-4"
+  name="nome"
+  p-help="Com o nome"
+  p-label="Nome"
+  (p-change)="addFilter(formData['nome'].value, 'nome')"
+>
+</po-input>
 
-  
+<po-combo
+  class="po-md-4"
+  name="sports"
+  p-help="Esportes"
+  p-label="Esporte"
+  [p-options]="sports"
+  (p-change)="addFilter(formData['sports'].value, 'sports')"
+>
+</po-combo>
+</form>
+<po-disclaimer-group [p-disclaimers]="filters" (p-change)="changeFilters(filters)" (p-remove)="ngOnInit();formData.reset()" (p-remove-all)="ngOnInit();formData.reset()"> </po-disclaimer-group>
+
     <app-pessoa-widget
     *ngFor="let pessoa of pessoas; let i = index"
     [pessoa]="pessoa"
     ></app-pessoa-widget>
-  
-    
 
 <po-modal #userDetailModal p-title="Detalhes">
   <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>

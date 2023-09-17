@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoDynamicViewField, PoModalComponent, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoComboOption, PoDisclaimer, PoDynamicViewField, PoModalComponent, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 
 import {
-  PoPageDynamicTableActions,
   PoPageDynamicTableCustomAction,
   PoPageDynamicTableCustomTableAction,
   PoPageDynamicTableOptions
@@ -21,14 +20,24 @@ export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
-  readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
+  readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people?page=1&limit=20&';
 
   public pessoas:any;
-  actionsRight = false;
+  filteredItems: Array<any> = [];
+  filters: Array<PoDisclaimer> = [];
+  nome: string = ''
+  comboSports: string = ''
+
+  public sports:PoComboOption[] = [
+    { value: 'Beach Volley' },
+    { value: 'Futevolei' }, 
+    { value: 'Beach Tennis' }, 
+    { value :'Funcional' }
+  ]
+  
   detailedUser: any;
   dependents: any;
-  quickSearchWidth: number = 3;
-  fixedFilter = false;
+
   isHideLoading = true
   
   public readonly actions: Array<PoPageAction> = [
@@ -81,24 +90,6 @@ export class PeopleListComponent {
     this.peopleService.getPeople(this.serviceApi).subscribe((data:any) => this.pessoas = data.items)
   }
 
-  onLoad(): PoPageDynamicTableOptions {
-    return {
-      fields: [
-        { property: 'id', key: true, visible: true, filter: true },
-        { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
-        { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true },
-        {
-          property: 'dtNascimento',
-          label: 'Birthdate',
-          type: 'date',
-          gridColumns: 6,
-          visible: false,
-          allowColumnsManager: true
-        }
-      ]
-    };
-  }
-
   isUserInactive(person: any) {
     return person.status === 'inactive';
   }
@@ -115,5 +106,44 @@ export class PeopleListComponent {
     this.detailedUser = user;
 
     this.userDetailModal.open();
+  }
+
+  addFilter(value: any, property: string) {
+    let filter = <any>this.filters.find(item => item.property === property);
+
+    if (!filter) {
+      filter = <any>{ property: property };
+    } else {
+      this.filters.splice(this.filters.indexOf(filter), 1);
+      filter = Object.assign({}, filter);
+    }
+
+    filter.value = value;
+    filter.label = `${property.charAt(0).toUpperCase() + property.slice(1)}: ${value}`;
+    this.filters = [...this.filters, filter];
+  }
+
+  changeFilters(filters: Array<PoDisclaimer>) {
+    filters.length ? this.filter(filters) : this.resetFilters();
+    this.clearFieldsIfNoFilter('nome', 'sports');
+  }
+
+  private clearFieldsIfNoFilter(...fields: Array<string>) {
+    const fieldHaveNoFilter = (field:any) => !this.filters.some(filter => filter.property === field);
+
+//    const fieldsWithoutFilter = fields.filter((field:any) => this[field] && fieldHaveNoFilter(field));
+
+  //  fieldsWithoutFilter.forEach(field => (this[field] = undefined));
+  }
+
+  private filter(filters: Array<PoDisclaimer>) {
+    const filterString = filters.map(filter => encodeURI(`${filter.property}=${filter.value}&`)).join('')
+    this.isHideLoading = true
+    console.log(`${this.serviceApi}${filterString}`)
+    this.peopleService.getPeople(`${this.serviceApi}${filterString}`).subscribe((data:any) => this.pessoas = data.items)
+  }
+
+  private resetFilters() {
+    this.filteredItems = [...(this.pessoas || [])];
   }
 }

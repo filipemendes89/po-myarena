@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule, PoPageModule, PoAvatarModule, PoButtonModule, PoNotificationModule, PoContainerModule } from '@po-ui/ng-components'
+import { PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule, PoPageModule, PoAvatarModule, PoButtonModule, PoNotificationModule, PoContainerModule, PoDisclaimerModule, PoDisclaimerGroupModule } from '@po-ui/ng-components'
 import { PoPageDynamicEditModule, PoPageDynamicTableModule } from '@po-ui/ng-templates'
 import { PeopleListComponent } from './people-list/people-list.component'
 import { PeopleNewComponent } from './people-new/people-new.component'
@@ -30,7 +30,8 @@ import { PessoaWidgetComponent } from './pessoa-widget/pessoa-widget.component'
     PoAvatarModule,
     PoButtonModule,
     PoNotificationModule,
-    PoContainerModule
+    PoContainerModule,
+    PoDisclaimerGroupModule
   ]
 })
 export class PeopleModule { }
