@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ObjectRoutingModule } from './object-routing.module';
 import { ObjectListComponent } from './object-list/object-list.component';
-import { PoPageModule } from '@po-ui/ng-components';
+import { PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { PoPageModule } from '@po-ui/ng-components';
   imports: [
     CommonModule,
     ObjectRoutingModule,
-    PoPageModule
+    PoPageModule,
+    PoWidgetModule
   ]
 })
 export class ObjectModule { }
