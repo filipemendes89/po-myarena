@@ -1,44 +1,36 @@
 <po-page-default p-title="Alunos" [p-breadcrumb]="breadcrumb" [p-actions]="actions">
-<form #formData>
-  <po-input
-  #nome
-  class="po-md-4"
-  name="nome"
-  p-help="Com o nome"
-  p-label="Nome"
-  (p-change)="addFilter(formData['nome'].value, 'nome')"
->
-</po-input>
 
-<po-combo
-  class="po-md-4"
-  name="sports"
-  p-help="Esportes"
-  p-label="Esporte"
-  [p-options]="sports"
-  (p-change)="addFilter(formData['sports'].value, 'sports')"
->
-</po-combo>
-</form>
-<po-disclaimer-group [p-disclaimers]="filters" (p-change)="changeFilters(filters)" (p-remove)="ngOnInit();formData.reset()" (p-remove-all)="ngOnInit();formData.reset()"> </po-disclaimer-group>
+  <po-container [p-no-border]="true">
+    <form #formData p-title="Filtros">
+      <po-input #nome class="po-md-4" name="nome" p-help="Com o nome" p-label="Nome"
+        (p-change)="addFilter(formData['nome'].value, 'nome')">
+      </po-input>
 
-    <app-pessoa-widget
-    *ngFor="let pessoa of pessoas; let i = index"
-    [pessoa]="pessoa"
-    ></app-pessoa-widget>
+      <po-combo class="po-md-4" name="sports" p-help="Esportes" p-label="Esporte" [p-options]="sports"
+        (p-change)="addFilter(formData['sports'].value, 'sports')">
+      </po-combo>
+    </form>
+  </po-container>
+  
+  <po-disclaimer-group [p-disclaimers]="filters" (p-change)="changeFilters(filters)"
+    (p-remove)="ngOnInit();formData.reset()" (p-remove-all)="ngOnInit();formData.reset()"> </po-disclaimer-group>
+  
+    <po-container [p-no-border]="true">
+    <app-pessoa-widget *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-pessoa-widget>
+  </po-container>
 
-<po-modal #userDetailModal p-title="Detalhes">
-  <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>
-  <h1>{{detailedUser?.nome}}</h1>
-  <h6>E-mail: {{detailedUser?.email}}</h6>
-  <h6>Tel: {{detailedUser?.phone}}</h6>
-  <po-dynamic-view [p-fields]="detailFields" [p-value]="detailedUser"> </po-dynamic-view>
-</po-modal>
+  <po-modal #userDetailModal p-title="Detalhes">
+    <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>
+    <h1>{{detailedUser?.nome}}</h1>
+    <h6>E-mail: {{detailedUser?.email}}</h6>
+    <h6>Tel: {{detailedUser?.phone}}</h6>
+    <po-dynamic-view [p-fields]="detailFields" [p-value]="detailedUser"> </po-dynamic-view>
+  </po-modal>
 
-<po-modal #dependentsModal p-title="Dependents" p-size="auto">
-  <po-table [p-items]="dependents"> </po-table>
-</po-modal>
+  <po-modal #dependentsModal p-title="Dependents" p-size="auto">
+    <po-table [p-items]="dependents"> </po-table>
+  </po-modal>
 
-<po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
+  <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
 
 </po-page-default>
