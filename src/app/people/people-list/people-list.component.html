@@ -1,22 +1,12 @@
-<po-page-dynamic-table
-  #dynamicTable
-  [p-auto-router]="true"
-  [p-concat-filters]="true"
-  [p-keep-filters]="true"
-  p-title="Alunos"
-  [p-actions]="actions"
-  [p-actions-right]="actionsRight"
-  [p-page-custom-actions]="pageCustomActions"
-  [p-table-custom-actions]="tableCustomActions"
-  [p-breadcrumb]="breadcrumb"
-  [p-fields]="fields"
-  [p-service-api]="serviceApi"
-  [p-quick-search-width]="quickSearchWidth"
-  [p-load]="onLoad.bind(this)"
-  [p-infinite-scroll]="false"
-  p-quick-search-param="nome"
->
-</po-page-dynamic-table>
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+
+  
+    <app-pessoa-widget
+    *ngFor="let pessoa of pessoas; let i = index"
+    [pessoa]="pessoa"
+    ></app-pessoa-widget>
+  
+    
 
 <po-modal #userDetailModal p-title="Detalhes">
   <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>
@@ -29,3 +19,7 @@
 <po-modal #dependentsModal p-title="Dependents" p-size="auto">
   <po-table [p-items]="dependents"> </po-table>
 </po-modal>
+
+<po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
+
+</po-page-default>

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoDynamicViewField, PoModalComponent } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDynamicViewField, PoModalComponent, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 
 import {
   PoPageDynamicTableActions,
@@ -23,30 +23,22 @@ export class PeopleListComponent {
 
   readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
 
+  public pessoas:any;
   actionsRight = false;
   detailedUser: any;
   dependents: any;
   quickSearchWidth: number = 3;
   fixedFilter = false;
-
-  readonly actions: PoPageDynamicTableActions = {
-    new: 'people/new',
-    edit: 'people/edit/:id',
-    remove: true
-  };
+  isHideLoading = true
+  
+  public readonly actions: Array<PoPageAction> = [
+    { label: 'Novo', url: '/people/new', icon: 'po-icon-plus' },
+    { label: 'Nova Saída', action: ()=> console.log(this.pessoas) }
+  ]
 
   readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/' }, { label: 'People' }]
   };
-
-  readonly cityOptions: Array<object> = [
-    { value: 'São Paulo', label: 'São Paulo' },
-    { value: 'Joinville', label: 'Joinville' },
-    { value: 'São Bento', label: 'São Bento' },
-    { value: 'Araquari', label: 'Araquari' },
-    { value: 'Campinas', label: 'Campinas' },
-    { value: 'Osasco', label: 'Osasco' }
-  ];
 
   fields: Array<any> = [
     { property: 'id', key: true, visible: false, filter: true },
@@ -82,7 +74,12 @@ export class PeopleListComponent {
     }
   ];
 
-  constructor(private usersService: PeopleService) {}
+  constructor(private peopleService: PeopleService, private poNotification: PoNotificationService) {}
+
+  ngOnInit() {
+    this.isHideLoading = true
+    this.peopleService.getPeople(this.serviceApi).subscribe((data:any) => this.pessoas = data.items)
+  }
 
   onLoad(): PoPageDynamicTableOptions {
     return {
