@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { CourtModule } from './court/court.module'
+import { ObjectModule } from './object/object.module'
 import { PeopleModule } from './people/people.module'
-import { UnitModule } from './unit/unit.module';
-import { ObjectModule } from './object/object.module';
+import { UnitModule } from './unit/unit.module'
 
 const routes: Routes = [
   { 
@@ -12,6 +13,10 @@ const routes: Routes = [
   { 
     path: 'unit', 
     loadChildren: () => UnitModule
+  },
+  { 
+    path: 'court', 
+    loadChildren: () => CourtModule
   },
   { 
     path: 'object', 

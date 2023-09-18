@@ -7,10 +7,10 @@ import { PoModule } from '@po-ui/ng-components'
 import { PoPageDynamicTableModule, PoTemplatesModule } from '@po-ui/ng-templates'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { PeopleListComponent } from './people/people-list/people-list.component'
-import { PeopleNewComponent } from './people/people-new/people-new.component'
-import { UnitListComponent } from './unit/unit-list/unit-list.component';
+import { CourtListComponent } from './court/court-list/court-list.component'
 import { ObjectListComponent } from './object/object-list/object-list.component'
+import { PeopleListComponent } from './people/people-list/people-list.component'
+import { UnitListComponent } from './unit/unit-list/unit-list.component'
 @NgModule({
   declarations: [
     AppComponent
@@ -24,6 +24,7 @@ import { ObjectListComponent } from './object/object-list/object-list.component'
       {path: '', component: AppComponent },
       {path: 'people', component: PeopleListComponent },
       {path: 'unit', component: UnitListComponent },
+      {path: 'court', component: CourtListComponent },
       {path: 'object', component: ObjectListComponent },
     ]),
     PoTemplatesModule,

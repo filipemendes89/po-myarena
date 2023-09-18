@@ -13,6 +13,7 @@ export class AppComponent {
     { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
     { label: 'Alunos', link: '/people', icon: 'po-icon-user', shortLabel: 'Alunos' },
     { label: 'Unidades', link: '/unit', icon: 'po-icon-company', shortLabel: 'Unidades' },
+    { label: 'Quadras', link: '/court', icon: 'po-icon-target', shortLabel: 'Quadras' },
     { label: 'Estoque', link: '/object', icon: 'po-icon-stock', shortLabel: 'Estoque' }
   ];
 

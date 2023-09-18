@@ -4,6 +4,9 @@
     --color-secondary: green;
     --color-tertiary: blue;
     --color-quartiary: rgb(229, 241, 228);
+    --color-primary-light-95: rgb(142, 183, 122);
+    --color-primary-light-80: rgb(142, 183, 122);
+    --color-primary-alpha-50: rgb(95, 121, 81);
   }
 
  .po-menu {
