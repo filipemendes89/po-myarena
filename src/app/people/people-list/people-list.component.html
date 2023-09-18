@@ -16,7 +16,7 @@
     (p-remove)="ngOnInit();formData.reset()" (p-remove-all)="ngOnInit();formData.reset()"> </po-disclaimer-group>
   
     <po-container [p-no-border]="true">
-    <app-pessoa-widget *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-pessoa-widget>
+    <app-people-widget *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-people-widget>
   </po-container>
 
   <po-modal #userDetailModal p-title="Detalhes">

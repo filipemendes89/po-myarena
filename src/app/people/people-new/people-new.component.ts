@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 
-import { PoBreadcrumb, PoDynamicFormField, PoNotification, PoNotificationService } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
 
 import { PoPageDynamicEditActions, PoPageDynamicEditLiterals } from '@po-ui/ng-templates'
-import { PeopleService } from '../people.service';
+import { PeopleService } from '../people.service'
 
 
 @Component({
@@ -61,7 +61,7 @@ export class PeopleNewComponent {
       gridSmColumns: 12,
       optional: false,
       options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
-      optionsMulti: true
+      optionsMulti: true,
     },
     { property: 'cpf',  required: true, mask: '999.999.999-99', label: "CPF", divider: 'Documentos' },
     { property: 'email', divider: 'Contatos', gridColumns: 6, icon: 'po-icon-mail' },
