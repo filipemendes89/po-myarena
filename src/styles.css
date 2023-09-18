@@ -3,4 +3,9 @@
     --color-primary: rgb(27, 65, 9);
     --color-secondary: green;
     --color-tertiary: blue;
+    --color-quartiary: rgb(229, 241, 228);
   }
+
+ .po-menu {
+    background-color: var(--color-quartiary);
+}
