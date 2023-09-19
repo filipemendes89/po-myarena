@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoPageAction } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 import { CourtService } from '../court.service'
 
 @Component({
@@ -36,12 +36,19 @@ export class CourtListComponent {
   private serviceApi:string = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/court'
 
   courts: any = []
-
+  isHideLoading = true
   
-  constructor(private courtService: CourtService) { }
+  constructor(private poNotification: PoNotificationService,private courtService: CourtService) { }
 
   ngOnInit() {
-    this.courtService.getCourt(this.serviceApi).subscribe((data:any) => this.courts = data)
+    this.isHideLoading = false;
+    this.courtService.getCourt(this.serviceApi).subscribe((data:any) => this.courts = data,
+    () => {
+      this.poNotification.error('Erro na busca de quadras.');
+      this.isHideLoading = true;
+    },
+    () => (this.isHideLoading = true)
+  )
   }
 
   showDetail() {
