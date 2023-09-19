@@ -23,6 +23,7 @@ export class CourtNewComponent {
   public court:any = {}
 
   public readonly fields: Array<PoDynamicFormField> = [
+    { property: 'active', gridColumns: 6, type: 'boolean', booleanTrue: 'Sim', booleanFalse: 'Não', label: 'Ativa' },
     { property: 'type',divider: 'Tipo', options: ['Quadra Poliesportiva', 'Quadra Areia', 'Campo'], gridColumns: 6, label: 'Tipo' },
     { property: 'name', divider: 'Dados Pessoais', required: true, label: "Nome" },
     {
