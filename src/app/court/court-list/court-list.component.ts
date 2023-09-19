@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb, PoListViewAction, PoListViewLiterals } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoPageAction } from '@po-ui/ng-components'
 import { CourtService } from '../court.service'
 
 @Component({
@@ -13,6 +13,9 @@ export class CourtListComponent {
     items: [{ label: 'Home', link: '/' }, { label: 'Courts' }]
   }
   
+  public readonly actionsPage: Array<PoPageAction> = [
+    { label: 'Novo', url: '/court/new', icon: 'po-icon-plus' }
+  ]
   readonly actions: Array<PoListViewAction> = [
     {
       label: 'Aula',

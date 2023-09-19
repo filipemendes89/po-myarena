@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { PoAvatarModule, PoCalendarMode, PoCalendarModule, PoContainerModule, PoImageModule, PoInfoModule, PoListViewModule, PoPageModule, PoSwitchModule } from '@po-ui/ng-components'
+import { PoAvatarModule, PoButtonModule, PoCalendarMode, PoCalendarModule, PoContainerModule, PoDynamicModule, PoImageModule, PoInfoModule, PoListViewModule, PoLoadingModule, PoPageModule, PoSwitchModule } from '@po-ui/ng-components'
 import { CourtListComponent } from './court-list/court-list.component'
-import { CourtRoutingModule } from './court-routing.module'
+import { CourtRoutingModule } from './court-routing.module';
+import { CourtNewComponent } from './court-new/court-new.component'
 
 
 
 @NgModule({
   declarations: [
-    CourtListComponent
+    CourtListComponent,
+    CourtNewComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,10 @@ import { CourtRoutingModule } from './court-routing.module'
     PoImageModule,
     PoContainerModule,
     PoSwitchModule,
-    PoCalendarModule
+    PoCalendarModule,
+    PoDynamicModule,
+    PoButtonModule,
+    PoLoadingModule
   ]
 })
 export class CourtModule { }
