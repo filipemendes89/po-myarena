@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoListViewAction, PoListViewLiterals } from '@po-ui/ng-components'
 import { CourtService } from '../court.service'
 
 @Component({
@@ -13,13 +13,35 @@ export class CourtListComponent {
     items: [{ label: 'Home', link: '/' }, { label: 'Quadras' }]
   }
   
+  readonly actions: Array<PoListViewAction> = [
+    {
+      label: 'Aula',
+      action: () => console.log(this),
+      icon: 'po-icon-plus'
+    },
+    {
+      label: 'Editar',
+      action: () => console.log(this),
+      icon: 'po-icon-edit'
+    }
+  ];
+
+  public readonly literals: PoListViewLiterals = {
+    showDetails: 'Mostrar agenda',
+  }
+  
   private serviceApi:string = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/court'
 
   courts: any = []
+
   
   constructor(private courtService: CourtService) { }
 
   ngOnInit() {
     this.courtService.getCourt(this.serviceApi).subscribe((data:any) => this.courts = data)
+  }
+
+  showDetail() {
+    return true
   }
 }

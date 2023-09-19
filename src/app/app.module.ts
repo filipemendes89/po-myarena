@@ -11,6 +11,8 @@ import { CourtListComponent } from './court/court-list/court-list.component'
 import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { UnitListComponent } from './unit/unit-list/unit-list.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +30,8 @@ import { UnitListComponent } from './unit/unit-list/unit-list.component'
       {path: 'object', component: ObjectListComponent },
     ]),
     PoTemplatesModule,
-    PoPageDynamicTableModule
+    PoPageDynamicTableModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

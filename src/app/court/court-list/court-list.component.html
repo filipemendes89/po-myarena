@@ -1,13 +1,21 @@
 <po-page-default [p-breadcrumb]="breadcrumb">
 <po-list-view 
     p-property-title="name"
-    [p-items]="courts">
-
+    [p-items]="courts"
+    [p-literals]="literals"
+    [p-actions]="actions">
+    
     <ng-template p-list-view-content-template let-item>
         <div class="po-row">
-          <po-avatar [p-src]="item.avatar"></po-avatar>
-          <po-info class="po-md-6" p-label="Tipo" [p-value]="item.type"></po-info>
+          <po-image [p-src]="item.avatar"></po-image>
+          <po-info class="po-md-3" p-label="Tipo" [p-value]="item.type"></po-info>
           <po-info class="po-md-3" p-label="Esportes" [p-value]="item.sports"></po-info>
+          <po-switch name="active" p-label="Ativa?" [p-value]="item.active" [p-disabled]="true"> </po-switch>
+        </div>
+      </ng-template>
+      <ng-template p-list-view-detail-template let-item [p-show-detail]="showDetail">
+        <div class="po-row">
+          <p>Mostra agenda componente</p>
         </div>
       </ng-template>
 </po-list-view>
