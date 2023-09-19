@@ -10,7 +10,7 @@ import { CourtService } from '../court.service'
 })
 export class CourtListComponent {
   public readonly breadcrumb: PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'Quadras' }]
+    items: [{ label: 'Home', link: '/' }, { label: 'Courts' }]
   }
   
   readonly actions: Array<PoListViewAction> = [

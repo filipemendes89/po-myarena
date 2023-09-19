@@ -10,5 +10,7 @@
         <p><strong>Phone:</strong> {{ pessoa.phone }}</p>
         <p><strong>E-mail:</strong> {{ pessoa.email }}</p>
         <p><strong>Esportes:</strong> {{ pessoa.sports }}</p>
+        <po-switch name="active" p-label="Professor?" [p-value]="pessoa.tipo === 'Professor'" [p-disabled]="true" p-label-on="Sim" p-label-off="Não">
+        </po-switch>
       </div>
     </po-widget>

@@ -31,7 +31,7 @@ export class PeopleNewComponent {
   public readonly breadcrumb: PoBreadcrumb = {
     items: [
       { label: 'Home', link: '/' },
-      { label: 'Alunos', link: '/people' },
+      { label: 'Pessoas', link: '/people' },
       { label: 'Novo' }
     ]
   };
@@ -39,6 +39,7 @@ export class PeopleNewComponent {
   public pessoa:any = {}
 
   public readonly fields: Array<PoDynamicFormField> = [
+    { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3 },
     { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
     { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
     { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 3, label: "Genero"  },
@@ -64,8 +65,9 @@ export class PeopleNewComponent {
       optionsMulti: true,
     },
     { property: 'cpf',  required: true, mask: '999.999.999-99', label: "CPF", divider: 'Documentos' },
-    { property: 'email', divider: 'Contatos', gridColumns: 6, icon: 'po-icon-mail' },
-    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 6, icon: 'po-icon-telephone' },
+    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail' },
+    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone' },
+    { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram' },
   ];
 
   constructor(public poNotification: PoNotificationService, public peopleService: PeopleService) {
