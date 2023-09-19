@@ -12,10 +12,12 @@ import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { UnitListComponent } from './unit/unit-list/unit-list.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PoModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: AppComponent },
+      {path: '', component: HomeComponent },
       {path: 'people', component: PeopleListComponent },
       {path: 'unit', component: UnitListComponent },
       {path: 'court', component: CourtListComponent },

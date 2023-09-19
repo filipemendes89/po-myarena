@@ -4,6 +4,8 @@ import { CourtModule } from './court/court.module'
 import { ObjectModule } from './object/object.module'
 import { PeopleModule } from './people/people.module'
 import { UnitModule } from './unit/unit.module'
+import { HomeComponent } from './home/home.component'
+import { AppModule } from './app.module'
 
 const routes: Routes = [
   { 
@@ -21,7 +23,7 @@ const routes: Routes = [
   { 
     path: 'object', 
     loadChildren: () => ObjectModule
-  },
+  }
 ];
 
 @NgModule({
