@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Router } from '@angular/router'
 import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 import { CourtService } from '../court.service'
 
@@ -19,12 +20,12 @@ export class CourtListComponent {
   readonly actions: Array<PoListViewAction> = [
     {
       label: 'Aula',
-      action: () => console.log(this),
+      action: (evento:any) => console.log(evento),
       icon: 'po-icon-plus'
     },
     {
       label: 'Editar',
-      action: () => console.log(this),
+      action: (e:any) => this._router.navigateByUrl(`/court/edit/${e.id}`),
       icon: 'po-icon-edit'
     }
   ];
@@ -38,7 +39,7 @@ export class CourtListComponent {
   courts: any = []
   isHideLoading = true
   
-  constructor(private poNotification: PoNotificationService,private courtService: CourtService) { }
+  constructor(private poNotification: PoNotificationService,private courtService: CourtService, private _router:Router) { }
 
   ngOnInit() {
     this.isHideLoading = false;

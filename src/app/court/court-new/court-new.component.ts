@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
-import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components';
-import { CourtService } from '../court.service';
-
+import { Component, Inject } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
+import { CourtService } from '../court.service'
 @Component({
   selector: 'app-court-new',
   templateUrl: './court-new.component.html',
   styleUrls: ['./court-new.component.css'],
-  inputs: ['court']
+  inputs: ['court'],
 })
+
+@Inject(ActivatedRoute)
 export class CourtNewComponent {
   public readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/court';
   public isHideLoading = true
-
+  public id: any
   public readonly breadcrumb: PoBreadcrumb = {
     items: [
       { label: 'Home', link: '/' },
@@ -48,12 +50,26 @@ export class CourtNewComponent {
     }
   ];
 
-  constructor(public poNotification: PoNotificationService, public courtService: CourtService) {
+  constructor(public poNotification: PoNotificationService, public courtService: CourtService, private activatedRoute: ActivatedRoute, private _router: Router) {
+  }
+
+  ngOnInit() {
+    this.id = this.activatedRoute.snapshot?.params['id']
+    if (this.id) {
+      this.isHideLoading = false
+      this.courtService.getCourt(`${this.serviceApi}/${this.id}`,).subscribe((data:any) => this.court = data,
+      () => {
+        this.poNotification.error(`Erro na busca da quadra. Id: ${this.id}`);
+        this.isHideLoading = true;
+      },
+      () => (this.isHideLoading = true))
+    }
   }
 
   private onActionComplete = () => { 
     this.isHideLoading = true
     this.poNotification.success(`Seu registro foi criado com sucesso!`) 
+    this._router.navigateByUrl('/court')
   }
 
   private onActionError = (error:any) => { 
@@ -63,7 +79,20 @@ export class CourtNewComponent {
 
   onClickSave() {
     this.isHideLoading = false
+    this.court.id ? this.putCourt() : this.postCourt()
+  }
+
+  postCourt() {
     this.courtService.postCourt(this.serviceApi, this.court).subscribe(
+      {
+        complete: this.onActionComplete,
+        error: (error) => this.onActionError(error)
+      }
+    );
+  }
+
+  putCourt() {
+    this.courtService.putCourt(`${this.serviceApi}/${this.id}`, this.court).subscribe(
       {
         complete: this.onActionComplete,
         error: (error) => this.onActionError(error)

@@ -12,6 +12,10 @@ export class CourtService {
     return this.http.post(endpoint, court)
   }
 
+  putCourt(endpoint: any, court: any) {
+    return this.http.put(endpoint, court)
+  }
+
   getCourt(endpoint:any) {
     return this.http.get(endpoint)
   }
