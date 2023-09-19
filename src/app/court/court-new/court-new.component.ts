@@ -5,7 +5,8 @@ import { CourtService } from '../court.service';
 @Component({
   selector: 'app-court-new',
   templateUrl: './court-new.component.html',
-  styleUrls: ['./court-new.component.css']
+  styleUrls: ['./court-new.component.css'],
+  inputs: ['court']
 })
 export class CourtNewComponent {
   public readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/court';
