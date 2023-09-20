@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CalendarService {
 
-  constructor() { }
+  constructor(public http: HttpClient) {  }
+
+  postCalendar(endpoint: string, calendar: any) {
+    return this.http.post(endpoint, calendar)
+  }
 }
