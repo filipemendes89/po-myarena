@@ -1,0 +1,12 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+  <form #descriForm>
+    <div class="po-md-12">
+      <po-input #desc class="po-md-4" [p-minlength]="3" name="desc" p-label="Descrição"></po-input>
+    </div>
+    <div *ngFor="let time of times" class="po-md-8">
+      <po-input #entryTime class="po-md-4" p-mask="99:00" name="entryTime" ></po-input>
+      <po-input #exitTime class="po-md-4" p-mask="99:00"  name="exitTime" ></po-input>
+      <po-button p-kind="tertiary" p-size="large" (p-click)="onClickAdd(descriForm['desc'].value,descriForm['entryTime'].value,descriForm['exitTime'].value)" p-icon="po-icon-plus"></po-button>
+    </div>
+  </form>
+</po-page-default>
