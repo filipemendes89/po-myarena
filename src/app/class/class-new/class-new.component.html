@@ -1,0 +1,33 @@
+<po-page-default>
+<po-stepper #stepper [p-orientation]="orientation" [p-step-icons]="false" [p-step-size]="32">
+    <po-step p-label="Quadra" [p-can-active-next-step]="this.yes">
+        <po-widget
+        class="po-md-12"
+        [p-height]="380"
+        p-primary-label="Anterior"
+        p-secondary-label="Próximo"
+        p-title="Dados da aula"
+        (p-primary-action)="stepper.previous()"
+        (p-secondary-action)="stepper.next()"
+      >
+      <po-datepicker class="po-md-3" [p-auto-focus]="true" (p-change)="getAvailabeHour($event)" p-label="Data da aula">
+    </po-datepicker>
+    </po-widget>
+        
+    </po-step>
+    <po-step p-label="Professor" >
+        <po-dynamic-form
+        #dynamicForm
+        [p-fields]="fields"
+        >
+        </po-dynamic-form>
+    </po-step>
+    <po-step p-label="Esporte" >
+        <po-dynamic-form
+        #dynamicForm
+        [p-fields]="fields"
+        >
+        </po-dynamic-form>
+    </po-step>
+</po-stepper>
+</po-page-default>
