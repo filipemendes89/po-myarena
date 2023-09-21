@@ -16,7 +16,7 @@ export class CalendarNewComponent {
 
   actions:PoPageAction[] = [{
     label: 'Salvar',
-    action: this.onSave
+    action: this.onSave.bind(this)
   }] 
 
   breadcrumb:PoBreadcrumb = {
@@ -26,8 +26,8 @@ export class CalendarNewComponent {
   times:any[] = []
 
   constructor(
+    private calendarService: CalendarService,
     public poNotification: PoNotificationService,
-    private calendarService: CalendarService
   ) {}
   
   ngOnInit() {
@@ -54,6 +54,7 @@ export class CalendarNewComponent {
     this.calendarService.postCalendar(this.endpoint, {
       name: this.desc,
       times: this.times.filter(time => time.valid).map(time => ({ entryTime: time.entryTime, exitTime: time.exitTime }))
-    })
+    }).subscribe({ complete: () => this.poNotification.success('Registro inserido com sucesso'),
+  error: (error) => this.poNotification.error(error)  })
   }
 }
