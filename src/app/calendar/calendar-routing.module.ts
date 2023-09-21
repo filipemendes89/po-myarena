@@ -10,6 +10,10 @@ const routes: Routes = [{
 {
   path: 'new',
   component: CalendarNewComponent
+},
+{
+  path: 'edit/:id',
+  component: CalendarNewComponent
 }];
 
 @NgModule({

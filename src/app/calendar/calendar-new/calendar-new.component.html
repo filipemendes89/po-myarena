@@ -9,4 +9,6 @@
       <po-button p-kind="tertiary" p-size="large" (p-click)="onClickAdd(descriForm['desc'].value,descriForm['entryTime'].value,descriForm['exitTime'].value)" p-icon="po-icon-plus"></po-button>
     </div>
   </form>
+
+  <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
 </po-page-default>

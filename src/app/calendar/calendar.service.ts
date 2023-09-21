@@ -9,4 +9,8 @@ export class CalendarService {
   postCalendar(endpoint: string, calendar: any) {
     return this.http.post(endpoint, calendar)
   }
+
+  getCalendar(endpoint: string) {
+    return this.http.get(endpoint)
+  }
 }

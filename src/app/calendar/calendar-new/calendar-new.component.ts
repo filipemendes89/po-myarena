@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 import { PoBreadcrumb, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 import { CalendarService } from '../calendar.service'
 
@@ -13,10 +14,16 @@ export class CalendarNewComponent {
 
   endpoint = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar'
   desc:string = ''
+  id: any
+  isHideLoading = true
 
   actions:PoPageAction[] = [{
     label: 'Salvar',
     action: this.onSave.bind(this)
+  },
+  {
+    label: 'Cancelar',
+    url: '/calendar'
   }] 
 
   breadcrumb:PoBreadcrumb = {
@@ -28,14 +35,30 @@ export class CalendarNewComponent {
   constructor(
     private calendarService: CalendarService,
     public poNotification: PoNotificationService,
+    private _router:Router,
+    private activatedRoute: ActivatedRoute
   ) {}
   
   ngOnInit() {
-    this.times.push({
-      desc: '',
-      entryTime: '',
-      exitTime: ''
-    })
+    this.id = this.activatedRoute.snapshot?.params['id']
+    if (this.id) {
+      this.isHideLoading = false
+      this.calendarService.getCalendar(`${this.endpoint}/${this.id}`,).subscribe((data:any) => {
+        this.times = data.times
+        this.desc = data.name
+      },
+      () => {
+        this.poNotification.error(`Erro na busca do calendário. Id: ${this.id}`);
+        this.isHideLoading = true;
+      },
+      () => (this.isHideLoading = true))
+    } else {
+      this.times.push({
+        desc: '',
+        entryTime: '',
+        exitTime: ''
+      })
+    }
   }
   onClickAdd(desc:string, entryTime:string, exitTime:string) {
     console.log(desc, entryTime, exitTime)
@@ -54,7 +77,11 @@ export class CalendarNewComponent {
     this.calendarService.postCalendar(this.endpoint, {
       name: this.desc,
       times: this.times.filter(time => time.valid).map(time => ({ entryTime: time.entryTime, exitTime: time.exitTime }))
-    }).subscribe({ complete: () => this.poNotification.success('Registro inserido com sucesso'),
+    }).subscribe({ 
+      complete: () => { 
+        this.poNotification.success('Registro inserido com sucesso') 
+        this._router.navigateByUrl('/calendar')
+      },
   error: (error) => this.poNotification.error(error)  })
   }
 }

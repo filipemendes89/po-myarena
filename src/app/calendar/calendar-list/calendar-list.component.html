@@ -1,3 +1,12 @@
 <po-page-default [p-actions]="actions" [p-breadcrumb]="breadcrumb">
-
+    <div class="po-md-12">
+        <po-widget 
+        *ngFor="let item of items" 
+        class="po-md-12" 
+        p-title="{{item.name}}" 
+        p-primary-label="Editar"
+        (p-primary-action)="onClickEdit(item)">
+            <po-button *ngFor="let time of item.times" [p-label]="time.entryTime" p-size="small"></po-button>
+        </po-widget>
+    </div>
 </po-page-default>
