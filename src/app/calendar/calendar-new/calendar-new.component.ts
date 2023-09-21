@@ -20,7 +20,7 @@ export class CalendarNewComponent {
   }] 
 
   breadcrumb:PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'Calendário' }]
+    items: [{ label: 'Home', link: '/' }, { label: 'Calendário' }, { label: 'Novo' }]
   }
   
   times:any[] = []
