@@ -13,4 +13,8 @@ export class CalendarService {
   getCalendar(endpoint: string) {
     return this.http.get(endpoint)
   }
+
+  deleteCalendar(endpoint: string, calendar: any){
+    return this.http.delete(`${endpoint}/${calendar.id}`, calendar)
+  }
 }

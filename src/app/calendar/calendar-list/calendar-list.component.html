@@ -4,8 +4,10 @@
         *ngFor="let item of items" 
         class="po-md-12 po-mb-1" 
         p-title="{{item.name}}" 
-        p-primary-label="Editar"
-        (p-primary-action)="onClickEdit(item)">
+        p-primary-label="Excluir"
+        (p-primary-action)="onClickDelete(item)"
+        p-secondary-label="Editar"
+        (p-secondary-action)="onClickEdit(item)">
             <po-button class="po-m-1" *ngFor="let time of item.times" [p-label]="time.entryTime" p-size="small"></po-button>
         </po-widget>
     </div>

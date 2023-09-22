@@ -47,7 +47,15 @@ export class CourtNewComponent {
       optional: false,
       options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
       optionsMulti: true,
-    }
+    },
+    {
+      property: 'calendar',
+      gridColumns: 6,
+      gridSmColumns: 12,
+      optionsService: 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar',
+      fieldLabel: 'name',
+      fieldValue: 'id',
+    },
   ];
 
   constructor(public poNotification: PoNotificationService, public courtService: CourtService, private activatedRoute: ActivatedRoute, private _router: Router) {

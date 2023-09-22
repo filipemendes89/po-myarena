@@ -27,11 +27,32 @@ export class CalendarListComponent {
   constructor(private poNotification: PoNotificationService, private calendarService: CalendarService, private _router: Router) {
     
   }
+
   ngOnInit(): void {
-    this.calendarService.getCalendar(this.serviceApi).subscribe((data:any) => this.items = data)
+    this.calendarService.getCalendar(this.serviceApi).subscribe(
+      (data:any) => {
+        data.items.map((item:any) => {
+          item.times.sort((itemA:any, itemB:any) => Number(new Date(`2023-01-01 ${itemA.entryTime}`)) - Number(new Date(`2023-01-01 ${itemB.entryTime}`))) 
+        })
+        this.items = data.items 
+      }
+    )
   }
 
   onClickEdit(item: any){
     this._router.navigateByUrl(`/calendar/edit/${item.id}`)    
+  }
+
+  onClickDelete(item:any){
+    this.calendarService.deleteCalendar(this.serviceApi, item).subscribe({
+      complete: () => { 
+        this.poNotification.information('Registro deletado com sucesso')
+        this.ngOnInit()
+      },
+      error: (error) => {
+        this.poNotification.error('Erro na deleção do registro')
+        this.poNotification.error(error)
+      }
+    })
   }
 }
