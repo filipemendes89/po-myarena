@@ -119,7 +119,7 @@ export class CalendarNewComponent {
 
   private createCalendarForm(times?: any): FormGroup {
     return this.formBuilder.group({
-      entryTime: [times?.entryTime ?? null, [Validators.required]],
+      entryTime: [times?.entryTime ?? null, [Validators.required],],
       exitTime: [times?.exitTime ?? null, [Validators.required]],
     }) as FormGroup;
   }
