@@ -1,13 +1,19 @@
 import { Component } from '@angular/core'
 import { PoDynamicFormField, PoStepperOrientation } from '@po-ui/ng-components'
+import { ClassService } from '../class.service'
 
 @Component({
   selector: 'app-class-new',
   templateUrl: './class-new.component.html',
-  styleUrls: ['./class-new.component.css']
+  styleUrls: ['./class-new.component.css'],
+  providers: [ClassService]
 })
 export class ClassNewComponent {
   public readonly orientation:PoStepperOrientation = PoStepperOrientation.Horizontal
+
+  isHideLoading = true
+  availabeCourts:any = []
+  serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/availabeCourts'
   fields: Array<PoDynamicFormField> = [
     {
       property: 'dateClass',
@@ -23,7 +29,17 @@ export class ClassNewComponent {
       return true
     }
 
-    getAvailabeHour(evento: any){
-      console.log(evento)
+    constructor(private classService: ClassService) {}
+
+    getAvailabeCourts(evento: any) {
+      this.isHideLoading = false
+      this.classService.getAvailabeCourts(this.serviceApi, evento).subscribe(
+        (data:any) => this.availabeCourts = data,
+        () => this.isHideLoading = true,
+        () => this.isHideLoading = true)
+    }
+
+    onSelectHour(time:any, item:any) {
+      console.log(time,item)
     }
 }
