@@ -1,87 +1,126 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, Output } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { PoBreadcrumb, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
+import { FormUtils } from '@totvs-supply/sl-base-foundation'
 import { CalendarService } from '../calendar.service'
 
 @Component({
   selector: 'app-calendar-new',
   templateUrl: './calendar-new.component.html',
   styleUrls: ['./calendar-new.component.css'],
-  providers: [CalendarService]
+  providers: [CalendarService],
 })
 export class CalendarNewComponent {
-  @ViewChild('descriForm', { static: true }) descriForm: any
+  @Output()
+  public descForm = <any>this.formBuilder.group({
+    desc: [null, [Validators.required]],
+  });
+  public form = <any>this.formBuilder.array([this.createCalendarForm()]);
 
-  endpoint = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar'
-  desc:string = ''
-  id: any
-  isHideLoading = true
+  endpoint =
+    'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar';
+  desc: string = '';
+  id: any;
+  isHideLoading = true;
 
-  actions:PoPageAction[] = [{
-    label: 'Salvar',
-    action: this.onSave.bind(this)
-  },
-  {
-    label: 'Cancelar',
-    url: '/calendar'
-  }] 
+  actions: PoPageAction[] = [
+    {
+      label: 'Salvar',
+      action: this.onSave.bind(this),
+    },
+    {
+      label: 'Cancelar',
+      url: '/calendar',
+    },
+  ];
 
-  breadcrumb:PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'Calendário' }, { label: 'Novo' }]
-  }
-  
-  times:any[] = []
+  breadcrumb: PoBreadcrumb = {
+    items: [
+      { label: 'Home', link: '/' },
+      { label: 'Calendário' },
+      { label: 'Novo' },
+    ],
+  };
+
+  times: any[] = [];
 
   constructor(
     private calendarService: CalendarService,
     public poNotification: PoNotificationService,
-    private _router:Router,
-    private activatedRoute: ActivatedRoute
+    private _router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
-  
+
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot?.params['id']
+    this.id = this.activatedRoute.snapshot?.params['id'];
     if (this.id) {
-      this.isHideLoading = false
-      this.calendarService.getCalendar(`${this.endpoint}/${this.id}`,).subscribe((data:any) => {
-        this.times = data.times
-        this.desc = data.name
-      },
-      () => {
-        this.poNotification.error(`Erro na busca do calendário. Id: ${this.id}`);
-        this.isHideLoading = true;
-      },
-      () => (this.isHideLoading = true))
-    } else {
-      this.times.push({
-        desc: '',
-        entryTime: '',
-        exitTime: ''
-      })
+      this.isHideLoading = false;
+      this.calendarService.getCalendar(`${this.endpoint}/${this.id}`).subscribe(
+        (data: any) => {
+          this.descForm = <any>this.formBuilder.group({
+            desc: [data.name, [Validators.required]],
+          });
+          this.form = <any>(
+            this.formBuilder.array(
+              data.times
+                .map((time: any) => this.createCalendarForm(time))
+                .concat(this.createCalendarForm())
+            )
+          );
+        },
+        () => {
+          this.poNotification.error(
+            `Erro na busca do calendário. Id: ${this.id}`
+          );
+          this.isHideLoading = true;
+        },
+        () => (this.isHideLoading = true)
+      );
     }
   }
-  onClickAdd(desc:string, entryTime:string, exitTime:string) {
-    console.log(desc, entryTime, exitTime)
-    if(desc.length > 1 && entryTime.length == 5 && exitTime.length == 5 && exitTime > entryTime) {
-      this.desc = desc
-      this.times.push({
-        desc,
-        entryTime,
-        exitTime,
-        valid: true
-      })
+  onClickAdd(index: number): void {
+    if (
+      FormUtils.validate(...(this.form.controls as FormGroup[])) &&
+      FormUtils.validate(this.descForm)
+    ) {
+      this.form.controls.splice(index + 1, 0, this.createCalendarForm());
     }
   }
 
   onSave() {
-    this.calendarService.postCalendar(this.endpoint, {
-      name: this.desc,
-      times: this.times.filter(time => time.valid).map(time => ({ entryTime: time.entryTime, exitTime: time.exitTime }))
-    }).subscribe({ 
-      complete: () => { 
-        this.poNotification.success('Registro inserido com sucesso') 
-        this._router.navigateByUrl('/calendar')
-      },
-  error: (error) => this.poNotification.error(error)  })
+    this.times = this.form.controls
+      .filter((control: FormGroup) => control.valid)
+      .map((control: FormGroup) => ({
+        entryTime: control.get('entryTime')?.value,
+        exitTime: control.get('exitTime')?.value,
+      }));
+
+    this.desc = this.descForm.get('desc').value;
+
+    this.calendarService
+      .postCalendar(
+        this.endpoint,
+        {
+          name: this.desc,
+          times: this.times,
+        },
+        this.id
+      )
+      .subscribe({
+        complete: () => {
+          this.poNotification.success('Registro inserido com sucesso');
+          this._router.navigateByUrl('/calendar');
+        },
+        error: (error) => this.poNotification.error(error),
+      });
+  }
+
+  private createCalendarForm(times?: any): FormGroup {
+    return this.formBuilder.group({
+      entryTime: [times?.entryTime ?? null, [Validators.required]],
+      exitTime: [times?.exitTime ?? null, [Validators.required]],
+    }) as FormGroup;
   }
 }

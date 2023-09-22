@@ -25,5 +25,6 @@ import { CalendarRoutingModule } from './calendar-routing.module'
     PoWidgetModule,
     PoLoadingModule
   ]
+  
 })
 export class CalendarModule { }

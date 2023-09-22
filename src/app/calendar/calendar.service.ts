@@ -6,8 +6,8 @@ export class CalendarService {
 
   constructor(public http: HttpClient) {  }
 
-  postCalendar(endpoint: string, calendar: any) {
-    return this.http.post(endpoint, calendar)
+  postCalendar(endpoint: string, calendar: any, id?: string) {
+    return id ? this.http.put(`${endpoint}/${id}`, calendar) : this.http.post(endpoint, calendar)
   }
 
   getCalendar(endpoint: string) {
