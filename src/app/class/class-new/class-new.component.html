@@ -1,6 +1,6 @@
 <po-page-default>
 <po-stepper #stepper [p-orientation]="orientation" [p-step-icons]="false" [p-step-size]="32">
-    <po-step p-label="Quadra" [p-can-active-next-step]="this.yes">
+    <po-step p-label="Quadra">
         <po-widget
         class="po-md-12"
         p-primary-label="Anterior"
@@ -21,19 +21,23 @@
     </po-widget>
         
     </po-step>
-    <po-step p-label="Professor" >
-        <po-dynamic-form
-        #dynamicForm
-        [p-fields]="fields"
-        >
-        </po-dynamic-form>
+    <po-step p-label="Professor e Alunos" >
+        <po-widget
+        class="po-md-12"
+        p-primary-label="Anterior"
+        p-secondary-label="Próximo"
+        p-title="Dados da aula"
+        (p-primary-action)="stepper.previous()"
+        (p-secondary-action)="stepper.next()">
+            <po-dynamic-form [p-fields]="fieldsSecondStep">
+
+            </po-dynamic-form>
+        </po-widget>
     </po-step>
-    <po-step p-label="Esporte" >
-        <po-dynamic-form
-        #dynamicForm
-        [p-fields]="fields"
-        >
-        </po-dynamic-form>
+    <po-step p-label="Confirmação" >
+        <po-dynamic-view [p-fields]="detailFields" [p-load]="onLoad.bind(this)">
+
+        </po-dynamic-view>
     </po-step>
 </po-stepper>
 <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
