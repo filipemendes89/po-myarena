@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { PoDynamicFormField, PoDynamicViewField, PoStepperOrientation } from '@po-ui/ng-components'
 import { ClassService } from '../class.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-class-new',
@@ -19,7 +20,8 @@ export class ClassNewComponent {
       gridSmColumns: 12,
       optionsService: 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people?tipo=Professor',
       fieldLabel: 'nome',
-      fieldValue: 'id',
+      fieldValue: 'id', 
+      required: true
     },
     {
       property: 'sport',
@@ -29,31 +31,33 @@ export class ClassNewComponent {
       gridSmColumns: 12,
       optional: false,
       options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
-      optionsMulti: false,
+      optionsMulti: false, 
+      required: true
     },
     {
-      property: 'classSize',
+      property: 'people',
       label: 'Max. Alunos',
       type: 'number',
       gridColumns: 2,
       maxValue: 10000,
-      errorMessage: 'Invalid number.'
+      errorMessage: 'Invalid number.', 
+      required: true
     },
   ]
 
-  readonly detailFields: Array<PoDynamicViewField> = [
-    { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6 },
-    { property: 'date', label: 'Data', type: 'date', gridColumns: 6 },
-    { property: 'time', label: 'Horário', gridColumns: 2 },
-    { property: 'court', label: 'Quadra', gridColumns: 4 },
-    { property: 'teacher', divider: 'Detalhes', label: 'Professor', gridColumns: 6 },
-    { property: 'people', label: 'Max. Alunos', gridColumns: 2 },
+  readonly detailFields: Array<PoDynamicFormField> = [
+    { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6, required: true, readonly: true },
+    { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
+    { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
+    { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
+    { property: 'teacher', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, readonly: true },
+    { property: 'people', label: 'Max. Alunos', gridColumns: 2, required: true, readonly: true },
   ];
 
-  detailValue:any = {} 
-
+  detailValue: any = {}
+  valueSecondStep: any = {}
   isHideLoading = true
-  availabeCourts:any = []
+  availabeCourts: any = []
   serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/availabeCourts'
   fields: Array<PoDynamicFormField> = [
     {
@@ -66,15 +70,17 @@ export class ClassNewComponent {
       
     }]
 
-    onLoad() {
-      console.log(this.detailValue)
-      return this.detailValue
+    onFinish = () => {
+      //this.validClass(this.detailValue)
     }
 
-    constructor(private classService: ClassService) {}
+    secondStep() {
+      this.detailValue = { ...this.valueSecondStep, ...this.detailValue }
+    }
+    constructor (private classService: ClassService, private _router: Router) {}
 
-    getAvailabeCourts(evento: any) {
-      this.detailValue.date = evento
+    getAvailabeCourts = (evento: any) => {
+      this.detailValue =  { date: evento } 
       this.isHideLoading = false
       this.classService.getAvailabeCourts(this.serviceApi, evento).subscribe(
         (data:any) => this.availabeCourts = data,
@@ -82,8 +88,7 @@ export class ClassNewComponent {
         () => this.isHideLoading = true)
     }
 
-    onSelectHour(time:any, item:any) {
-      this.detailValue.court = item.courtName
-      this.detailValue.time = time
+    onSelectHour = (time:any, item:any) => {
+      this.detailValue = { court: item.courtName, time, ...this.detailValue }
     }
 }

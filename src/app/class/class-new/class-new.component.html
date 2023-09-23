@@ -24,20 +24,28 @@
     <po-step p-label="Professor e Alunos" >
         <po-widget
         class="po-md-12"
-        p-primary-label="Anterior"
-        p-secondary-label="Próximo"
+        p-primary-label="Próximo"
         p-title="Dados da aula"
-        (p-primary-action)="stepper.previous()"
-        (p-secondary-action)="stepper.next()">
-            <po-dynamic-form [p-fields]="fieldsSecondStep">
+        (p-primary-action)="secondStep();stepper.next()"
+        [p-disabled]="formSecondStep.form.invalid ?? true"
+        >
+            <po-dynamic-form #formSecondStep [p-fields]="fieldsSecondStep" [p-value]="valueSecondStep">
 
             </po-dynamic-form>
         </po-widget>
     </po-step>
-    <po-step p-label="Confirmação" >
-        <po-dynamic-view [p-fields]="detailFields" [p-load]="onLoad.bind(this)">
+    <po-step p-label="Confirmação">
+        <po-widget
+        class="po-md-12"
+        p-primary-label="Finalizar"
+        p-title="Dados da aula"
+        (p-primary-action)="onFinish()"
+        [p-disabled]="formDetails.form.invalid ?? true"
+        >
+            <po-dynamic-form #formDetails [p-fields]="detailFields" [p-value]="detailValue">
 
-        </po-dynamic-view>
+            </po-dynamic-form>
+        </po-widget>
     </po-step>
 </po-stepper>
 <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
