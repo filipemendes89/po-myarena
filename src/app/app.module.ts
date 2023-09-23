@@ -14,6 +14,7 @@ import { CourtListComponent } from './court/court-list/court-list.component'
 import { HomeComponent } from './home/home.component'
 import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
+import { ClassListComponent } from './class/class-list/class-list.component'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { PeopleListComponent } from './people/people-list/people-list.component'
     RouterModule.forRoot([
       {path: '', component: HomeComponent },
       {path: 'people', component: PeopleListComponent },
-      {path: 'class', component: ClassNewComponent },
+      {path: 'class', component: ClassListComponent },
       {path: 'court', component: CourtListComponent },
       {path: 'calendar', component: CalendarListComponent },
       {path: 'object', component: ObjectListComponent },

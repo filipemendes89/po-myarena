@@ -1,4 +1,4 @@
-<po-page-default>
+<po-page-default [p-breadcrumb]="breadcrumb">
 <po-stepper #stepper [p-orientation]="orientation" [p-step-icons]="true" [p-step-size]="32">
     <po-step p-label="Quadra" [p-can-active-next-step]="canActivateNextStep.bind(this)">
         <po-widget

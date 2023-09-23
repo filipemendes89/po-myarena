@@ -4,12 +4,14 @@ import { NgModule } from '@angular/core'
 import { PoButtonModule, PoContainerModule, PoDynamicModule, PoFieldModule, PoLoadingModule, PoPageModule, PoStepperModule, PoWidgetModule } from '@po-ui/ng-components'
 import { ClassNewComponent } from './class-new/class-new.component'
 import { ClassRoutingModule } from './class-routing.module'
-import { PoPageDynamicEditModule } from '@po-ui/ng-templates'
+import { PoPageDynamicEditModule } from '@po-ui/ng-templates';
+import { ClassListComponent } from './class-list/class-list.component'
 
 
 @NgModule({
   declarations: [
-    ClassNewComponent
+    ClassNewComponent,
+    ClassListComponent
   ],
   imports: [
     CommonModule,

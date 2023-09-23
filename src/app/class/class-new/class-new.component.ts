@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoDynamicFormField, PoDynamicViewField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDynamicFormField, PoDynamicViewField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
 import { ClassService } from '../class.service'
 import { Router } from '@angular/router'
 
@@ -11,6 +11,14 @@ import { Router } from '@angular/router'
 })
 export class ClassNewComponent {
   public readonly orientation:PoStepperOrientation = PoStepperOrientation.Horizontal
+  
+  public readonly breadcrumb:PoBreadcrumb = {
+    items: [
+      { label: 'Home', link: '/' },
+      { label: 'Class', link: '/class' }, 
+      { label: 'New' }
+    ]
+  }
 
   public readonly fieldsSecondStep: Array<PoDynamicFormField> = [
     {

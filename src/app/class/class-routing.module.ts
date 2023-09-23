@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { ClassNewComponent } from './class-new/class-new.component'
+import { ClassListComponent } from './class-list/class-list.component';
 
 const routes: Routes = [{
   path: 'new',
@@ -8,7 +9,7 @@ const routes: Routes = [{
 },
 {
   path: '',
-  component: ClassNewComponent
+  component: ClassListComponent
 }];
 
 @NgModule({
