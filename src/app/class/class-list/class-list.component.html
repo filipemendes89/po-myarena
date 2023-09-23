@@ -1,8 +1,10 @@
 <po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
     <po-widget
-    
+    class="po-md-6" 
+    *ngFor="let class of classes"
+    [p-title]="class.sport+' - '+class.level"
     >
-
+    <po-avatar></po-avatar>
     </po-widget>
 
     <po-loading-overlay [hidden]="isHideLoading" ></po-loading-overlay>
