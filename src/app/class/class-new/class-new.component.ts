@@ -77,6 +77,15 @@ export class ClassNewComponent {
     secondStep() {
       this.detailValue = { ...this.valueSecondStep, ...this.detailValue }
     }
+
+    canActivateNextStep(currentStep: any) { 
+      return this.detailValue?.time && this.detailValue?.date && this.detailValue?.court
+    }
+
+    activateSecondStep(formSecondStep: any) {
+      return formSecondStep?.form?.valid
+    }
+
     constructor (private classService: ClassService, private _router: Router) {}
 
     getAvailabeCourts = (evento: any) => {
