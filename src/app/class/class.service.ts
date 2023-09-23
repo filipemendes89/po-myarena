@@ -11,4 +11,12 @@ export class ClassService {
   getAvailabeCourts(endpoint: string, date: string) {
     return this.http.get(`${endpoint}?date=${date}`)
   }
+
+  postClass(endpoint:string, _class: any) {
+    return this.http.post(endpoint, _class)
+  }
+
+  postReservation(endpoint: string, reservation: any) {
+    return this.http.post(endpoint, reservation)
+  }
 }

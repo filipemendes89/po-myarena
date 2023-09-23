@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoDynamicFormField, PoDynamicViewField, PoStepperOrientation } from '@po-ui/ng-components'
+import { PoDynamicFormField, PoDynamicViewField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
 import { ClassService } from '../class.service'
 import { Router } from '@angular/router'
 
@@ -14,7 +14,7 @@ export class ClassNewComponent {
 
   public readonly fieldsSecondStep: Array<PoDynamicFormField> = [
     {
-      property: 'teacher',
+      property: 'teacherId',
       label: 'Professor',
       gridColumns: 8,
       gridSmColumns: 12,
@@ -35,10 +35,18 @@ export class ClassNewComponent {
       required: true
     },
     {
+      property: 'level',
+      label: 'Nível',
+      gridColumns: 6,
+      options: ['Estrente', 'Iniciante', 'Intermediário', 'Avançado', 'Particular'],
+      required: true
+    },
+    {
       property: 'people',
       label: 'Max. Alunos',
       type: 'number',
       gridColumns: 2,
+      minValue: 1,
       maxValue: 10000,
       errorMessage: 'Invalid number.', 
       required: true
@@ -50,8 +58,9 @@ export class ClassNewComponent {
     { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
     { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
     { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
-    { property: 'teacher', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, readonly: true },
+    { property: 'teacherId', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, readonly: true },
     { property: 'people', label: 'Max. Alunos', gridColumns: 2, required: true, readonly: true },
+    { property: 'level', label: 'Nível', gridColumns: 4, required: true, readonly: true },
   ];
 
   detailValue: any = {}
@@ -59,6 +68,9 @@ export class ClassNewComponent {
   isHideLoading = true
   availabeCourts: any = []
   serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/availabeCourts'
+  reservationApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/reservation'
+  classApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/class'
+
   fields: Array<PoDynamicFormField> = [
     {
       property: 'dateClass',
@@ -70,8 +82,40 @@ export class ClassNewComponent {
       
     }]
 
+    private createReservation(_class: any): void {
+      const { courtId, time, classId, date } = _class
+      const reservation = {
+        courtId,
+        time,
+        classId,
+        date,
+        active: true
+      }
+      console.log(reservation)
+      this.classService.postReservation(this.reservationApi, reservation).subscribe(
+        {
+          complete: () => this.poNotification.success('Reserva criada!'),
+          error: (error) => this.poNotification.error(error)
+        }
+      )
+    } 
+
     onFinish = () => {
-      //this.validClass(this.detailValue)
+      this.isHideLoading = false
+
+      this.classService.postClass(this.classApi, this.detailValue).subscribe(
+        (data: any) => {
+          this.detailValue = { classId: data.id, ...this.detailValue }
+          this.createReservation(this.detailValue) //to-do processar no backEnd
+          this.poNotification.success('Aula criada com sucesso.')
+          this._router.navigateByUrl('/class')
+          this.isHideLoading = true
+        },
+        (error) => {
+          this.poNotification.error('Erro na criação da aula')
+          this.poNotification.error(error)
+          this.isHideLoading = true
+        })
     }
 
     secondStep() {
@@ -86,7 +130,7 @@ export class ClassNewComponent {
       return formSecondStep?.form?.valid
     }
 
-    constructor (private classService: ClassService, private _router: Router) {}
+    constructor (private classService: ClassService, private _router: Router, private poNotification: PoNotificationService) {}
 
     getAvailabeCourts = (evento: any) => {
       this.detailValue =  { date: evento } 
@@ -98,6 +142,6 @@ export class ClassNewComponent {
     }
 
     onSelectHour = (time:any, item:any) => {
-      this.detailValue = { court: item.courtName, time, ...this.detailValue }
+      this.detailValue = { courtId: item.courtId, court: item.courtName, time, ...this.detailValue }
     }
 }

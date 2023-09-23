@@ -20,7 +20,7 @@ export class CourtListComponent {
   readonly actions: Array<PoListViewAction> = [
     {
       label: 'Aula',
-      action: (evento:any) => console.log(evento),
+      action: (e:any) => this._router.navigateByUrl(`/class/new`),
       icon: 'po-icon-plus'
     },
     {
