@@ -4,7 +4,6 @@
     [p-items]="classes"
     [p-actions]="actionsView"
     [p-literals]="literals"
-    [p-show-more-disabled]="false"
     >
 
     <ng-template p-list-view-content-template let-item>
@@ -16,7 +15,7 @@
           <po-switch name="active" p-label="Espera?" [p-value]="item.active" [p-disabled]="true"> </po-switch>
         </div>
       </ng-template>
-      <ng-template p-list-view-detail-template let-item (p-show-detail)="showDetail">
+      <ng-template p-list-view-detail-template let-item (p-show-detail)="showDetail.bind(this)">
         <div class="po-row">
           <p>Mostra alunos</p>
         </div>
