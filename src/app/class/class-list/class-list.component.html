@@ -1,11 +1,27 @@
 <po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
-    <po-widget
-    class="po-md-6" 
-    *ngFor="let class of classes"
-    [p-title]="class.sport+' - '+class.level"
+    <po-list-view
+    p-property-title="sport"
+    [p-items]="classes"
+    [p-actions]="actionsView"
+    [p-literals]="literals"
+    [p-show-more-disabled]="false"
     >
-    <po-avatar></po-avatar>
-    </po-widget>
+
+    <ng-template p-list-view-content-template let-item>
+        <div class="po-row">
+          <po-avatar [p-src]="item.avatar"></po-avatar>
+          <po-info class="po-md-3 po-ml-5" p-label="Data" [p-value]="item.date"></po-info>
+          <po-info class="po-md-3" p-label="Nivel" [p-value]="item.level"></po-info>
+          <po-info class="po-md-3" p-label="Max. alunos" [p-value]="item.people"></po-info>
+          <po-switch name="active" p-label="Espera?" [p-value]="item.active" [p-disabled]="true"> </po-switch>
+        </div>
+      </ng-template>
+      <ng-template p-list-view-detail-template let-item>
+        <div class="po-row">
+          <p>Mostra alunos</p>
+        </div>
+      </ng-template>
+    </po-list-view>
 
     <po-loading-overlay [hidden]="isHideLoading" ></po-loading-overlay>
 </po-page-default>
