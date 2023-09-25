@@ -23,4 +23,8 @@ export class ClassService {
   postReservation(endpoint: string, reservation: any) {
     return this.http.post(endpoint, reservation)
   }
+
+  deleteClass(endpoint: string, classId: string) {
+    return this.http.delete(`${endpoint}/${classId}`)
+  }
 }

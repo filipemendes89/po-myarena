@@ -24,9 +24,16 @@ export class ClassListComponent {
     },
     {
       label: 'Editar',
-      action: (e:any) => this._router.navigateByUrl(`/court/class/${e.id}`),
+      action: (e:any) => this._router.navigateByUrl(`/class/edit/${e.id}`),
       icon: 'po-icon-edit'
-    }
+    },
+    {
+      label: 'Excluir',
+      action: (e:any) => this.deleteClass(e.id), //Excluir reserva no backend
+      icon: 'po-icon-delete',
+      type: 'danger'
+    },
+    
   ];
 
   public readonly literals:PoListViewLiterals = {
@@ -55,6 +62,19 @@ export class ClassListComponent {
     (error) => {
       this.poNotification.error(error)
       this.isHideLoading = true
+    })
+  }
+
+  deleteClass(classId: string) {
+    this.classService.deleteClass(this.classApi,classId).subscribe({
+      complete: () => {
+        this.poNotification.success('Aula excluída com sucesso.')
+        this.ngOnInit()
+      },
+      error: (error) => {
+        this.poNotification.error('Erro na exclusão da aula')
+        this.poNotification.error(error)
+      }
     })
   }
 
