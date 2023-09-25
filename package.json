@@ -1,6 +1,6 @@
 {
-  "name": "po-condomynium",
-  "version": "0.0.0",
+  "name": "po-myarena",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
