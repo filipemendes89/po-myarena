@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
 
@@ -37,13 +38,14 @@ export class PeopleNewComponent {
   };
 
   public pessoa:any = {}
-
+  public id:any
+  
   public readonly fields: Array<PoDynamicFormField> = [
     { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3 },
     { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
     { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
-    { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 3, label: "Genero"  },
-    { property: 'nacionalidade', options: ['Brasileiro', 'Estrangeiro'], gridColumns: 3, label: "Nacionalidade"   },
+    { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 5, label: "Genero"  },
+    { property: 'nacionalidade', options: ['Brasileiro', 'Estrangeiro'], gridColumns: 6, label: "Nacionalidade"   },
     {
       property: 'avatar',
       type: 'upload',
@@ -70,12 +72,13 @@ export class PeopleNewComponent {
     { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram' },
   ];
 
-  constructor(public poNotification: PoNotificationService, public peopleService: PeopleService) {
+  constructor(public poNotification: PoNotificationService, public peopleService: PeopleService, private activatedRoute: ActivatedRoute, private _router: Router) {
   }
 
   private onActionComplete = () => { 
     this.isHideLoading = true
     this.poNotification.success(`Seu registro foi criado com sucesso!`) 
+    this._router.navigateByUrl('/people')
   }
 
   private onActionError = (error:any) => { 
@@ -85,11 +88,29 @@ export class PeopleNewComponent {
 
   onClickSave() {
     this.isHideLoading = false
-    this.peopleService.postPerson(this.serviceApi, this.pessoa).subscribe(
-      {
-        complete: this.onActionComplete,
-        error: (error) => this.onActionError(error)
-      }
-    );
+
+    if(this.id){
+      this.peopleService.putPerson(`${this.serviceApi}/${this.id}`, this.pessoa).subscribe(
+        {
+          complete: this.onActionComplete,
+          error: (error) => this.onActionError(error)
+        }
+      );
+    }else{
+      this.peopleService.postPerson(this.serviceApi, this.pessoa).subscribe(
+        {
+          complete: this.onActionComplete,
+          error: (error) => this.onActionError(error)
+        }
+      );
+    }   
+  }
+
+  ngOnInit(){
+    console.log(this.activatedRoute.snapshot?.params['id'])
+    this.id = this.activatedRoute.snapshot?.params['id'];
+    if(this.id){
+      this.peopleService.getPeople(`${this.serviceApi}/${this.id}`).subscribe((data) => { this.pessoa = data })
+    }
   }
 }

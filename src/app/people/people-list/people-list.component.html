@@ -15,9 +15,7 @@
   <po-disclaimer-group [p-disclaimers]="filters" (p-change)="changeFilters(filters)"
     (p-remove)="ngOnInit();formData.reset()" (p-remove-all)="ngOnInit();formData.reset()"> </po-disclaimer-group>
   
-    <po-container [p-no-border]="true">
-    <app-people-widget *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-people-widget>
-  </po-container>
+  <app-people-widget class="po-md-12" *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-people-widget>
 
   <po-modal #userDetailModal p-title="Detalhes">
     <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>

@@ -1,12 +1,13 @@
 <po-widget
-      class="po-sm-12 po-md-8 po-lg-6"
+      class="po-sm-12 po-md-12"
       [p-title]="pessoa.nome"
-      p-primary-label="Call"
-      p-secondary-label="Send e-mail"
+      p-primary-label="Editar"
+      p-secondary-label="Aulas/Reservas"
+      (p-primary-action)="editPeople(this)"
     >
       <po-avatar class="po-md-4" p-size="lg" [p-src]="pessoa.avatar"> </po-avatar>
   
-      <div class="po-md-8"> 
+      <div class="po-md-6"> 
         <p><strong>Phone:</strong> {{ pessoa.phone }}</p>
         <p><strong>E-mail:</strong> {{ pessoa.email }}</p>
         <p><strong>Esportes:</strong> {{ pessoa.sports }}</p>

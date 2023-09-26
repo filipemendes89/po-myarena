@@ -9,6 +9,10 @@ export class PeopleService {
     return this.http.post(endpoint, pessoa)
   }
 
+  putPerson(endpoint: any, pessoa: any) {
+    return this.http.put(endpoint, pessoa)
+  }
+
   getPeople(endpoint:any) {
     return this.http.get(endpoint)
   }

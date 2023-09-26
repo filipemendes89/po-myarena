@@ -40,8 +40,7 @@ export class PeopleListComponent {
   isHideLoading = true;
 
   public readonly actions: Array<PoPageAction> = [
-    { label: 'Novo', url: '/people/new', icon: 'po-icon-plus' },
-    { label: 'Nova Saída', action: () => console.log(this.pessoas) },
+    { label: 'Novo', url: '/people/new', icon: 'po-icon-plus' }
   ];
 
   readonly breadcrumb: PoBreadcrumb = {
