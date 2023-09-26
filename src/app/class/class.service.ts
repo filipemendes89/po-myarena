@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,9 @@ export class ClassService {
 
   deleteClass(endpoint: string, classId: string) {
     return this.http.delete(`${endpoint}/${classId}`)
+  }
+
+  updateClass(endpoint:string, updatedClass:any) {
+    return this.http.put(`${endpoint}/${updatedClass.id}`, updatedClass)
   }
 }
