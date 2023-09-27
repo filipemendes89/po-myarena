@@ -19,7 +19,7 @@ export class PeopleListComponent {
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
   readonly serviceApi =
-    'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people?page=1&limit=20&';
+    'https://myarenaapi.azurewebsites.net/api/people?code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw==';
 
   public pessoas: any;
   filteredItems: Array<any> = [];

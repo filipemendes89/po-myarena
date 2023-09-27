@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
@@ -15,14 +15,17 @@ import { PeopleService } from '../people.service'
 })
 
 export class PeopleNewComponent {
+  @ViewChild('dynamicForm') dynamicForm: any
+
   public readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
+  public readonly serviceApiAzure = 'https://127.0.0.1:7071/api/people?code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw=='
   public isHideLoading = true
   public readonly actions: PoPageDynamicEditActions = {
     saveNew: '/people/new',
     save: '/people',
     cancel: '/people'
   };
-
+  
   public readonly literals: PoPageDynamicEditLiterals = {
     pageActionCancel: 'Descartar',
     pageActionSave: 'Gravar',
@@ -78,6 +81,7 @@ export class PeopleNewComponent {
   private onActionComplete = () => { 
     this.isHideLoading = true
     this.poNotification.success(`Seu registro foi criado com sucesso!`) 
+    this.dynamicForm.form.reset()
     this._router.navigateByUrl('/people')
   }
 
@@ -97,7 +101,7 @@ export class PeopleNewComponent {
         }
       );
     }else{
-      this.peopleService.postPerson(this.serviceApi, this.pessoa).subscribe(
+      this.peopleService.postPerson(this.serviceApiAzure, this.pessoa).subscribe(
         {
           complete: this.onActionComplete,
           error: (error) => this.onActionError(error)
