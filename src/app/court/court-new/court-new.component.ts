@@ -11,7 +11,7 @@ import { CourtService } from '../court.service'
 
 @Inject(ActivatedRoute)
 export class CourtNewComponent {
-  public readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/court';
+  public readonly serviceApi = 'http://localhost:7071/api/court';
   public isHideLoading = true
   public id: any
   public readonly breadcrumb: PoBreadcrumb = {

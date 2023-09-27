@@ -34,7 +34,7 @@ export class CourtListComponent {
     showDetails: 'Mostrar agenda',
   }
   
-  private serviceApi:string = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/court'
+  private serviceApi:string = 'http://localhost:7071/api/court'
 
   courts: any = []
   isHideLoading = true
@@ -43,7 +43,7 @@ export class CourtListComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.courtService.getCourt(this.serviceApi).subscribe((data:any) => this.courts = data,
+    this.courtService.getCourt(this.serviceApi).subscribe((data:any) => this.courts = data.items,
     () => {
       this.poNotification.error('Erro na busca de quadras.');
       this.isHideLoading = true;

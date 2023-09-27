@@ -76,7 +76,6 @@ export class ClassNewComponent {
   isHideLoading = true
   availabeCourts: any = []
   serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/availabeCourts'
-  reservationApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/reservation'
   classApi = 'http://localhost:7071/api/class'
 
   fields: Array<PoDynamicFormField> = [
@@ -90,31 +89,12 @@ export class ClassNewComponent {
       
     }]
 
-    private createReservation(_class: any): void {
-      const { courtId, time, classId, date } = _class
-      const reservation = {
-        courtId,
-        time,
-        classId,
-        date,
-        active: true
-      }
-      console.log(reservation)
-      this.classService.postReservation(this.reservationApi, reservation).subscribe(
-        {
-          complete: () => this.poNotification.success('Reserva criada!'),
-          error: (error) => this.poNotification.error(error)
-        }
-      )
-    } 
-
     onFinish = () => {
       this.isHideLoading = false
 
       this.classService.postClass(this.classApi, this.detailValue).subscribe(
         (data: any) => {
           this.detailValue = { classId: data._id, ...this.detailValue }
-          this.createReservation(this.detailValue) //to-do processar no backEnd
           this.poNotification.success('Aula criada com sucesso.')
           this._router.navigateByUrl('/class')
           this.isHideLoading = true

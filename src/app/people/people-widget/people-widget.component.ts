@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
+import { PoInfoOrientation } from '@po-ui/ng-components'
 
 @Component({
   selector: 'app-people-widget',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router'
 })
 export class PeopleWidgetComponent {
   public pessoa: any
-
+  public readonly orientationInfo: PoInfoOrientation = PoInfoOrientation.Horizontal
   constructor(private _router:Router){}
 
   editPeople(event: any) {
