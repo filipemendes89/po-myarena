@@ -29,6 +29,6 @@ export class ClassService {
   }
 
   updateClass(endpoint:string, updatedClass:any) {
-    return this.http.put(`${endpoint}/${updatedClass.id}`, updatedClass)
+    return this.http.put(`${endpoint}/${updatedClass._id}`, updatedClass)
   }
 }

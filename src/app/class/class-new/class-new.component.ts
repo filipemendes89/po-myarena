@@ -77,7 +77,7 @@ export class ClassNewComponent {
   availabeCourts: any = []
   serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/availabeCourts'
   reservationApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/reservation'
-  classApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/class'
+  classApi = 'http://localhost:7071/api/class'
 
   fields: Array<PoDynamicFormField> = [
     {
@@ -113,7 +113,7 @@ export class ClassNewComponent {
 
       this.classService.postClass(this.classApi, this.detailValue).subscribe(
         (data: any) => {
-          this.detailValue = { classId: data.id, ...this.detailValue }
+          this.detailValue = { classId: data._id, ...this.detailValue }
           this.createReservation(this.detailValue) //to-do processar no backEnd
           this.poNotification.success('Aula criada com sucesso.')
           this._router.navigateByUrl('/class')

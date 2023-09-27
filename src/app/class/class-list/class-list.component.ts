@@ -20,7 +20,7 @@ export class ClassListComponent {
   readonly actionsView: Array<PoListViewAction> = [
     {
       label: 'Excluir',
-      action: (e:any) => this.deleteClass(e.id), //Excluir reserva no backend
+      action: (e:any) => this.deleteClass(e._id), //Excluir reserva no backend
       icon: 'po-icon-delete',
       type: 'danger'
     },
@@ -62,7 +62,7 @@ export class ClassListComponent {
     deleteApiError: 'Ocorreu um erro inesperado, tente novamente mais tarde!',
   };
 
-  classApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/class'
+  classApi = 'http://localhost:7071/api/class'
   isHideLoading = true
   peopleList:any
   class:any
@@ -110,8 +110,8 @@ export class ClassListComponent {
   }
 
   public onPessoaSelected(novaPessoa: any) {
-    this.peopleList.find((pessoa:any) => pessoa.id === novaPessoa.id) ? null : this.peopleList.push(novaPessoa)
-    this.class.peopleList = this.peopleList.map((people: any) => ({ id: people.id, nome: people.nome, level: people.level }))
+    this.peopleList.find((pessoa:any) => pessoa._id === novaPessoa._id) ? null : this.peopleList.push(novaPessoa)
+    this.class.peopleList = this.peopleList.map((people: any) => ({ _id: people._id, nome: people.nome, level: people.level }))
   }
 
   public saveClass(event:any) {
