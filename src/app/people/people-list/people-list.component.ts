@@ -19,7 +19,7 @@ export class PeopleListComponent {
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
   readonly serviceApi =
-    'https://myarenaapi.azurewebsites.net/api/people?code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw==';
+    'https://myarenaapi.azurewebsites.net/api/people';
 
   public pessoas: any;
   filteredItems: Array<any> = [];
@@ -48,7 +48,7 @@ export class PeopleListComponent {
   };
 
   fields: Array<any> = [
-    { property: 'id', key: true, visible: false, filter: true },
+    { property: '_id', key: true, visible: false, filter: true },
     { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
     { property: 'email', label: 'E-mail', filter: true, gridColumns: 6 },
     {
@@ -63,7 +63,7 @@ export class PeopleListComponent {
   ];
 
   readonly detailFields: Array<PoDynamicViewField> = [
-    { property: 'id', key: true, visible: false },
+    { property: '_id', key: true, visible: false },
     { property: 'nome', label: 'Name', divider: 'Pessoa', gridColumns: 6 },
     { property: 'genero', label: 'Genre', gridColumns: 6 },
     {

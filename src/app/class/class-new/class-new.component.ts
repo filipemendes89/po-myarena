@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb, PoDynamicFormField, PoDynamicViewField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
-import { ClassService } from '../class.service'
 import { Router } from '@angular/router'
+import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
+import { ClassService } from '../class.service'
 
 @Component({
   selector: 'app-class-new',
@@ -26,9 +26,9 @@ export class ClassNewComponent {
       label: 'Professor',
       gridColumns: 8,
       gridSmColumns: 12,
-      optionsService: 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people?tipo=Professor',
+      optionsService: 'https://myarenaapi.azurewebsites.net/api/people?tipo=Professor&code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw==',
       fieldLabel: 'nome',
-      fieldValue: 'id', 
+      fieldValue: '_id', 
       required: true
     },
     {

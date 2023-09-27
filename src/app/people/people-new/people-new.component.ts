@@ -17,8 +17,7 @@ import { PeopleService } from '../people.service'
 export class PeopleNewComponent {
   @ViewChild('dynamicForm') dynamicForm: any
 
-  public readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
-  public readonly serviceApiAzure = 'https://127.0.0.1:7071/api/people?code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw=='
+  public readonly serviceApi = 'https://myarenaapi.azurewebsites.net/api/people';
   public isHideLoading = true
   public readonly actions: PoPageDynamicEditActions = {
     saveNew: '/people/new',
@@ -101,7 +100,7 @@ export class PeopleNewComponent {
         }
       );
     }else{
-      this.peopleService.postPerson(this.serviceApiAzure, this.pessoa).subscribe(
+      this.peopleService.postPerson(this.serviceApi, this.pessoa).subscribe(
         {
           complete: this.onActionComplete,
           error: (error) => this.onActionError(error)

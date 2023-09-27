@@ -14,7 +14,7 @@ export class PeopleWidgetComponent {
 
   editPeople(event: any) {
     console.log(event)
-    this._router.navigateByUrl(`/people/edit/${event.pessoa.id}`)
+    this._router.navigateByUrl(`/people/edit/${event.pessoa._id}`)
   }
 
 }
