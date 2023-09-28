@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { PoBreadcrumb, PoTableColumn } from '@po-ui/ng-components';
+import { Component } from '@angular/core'
+import { PoBreadcrumb, PoTableColumn } from '@po-ui/ng-components'
 
 @Component({
   selector: 'app-home',
