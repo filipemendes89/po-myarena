@@ -1,16 +1,13 @@
 {
   "name": "po-myarena",
   "version": "1.0.0",
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "install": "npm i --force"
+    "prebuild": "npm i --force"
   },
   "private": true,
   "dependencies": {
