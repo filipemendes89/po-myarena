@@ -75,7 +75,7 @@ export class ClassNewComponent {
   valueSecondStep: any = {}
   isHideLoading = true
   availabeCourts: any = []
-  serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/availabeCourts'
+  serviceApi = 'http://localhost:7071/api/availabeCourts'
   classApi = 'http://localhost:7071/api/class'
 
   fields: Array<PoDynamicFormField> = [
@@ -124,12 +124,12 @@ export class ClassNewComponent {
       this.detailValue =  { date: evento } 
       this.isHideLoading = false
       this.classService.getAvailabeCourts(this.serviceApi, evento).subscribe(
-        (data:any) => this.availabeCourts = data,
+        (data:any) => this.availabeCourts = data.items,
         () => this.isHideLoading = true,
         () => this.isHideLoading = true)
     }
 
     onSelectHour = (time:any, item:any) => {
-      this.detailValue = { courtId: item.courtId, court: item.courtName, time, ...this.detailValue }
+      this.detailValue = { courtId: item.courtId, court: item.courtName, time: time.entryTime, ...this.detailValue }
     }
 }

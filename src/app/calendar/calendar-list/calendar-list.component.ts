@@ -17,7 +17,7 @@ export class CalendarListComponent {
     }
   ]
 
-  serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar'
+  serviceApi = 'http://localhost:7071/api/calendar'
   public readonly breadcrumb: PoBreadcrumb = {
       items: [{ label: 'Home', link: '/' }, { label: 'Calendario' }]
   }
@@ -40,7 +40,7 @@ export class CalendarListComponent {
   }
 
   onClickEdit(item: any){
-    this._router.navigateByUrl(`/calendar/edit/${item.id}`)    
+    this._router.navigateByUrl(`/calendar/edit/${item._id}`)    
   }
 
   onClickDelete(item:any){

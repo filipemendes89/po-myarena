@@ -19,7 +19,7 @@ export class CalendarNewComponent {
   public form = <any>this.formBuilder.array([this.createCalendarForm()]);
 
   endpoint =
-    'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar';
+    'http://localhost:7071/api/calendar';
   desc: string = '';
   id: any;
   isHideLoading = true;

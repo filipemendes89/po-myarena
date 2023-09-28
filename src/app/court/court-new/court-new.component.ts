@@ -52,9 +52,9 @@ export class CourtNewComponent {
       property: 'calendar',
       gridColumns: 6,
       gridSmColumns: 12,
-      optionsService: 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/calendar',
+      optionsService: 'http://localhost:7071/api/calendar',
       fieldLabel: 'name',
-      fieldValue: 'id',
+      fieldValue: '_id',
     },
   ];
 
@@ -87,7 +87,7 @@ export class CourtNewComponent {
 
   onClickSave() {
     this.isHideLoading = false
-    this.court.id ? this.putCourt() : this.postCourt()
+    this.court._id ? this.putCourt() : this.postCourt()
   }
 
   postCourt() {

@@ -25,7 +25,7 @@ export class CourtListComponent {
     },
     {
       label: 'Editar',
-      action: (e:any) => this._router.navigateByUrl(`/court/edit/${e.id}`),
+      action: (e:any) => this._router.navigateByUrl(`/court/edit/${e._id}`),
       icon: 'po-icon-edit'
     }
   ];
