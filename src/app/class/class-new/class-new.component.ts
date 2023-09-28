@@ -75,8 +75,8 @@ export class ClassNewComponent {
   valueSecondStep: any = {}
   isHideLoading = true
   availabeCourts: any = []
-  serviceApi = 'http://localhost:7071/api/availabeCourts'
-  classApi = 'http://localhost:7071/api/class'
+  serviceApi = 'https://myarenaapi.azurewebsites.net/api/availabeCourts'
+  classApi = 'https://myarenaapi.azurewebsites.net/api/class'
 
   fields: Array<PoDynamicFormField> = [
     {

@@ -19,7 +19,7 @@ export class CalendarNewComponent {
   public form = <any>this.formBuilder.array([this.createCalendarForm()]);
 
   endpoint =
-    'http://localhost:7071/api/calendar';
+    'https://myarenaapi.azurewebsites.net/api/calendar';
   desc: string = '';
   id: any;
   isHideLoading = true;

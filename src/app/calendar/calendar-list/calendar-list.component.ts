@@ -17,7 +17,7 @@ export class CalendarListComponent {
     }
   ]
 
-  serviceApi = 'http://localhost:7071/api/calendar'
+  serviceApi = 'https://myarenaapi.azurewebsites.net/api/calendar'
   public readonly breadcrumb: PoBreadcrumb = {
       items: [{ label: 'Home', link: '/' }, { label: 'Calendario' }]
   }

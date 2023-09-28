@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
-import { CourtService } from '../court.service'
+import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components';
+import { CourtService } from '../court.service';
 @Component({
   selector: 'app-court-new',
   templateUrl: './court-new.component.html',
@@ -11,7 +11,7 @@ import { CourtService } from '../court.service'
 
 @Inject(ActivatedRoute)
 export class CourtNewComponent {
-  public readonly serviceApi = 'http://localhost:7071/api/court';
+  public readonly serviceApi = 'https://myarenaapi.azurewebsites.net/api/court';
   public isHideLoading = true
   public id: any
   public readonly breadcrumb: PoBreadcrumb = {
@@ -52,7 +52,7 @@ export class CourtNewComponent {
       property: 'calendar',
       gridColumns: 6,
       gridSmColumns: 12,
-      optionsService: 'http://localhost:7071/api/calendar',
+      optionsService: 'https://myarenaapi.azurewebsites.net/api/calendar',
       fieldLabel: 'name',
       fieldValue: '_id',
     },

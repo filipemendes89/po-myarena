@@ -34,7 +34,7 @@ export class CourtListComponent {
     showDetails: 'Mostrar agenda',
   }
   
-  private serviceApi:string = 'http://localhost:7071/api/court'
+  private serviceApi:string = 'https://myarenaapi.azurewebsites.net/api/court'
 
   courts: any = []
   isHideLoading = true
