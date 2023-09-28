@@ -6,44 +6,46 @@ import { ClassService } from '../class.service'
 @Component({
   selector: 'app-class-list',
   templateUrl: './class-list.component.html',
-  styleUrls: ['./class-list.component.css']
+  styleUrls: ['./class-list.component.css'],
 })
 export class ClassListComponent {
-  @ViewChild('pageSlide') pageSlide:any
+  @ViewChild('pageSlide') pageSlide: any;
 
-  public readonly actions: PoPageAction[] = [{
-    icon: 'po-icon-plus',
-    label: 'Novo',
-    url: 'class/new'
-  }]
+  public readonly actions: PoPageAction[] = [
+    {
+      icon: 'po-icon-plus',
+      label: 'Novo',
+      url: 'class/new',
+    },
+  ];
 
   readonly actionsView: Array<PoListViewAction> = [
     {
       label: 'Excluir',
-      action: (e:any) => this.deleteClass(e._id), //Excluir reserva no backend
+      action: (e: any) => this.deleteClass(e._id), //Excluir reserva no backend
       icon: 'po-icon-delete',
-      type: 'danger'
+      type: 'danger',
     },
     {
       label: 'Alunos',
-      action: (e:any) => {
-        this.peopleList = e.peopleList
-        this.class = e
-        this.pageSlide.open()
+      action: (e: any) => {
+        this.peopleList = e.peopleList;
+        this.class = e;
+        this.pageSlide.open();
       },
-      icon: 'po-icon-users'
-    },   
+      icon: 'po-icon-users',
+    },
   ];
 
-  public readonly literals:PoListViewLiterals = {
+  public readonly literals: PoListViewLiterals = {
     showDetails: 'Lista de alunos',
     hideDetails: 'Fechar',
-    noData: 'Sem aulas'
-  }
+    noData: 'Sem aulas',
+  };
 
-  public readonly breadcrumb:PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'Class' }]
-  }
+  public readonly breadcrumb: PoBreadcrumb = {
+    items: [{ label: 'Home', link: '/' }, { label: 'Class' }],
+  };
 
   public readonly literalsTable: PoTableLiterals = {
     noColumns: 'Nenhuma definição de colunas',
@@ -62,77 +64,101 @@ export class ClassListComponent {
     deleteApiError: 'Ocorreu um erro inesperado, tente novamente mais tarde!',
   };
 
-  classApi = 'http://localhost:7071/api/class'
-  isHideLoading = true
-  peopleList:any
-  class:any
-  lookupDisabled:boolean = false
-  
-  peopleColumns = [
-    { property: 'nome'},
-    { property: 'level', label: 'Nivel'}
-  ];
+  classApi = 'http://localhost:7071/api/class';
+  isHideLoading = true;
+  peopleList: any;
+  class: any;
+  lookupDisabled: boolean = false;
 
-  constructor(private classService: ClassService, private poNotification: PoNotificationService, private _router: Router) {}
-  classes:any
+  peopleColumns = [{ property: 'nome' }, { property: 'level', label: 'Nivel' }];
+
+  constructor(
+    private classService: ClassService,
+    private poNotification: PoNotificationService,
+    private _router: Router
+  ) {}
+  classes: any;
 
   ngOnInit() {
-    this.isHideLoading = false
+    this.isHideLoading = false;
     this.classService.getClass(this.classApi).subscribe(
-    (data: any) => { 
-      this.classes = data.items 
-      this.isHideLoading = true
-    }, 
-    (error) => {
-      this.poNotification.error(error)
-      this.isHideLoading = true
-    })
+      (data: any) => {
+        this.classes = data.items;
+        this.isHideLoading = true;
+      },
+      (error) => {
+        this.poNotification.error(error);
+        this.isHideLoading = true;
+      }
+    );
   }
 
-  showDetalhes(evento:any){
-    console.log(evento)
+  showDetalhes(evento: any) {
+    console.log(evento);
   }
 
   deleteClass(classId: string) {
-    this.isHideLoading = false
-    this.classService.deleteClass(this.classApi,classId).subscribe({
+    this.isHideLoading = false;
+    this.classService.deleteClass(this.classApi, classId).subscribe({
       complete: () => {
-        this.poNotification.success('Aula excluída com sucesso.')
-        this.ngOnInit()
-        this.isHideLoading = true
+        this.poNotification.success('Aula excluída com sucesso.');
+        this.ngOnInit();
+        this.isHideLoading = true;
       },
       error: (error) => {
-        this.poNotification.error('Erro na exclusão da aula')
-        this.poNotification.error(error)
-        this.isHideLoading = true
-      }
-    })
+        this.poNotification.error('Erro na exclusão da aula');
+        this.poNotification.error(error);
+        this.isHideLoading = true;
+      },
+    });
   }
 
   public onPessoaSelected(novaPessoa: any) {
-    this.peopleList.find((pessoa:any) => pessoa._id === novaPessoa._id) ? null : this.peopleList.push(novaPessoa)
-    this.class.peopleList = this.peopleList.map((people: any) => ({ _id: people._id, nome: people.nome, level: people.level }))
+    this.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
+      ? null
+      : this.peopleList.push(novaPessoa);
+    this.class.peopleList = this.peopleList.map((people: any) => ({
+      _id: people._id,
+      nome: people.nome,
+      level: people.level,
+    }));
   }
 
-  public saveClass(event:any) {
-    console.log(event)
-    this.isHideLoading = false
+  public saveClass(event: any) {
+    console.log(event);
+    this.isHideLoading = false;
     this.classService.updateClass(this.classApi, this.class).subscribe({
       complete: () => {
-        this.poNotification.success('Aula alterada com sucesso.')
-        this.ngOnInit()
-        this.isHideLoading = true
-        this.pageSlide.close()
+        this.poNotification.success('Aula alterada com sucesso.');
+        this.ngOnInit();
+        this.isHideLoading = true;
+        this.pageSlide.close();
       },
       error: (error) => {
-        this.poNotification.error('Erro na alteração da aula')
-        this.poNotification.error(error)
-        this.isHideLoading = true
-      }
-    })
+        this.poNotification.error('Erro na alteração da aula');
+        this.poNotification.error(error);
+        this.isHideLoading = true;
+      },
+    });
   }
 
-  public onPessoaDeleted(event:any) {
-    this.class.peopleList = event.map((pessoa:any) => { pessoa.$selected = false; return pessoa })
+  public onPessoaDeleted(event: any) {
+    this.class.peopleList = event.map((pessoa: any) => {
+      pessoa.$selected = false;
+      return pessoa;
+    });
+  }
+
+  getClassByDate(date: string) {
+    this.classService.getClassesByDate(this.classApi, date).subscribe({
+      next: (data: any) => {
+        this.classes = data.items;
+        this.isHideLoading = true;
+      },
+      error: (error) => {
+        this.poNotification.error(error);
+        this.isHideLoading = true;
+      },
+    });
   }
 }
