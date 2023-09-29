@@ -6,6 +6,7 @@ import { ClassModule } from './class/class.module'
 import { CourtModule } from './court/court.module'
 import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login/login.component'
+import { LogoutComponent } from './logout/logout/logout.component'
 import { ObjectModule } from './object/object.module'
 import { PeopleModule } from './people/people.module'
 import { UnitModule } from './unit/unit.module'
@@ -43,6 +44,7 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb, PoMenuItem, PoTableColumn } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoMenuItem, PoPageAction, PoTableColumn } from '@po-ui/ng-components'
 
 @Component({
   selector: 'app-home',
@@ -12,6 +12,9 @@ export class HomeComponent {
   titleDetailsModal: string = ''
   typeChart: string = 'line';
 
+  readonly actions:PoPageAction[] = [
+    { label: 'Logout', url: '/logout', icon: 'po-icon-exit' }
+  ]
   readonly menus: Array<PoMenuItem> = [
     { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
     { label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' },

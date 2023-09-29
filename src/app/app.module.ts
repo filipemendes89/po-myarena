@@ -19,11 +19,12 @@ import { ClassListComponent } from './class/class-list/class-list.component'
 import { CourtListComponent } from './court/court-list/court-list.component'
 import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login/login.component'
+import { LogoutComponent } from './logout/logout/logout.component'
 import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,6 +38,7 @@ import { PeopleListComponent } from './people/people-list/people-list.component'
     }),
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
+      { path: 'logout', component: LogoutComponent },
       {
         path: '',
         component: HomeComponent,
