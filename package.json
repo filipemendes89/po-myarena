@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~16.2.6",
     "@angular/platform-browser-dynamic": "~16.2.6",
     "@angular/router": "~16.2.6",
+    "@auth0/auth0-angular": "^2.2.1",
     "@po-ui/ng-components": "^16.1.0",
     "@po-ui/ng-templates": "16.1.0",
     "@totvs-supply/sl-base-foundation": "^5.0.0",

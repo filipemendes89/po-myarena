@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { PoPageLogin } from '@po-ui/ng-templates'
+import { AuthService } from '@auth0/auth0-angular'
 
 @Component({
   selector: 'app-login',
@@ -9,9 +9,8 @@ import { PoPageLogin } from '@po-ui/ng-templates'
 })
 export class LoginComponent {
 
-  constructor(private _router:Router) {}
-  loginSubmit(formData:PoPageLogin) {
-    console.log(formData)
-    this._router.navigate(['/home']);
+  constructor(private _router:Router, private auth: AuthService) {}
+  ngOnInit(){
+    this.auth.loginWithRedirect()
   }
 }

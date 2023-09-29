@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { AuthGuard } from '@auth0/auth0-angular'
 import { CalendarModule } from './calendar/calendar.module'
 import { ClassModule } from './class/class.module'
 import { CourtModule } from './court/court.module'
@@ -13,6 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'people',
