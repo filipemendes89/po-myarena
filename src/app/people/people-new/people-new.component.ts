@@ -104,7 +104,15 @@ export class PeopleNewComponent {
     }else{
       this.peopleService.postPerson(this.serviceApi, this.pessoa).subscribe(
         {
-          complete: this.onActionComplete,
+          complete: () => {
+            
+            if(!this.appService.isAdmin()){
+              this.appService.setPessoa()
+            }
+
+            this.onActionComplete()
+            
+          },
           error: (error) => this.onActionError(error)
         }
       );

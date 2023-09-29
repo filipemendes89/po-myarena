@@ -6,7 +6,8 @@ import { ClassGuard } from './class.guard'
 
 const routes: Routes = [{
   path: 'new',
-  component: ClassNewComponent
+  component: ClassNewComponent,
+  canActivate: [ClassGuard]
 },
 {
   path: '',

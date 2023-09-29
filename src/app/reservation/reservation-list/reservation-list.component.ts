@@ -24,8 +24,7 @@ export class ReservationListComponent {
       label: 'Excluir',
       action: (e: any) => this.deleteReservation(e._id), //Excluir reserva no backend
       icon: 'po-icon-delete',
-      type: 'danger',
-      visible: this.appService.isAdmin()
+      type: 'danger'
     }
   ];
 
@@ -36,22 +35,15 @@ export class ReservationListComponent {
   reservations:any
   isHideLoading = true
 
+  reserverId = this.appService.getPessoa()._id
+
   ngOnInit(){
     this.isHideLoading = false
-    this.reservationService.getReservations(moment(new Date()).format('DD/MM/YYYY')).subscribe({
-      next: (data: any) => {
-        this.reservations = data.items;
-        this.isHideLoading = true;
-      },
-      error: (error) => {
-        this.poNotification.error(error);
-        this.isHideLoading = true;
-      },
-    })
+    this.getReservationByDate(moment(new Date()).format('DD/MM/YYYY'))
   }
   getReservationByDate(date: string){
     this.isHideLoading = false
-    this.reservationService.getReservations({ date }).subscribe({
+    this.reservationService.getReservations({ date, reserverId: this.reserverId }).subscribe({
       next: (data: any) => {
         this.reservations = data.items;
         this.isHideLoading = true;
