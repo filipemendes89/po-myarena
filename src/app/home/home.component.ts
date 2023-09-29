@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb, PoTableColumn } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoMenuItem, PoTableColumn } from '@po-ui/ng-components'
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,15 @@ export class HomeComponent {
   itemsDetails: Array<any> = []
   titleDetailsModal: string = ''
   typeChart: string = 'line';
+
+  readonly menus: Array<PoMenuItem> = [
+    { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
+    { label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' },
+    { label: 'Aulas', link: '/class', icon: 'po-icon-calendar-ok', shortLabel: 'Aulas' },
+    { label: 'Quadras', link: '/court', icon: 'po-icon-target', shortLabel: 'Quadras' },
+    { label: 'Calendários', link: '/calendar', icon: 'po-icon-calendar', shortLabel: 'Calendários' },
+    { label: 'Estoque', link: '/object', icon: 'po-icon-stock', shortLabel: 'Estoque' }
+  ];
 
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/' }]

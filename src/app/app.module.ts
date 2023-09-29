@@ -5,7 +5,11 @@ import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterModule } from '@angular/router'
 import { PoModule } from '@po-ui/ng-components'
-import { PoPageDynamicTableModule, PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates'
+import {
+  PoPageDynamicTableModule,
+  PoPageLoginModule,
+  PoTemplatesModule
+} from '@po-ui/ng-templates'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { CalendarListComponent } from './calendar/calendar-list/calendar-list.component'
@@ -17,31 +21,32 @@ import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent
-  ],
+  declarations: [AppComponent, HomeComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     PoModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: LoginComponent },
-      {path: 'home', component: HomeComponent },
-      {path: 'people', component: PeopleListComponent },
-      {path: 'class', component: ClassListComponent },
-      {path: 'court', component: CourtListComponent },
-      {path: 'calendar', component: CalendarListComponent },
-      {path: 'object', component: ObjectListComponent },
+      { path: 'login', component: LoginComponent },
+      {
+        path: '',
+        component: HomeComponent,
+        children: [
+          { path: 'people', component: PeopleListComponent },
+          { path: 'class', component: ClassListComponent },
+          { path: 'court', component: CourtListComponent },
+          { path: 'calendar', component: CalendarListComponent },
+          { path: 'object', component: ObjectListComponent },
+        ],
+      },
     ]),
     PoTemplatesModule,
     PoPageDynamicTableModule,
     BrowserAnimationsModule,
-    PoPageLoginModule
+    PoPageLoginModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
