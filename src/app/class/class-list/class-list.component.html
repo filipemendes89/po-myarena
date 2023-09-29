@@ -1,26 +1,48 @@
 <po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
-  <po-datepicker class="po-md-2 po-m-1" [p-auto-focus]="true" (p-change)="getClassByDate($event)" p-label="Data da aula"></po-datepicker>
-    <po-list-view class="po-md-12"
+  <po-datepicker
+    class="po-md-2 po-m-1"
+    [p-auto-focus]="true"
+    (p-change)="getClassByDate($event)"
+    p-label="Data da aula"
+  ></po-datepicker>
+  <po-list-view
+    class="po-md-12"
     p-property-title="sport"
     [p-items]="classes"
     [p-actions]="actionsView"
     [p-literals]="literals"
-    >
-    
+  >
     <ng-template p-list-view-content-template let-item>
-        <div class="po-row">
-          <po-avatar [p-src]="item.avatar"></po-avatar>
-          <po-info class="po-md-3 po-ml-5" p-label="Data" [p-value]="item.date"></po-info>
-          <po-info class="po-md-3" p-label="Nivel" [p-value]="item.level"></po-info>
-          <po-info class="po-md-3" p-label="Max. alunos" [p-value]="item.people"></po-info>
-          <po-switch name="active" p-label="Espera?" [p-value]="item.active" [p-disabled]="true"> </po-switch>
-        </div>
-      </ng-template>
-    </po-list-view>
+      <div class="po-row">
+        <po-avatar [p-src]="item.avatar"></po-avatar>
+        <po-info
+          class="po-md-3 po-ml-5"
+          p-label="Data"
+          [p-value]="item.date"
+        ></po-info>
+        <po-info
+          class="po-md-3"
+          p-label="Nivel"
+          [p-value]="item.level"
+        ></po-info>
+        <po-info
+          class="po-md-3"
+          p-label="Max. alunos"
+          [p-value]="item.people"
+        ></po-info>
+        <po-switch
+          name="active"
+          p-label="Espera?"
+          [p-value]="item.active"
+          [p-disabled]="true"
+        >
+        </po-switch>
+      </div>
+    </ng-template>
+  </po-list-view>
 
-    <po-page-slide #pageSlide p-title="Alunos" p-size="auto">
-
-      <po-table
+  <po-page-slide #pageSlide p-title="Alunos" p-size="auto">
+    <po-table
       [p-selectable]="true"
       [p-single-select]="true"
       [p-striped]="true"
@@ -32,18 +54,49 @@
     >
     </po-table>
     <po-container class="po-ml-5">
-      <po-lookup class="po-md-12"
+      <po-lookup
+        class="po-md-12"
         name="pessoa"
         p-filter-service="https://myarenaapi.azurewebsites.net/api/people?code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw=="
         p-label="Inserir Aluno"
         (p-selected)="onPessoaSelected($event)"
       ></po-lookup>
-  </po-container>
-  <po-container>
-    <po-button class="po-md-12" p-kind="primary" p-label="Salvar" p-icon="po-icon-user-add" (p-click)="saveClass(this)" [p-disabled]="lookupDisabled">
-    </po-button>
-  </po-container>
-    </po-page-slide>
+    </po-container>
+    <po-container>
+      <po-button
+        class="po-md-12"
+        p-kind="primary"
+        p-label="Salvar"
+        p-icon="po-icon-user-add"
+        (p-click)="saveClass(this)"
+        [p-disabled]="lookupDisabled"
+      >
+      </po-button>
+    </po-container>
+  </po-page-slide>
 
-    <po-loading-overlay [hidden]="isHideLoading" ></po-loading-overlay>
+  <po-page-slide #pageSlideAluno p-title="Alunos" p-size="auto">
+    <po-table
+      [p-selectable]="false"
+      [p-striped]="true"
+      [p-columns]="peopleColumns"
+      [p-items]="peopleList"
+      [p-hide-table-search]="true"
+      [p-literals]="literalsTable"
+    >
+    </po-table>
+    <po-container>
+      <po-button
+        class="po-md-12"
+        p-kind="primary"
+        p-label="Salvar"
+        p-icon="po-icon-user-add"
+        (p-click)="saveClass(this)"
+        [p-disabled]="lookupDisabled"
+      >
+      </po-button>
+    </po-container>
+  </po-page-slide>
+
+  <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
 </po-page-default>

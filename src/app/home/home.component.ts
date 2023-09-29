@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { AuthService } from '@auth0/auth0-angular'
 import { PoBreadcrumb, PoMenuItem, PoTableColumn, PoToolbarAction } from '@po-ui/ng-components'
+import { AppService } from '../app.service'
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { PoBreadcrumb, PoMenuItem, PoTableColumn, PoToolbarAction } from '@po-ui
 })
 export class HomeComponent {
   
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private appService: AppService) {}
   paymentLink: string = 'https://www.google.com.br/search?q=days+to+payment';
   itemsDetails: Array<any> = []
   titleDetailsModal: string = ''
@@ -20,15 +21,9 @@ export class HomeComponent {
     { label: 'Logout', url: '/logout', icon: 'po-icon-exit', type: 'danger' }
   ];
   
-  readonly menus: Array<PoMenuItem> = [
+  public menus: Array<PoMenuItem> = [
     { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
-    { label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' },
-    { label: 'Aulas', link: '/class', icon: 'po-icon-calendar-ok', shortLabel: 'Aulas' },
-    { label: 'Quadras', link: '/court', icon: 'po-icon-target', shortLabel: 'Quadras' },
-    { label: 'Calendários', link: '/calendar', icon: 'po-icon-calendar', shortLabel: 'Calendários' },
-    { label: 'Estoque', link: '/object', icon: 'po-icon-stock', shortLabel: 'Estoque' },
-    { label: 'Sair', link: '/logout', icon: 'po-icon-exit', shortLabel: 'Sair',  }
-  ];
+  ]
 
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/' }]
@@ -74,7 +69,11 @@ export class HomeComponent {
         localStorage.setItem('name', data.name)
         localStorage.setItem('picture', data.picture)
         localStorage.setItem('role', data['https://myarena/roles']?.[0])
-        console.log(data) 
-      } )
+
+        this.menus = this.appService.getMenus(this.appService.isAdmin())
+
+        if(!this.appService.isAdmin())
+          this.appService.setPessoa()
+      })
   }
 }

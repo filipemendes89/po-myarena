@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login/login.component'
 import { LogoutComponent } from './logout/logout/logout.component'
 import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
+import { PeopleService } from './people/people.service'
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent],
@@ -57,7 +58,7 @@ import { PeopleListComponent } from './people/people-list/people-list.component'
     PoPageLoginModule,
     PoLoadingModule
   ],
-  providers: [],
+  providers: [PeopleService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

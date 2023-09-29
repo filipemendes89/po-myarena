@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
 
 import { PoPageDynamicEditActions, PoPageDynamicEditLiterals } from '@po-ui/ng-templates'
+import { AppService } from 'src/app/app.service'
 import { PeopleService } from '../people.service'
 
 
@@ -43,7 +44,7 @@ export class PeopleNewComponent {
   public id:any
   
   public readonly fields: Array<PoDynamicFormField> = [
-    { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3, visible: this.peopleService.isAdmin() },
+    { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3, visible: this.appService.isAdmin() },
     { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
     { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
     { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 5, label: "Genero"  },
@@ -69,12 +70,12 @@ export class PeopleNewComponent {
       optionsMulti: true,
     },
     { property: 'cpf',  required: true, mask: '999.999.999-99', label: "CPF", divider: 'Documentos' },
-    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail', disabled: !this.peopleService.isAdmin() },
+    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail', disabled: !this.appService.isAdmin() },
     { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone' },
     { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram' },
   ];
 
-  constructor(public poNotification: PoNotificationService, public peopleService: PeopleService, private activatedRoute: ActivatedRoute, private _router: Router) {
+  constructor(public poNotification: PoNotificationService, public peopleService: PeopleService, private activatedRoute: ActivatedRoute, private _router: Router, private appService: AppService) {
   }
 
   private onActionComplete = () => { 

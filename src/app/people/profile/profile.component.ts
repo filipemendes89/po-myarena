@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PoInfoOrientation } from '@po-ui/ng-components'
+import { AppService } from 'src/app/app.service'
 import { PeopleService } from '../people.service'
 
 @Component({
@@ -10,7 +11,7 @@ import { PeopleService } from '../people.service'
   providers: [PeopleService]
 })
 export class ProfileComponent {
-  constructor(private peopleService: PeopleService, private _router: Router) {
+  constructor(private appService: AppService, private _router: Router) {
   }
 
   public readonly orientationInfo: PoInfoOrientation = PoInfoOrientation.Horizontal
@@ -22,12 +23,7 @@ export class ProfileComponent {
   }
 
   ngOnInit() {
-    this.peopleService.getPeople(`${this.serviceApi}?email=${localStorage.getItem('email')}`).subscribe((data:any) => { 
-      console.log(data)
-      if(data.items?.length > 0) {
-        this.pessoa = data.items.pop() 
-      }
-    })
+    this.pessoa = this.appService.getPessoa()
   }
 
   editPeople(event: any) {

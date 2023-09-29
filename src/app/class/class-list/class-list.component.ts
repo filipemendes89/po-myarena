@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals } from '@po-ui/ng-components';
-import { ClassService } from '../class.service';
+import { Component, ViewChild } from '@angular/core'
+import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals } from '@po-ui/ng-components'
+import { AppService } from 'src/app/app.service'
+import { ClassService } from '../class.service'
 
 @Component({
   selector: 'app-class-list',
@@ -10,28 +10,33 @@ import { ClassService } from '../class.service';
 })
 export class ClassListComponent {
   @ViewChild('pageSlide') pageSlide: any;
+  @ViewChild('pageSlideAluno') pageSlideAluno: any;
 
   public readonly actions: PoPageAction[] = [
     {
       icon: 'po-icon-plus',
       label: 'Novo',
       url: 'class/new',
+      visible: this.appService.isAdmin()
     },
   ];
 
+  private readonly isAdmin = this.appService.isAdmin()
+  private readonly labelButtonAdd: string = this.isAdmin ? 'Alunos': 'Entrar'
   readonly actionsView: Array<PoListViewAction> = [
     {
       label: 'Excluir',
       action: (e: any) => this.deleteClass(e._id), //Excluir reserva no backend
       icon: 'po-icon-delete',
       type: 'danger',
+      visible: this.appService.isAdmin()
     },
     {
-      label: 'Alunos',
+      label: this.labelButtonAdd,
       action: (e: any) => {
         this.peopleList = e.peopleList;
         this.class = e;
-        this.pageSlide.open();
+        this.openPageSlide()
       },
       icon: 'po-icon-users',
     },
@@ -75,7 +80,7 @@ export class ClassListComponent {
   constructor(
     private classService: ClassService,
     private poNotification: PoNotificationService,
-    private _router: Router
+    private appService: AppService
   ) {}
   classes: any;
 
@@ -150,6 +155,7 @@ export class ClassListComponent {
   }
 
   getClassByDate(date: string) {
+    this.isHideLoading = false
     this.classService.getClassesByDate(this.classApi, date).subscribe({
       next: (data: any) => {
         this.classes = data.items;
@@ -160,5 +166,13 @@ export class ClassListComponent {
         this.isHideLoading = true;
       },
     });
+  }
+
+  openPageSlide(){
+    if(this.isAdmin)
+      return this.pageSlide.open()
+    
+    this.onPessoaSelected(this.appService.getPessoa())
+    return this.pageSlideAluno.open()
   }
 }
