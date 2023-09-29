@@ -25,10 +25,11 @@ export class ReservationNewComponent {
   readonly detailFields: Array<PoDynamicFormField> = [
     { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
     { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
-    { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true }
+    { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
+    { property: 'reserverId', label: 'Reservado por', gridColumns: 4, required: true, readonly: !this.appService.isAdmin(), searchService: 'https://myarenaapi.azurewebsites.net/api/people', fieldLabel: 'nome', fieldValue: '_id' },
   ];
 
-  reserverId = this.appService.getPessoa()._id
+  reserverId = this.appService.getPessoa()?._id
   detailValue: any = {
     reserverId: this.reserverId
   }
@@ -59,12 +60,12 @@ export class ReservationNewComponent {
     this.reservationService.postReservation(this.detailValue).subscribe(
       (data: any) => {
         this.detailValue = { classId: data._id, ...this.detailValue }
-        this.poNotification.success('Aula criada com sucesso.')
-        this._router.navigateByUrl('/class')
+        this.poNotification.success('Reserva criada com sucesso.')
+        this._router.navigateByUrl('/reservation')
         this.isHideLoading = true
       },
       (error:any) => {
-        this.poNotification.error('Erro na criação da aula')
+        this.poNotification.error('Erro na criação da reserva')
         this.poNotification.error(error)
         this.isHideLoading = true
       })

@@ -35,15 +35,20 @@ export class ReservationListComponent {
   reservations:any
   isHideLoading = true
 
-  reserverId = this.appService.getPessoa()._id
+  reserverId = this.appService.getPessoa()?._id
 
   ngOnInit(){
     this.isHideLoading = false
     this.getReservationByDate(moment(new Date()).format('DD/MM/YYYY'))
   }
   getReservationByDate(date: string){
+    const params: { date: string, reserverId?: string } = { date }
+
+    if(this.reserverId)
+      params.reserverId = this.reserverId
+      
     this.isHideLoading = false
-    this.reservationService.getReservations({ date, reserverId: this.reserverId }).subscribe({
+    this.reservationService.getReservations(params).subscribe({
       next: (data: any) => {
         this.reservations = data.items;
         this.isHideLoading = true;
