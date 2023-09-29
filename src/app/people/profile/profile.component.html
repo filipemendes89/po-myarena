@@ -1,0 +1,17 @@
+<po-page-default>
+    <po-widget
+    class="po-sm-12 po-md-12"
+    [p-title]="pessoa.nome"
+    p-primary-label="Editar"
+    p-secondary-label="Aulas/Reservas"
+    (p-primary-action)="editPeople(this)"
+  >
+    <po-avatar class="po-md-4" p-size="lg" [p-src]="pessoa.avatar"> </po-avatar>
+
+    <div class="po-md-6"> 
+      <po-info p-label="Telefone" [p-value]="pessoa.phone" [p-orientation]="orientationInfo"></po-info>
+      <po-info p-label="E-mail" [p-value]="pessoa.email" [p-orientation]="orientationInfo"></po-info>
+      <po-info p-label="Esportes" [p-value]="pessoa.sports"></po-info>
+    </div>
+  </po-widget>
+</po-page-default>

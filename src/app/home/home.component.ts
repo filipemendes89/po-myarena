@@ -16,7 +16,7 @@ export class HomeComponent {
   typeChart: string = 'line';
   
   readonly profileActions:PoToolbarAction[] = [
-    { label: 'Perfil', url: '/profile', icon: 'po-icon-user', type: 'primary' },
+    { label: 'Perfil', url: '/people/profile', icon: 'po-icon-user', type: 'primary' },
     { label: 'Logout', url: '/logout', icon: 'po-icon-exit', type: 'danger' }
   ];
   
@@ -67,8 +67,13 @@ export class HomeComponent {
         this.profile = {
           avatar: data.picture,
           title: data.name,
-          subTitle: data.email
+          subtitle: data.email
         }
+        
+        localStorage.setItem('email', data.email)
+        localStorage.setItem('name', data.name)
+        localStorage.setItem('picture', data.picture)
+        localStorage.setItem('role', data['https://myarena/roles']?.[0])
         console.log(data) 
       } )
   }

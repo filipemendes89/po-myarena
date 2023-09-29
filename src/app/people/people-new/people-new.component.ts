@@ -43,7 +43,7 @@ export class PeopleNewComponent {
   public id:any
   
   public readonly fields: Array<PoDynamicFormField> = [
-    { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3 },
+    { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3, visible: this.peopleService.isAdmin() },
     { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
     { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
     { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 5, label: "Genero"  },
@@ -69,7 +69,7 @@ export class PeopleNewComponent {
       optionsMulti: true,
     },
     { property: 'cpf',  required: true, mask: '999.999.999-99', label: "CPF", divider: 'Documentos' },
-    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail' },
+    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail', disabled: !this.peopleService.isAdmin() },
     { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone' },
     { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram' },
   ];
@@ -114,6 +114,10 @@ export class PeopleNewComponent {
     this.id = this.activatedRoute.snapshot?.params['id'];
     if(this.id){
       this.peopleService.getPeople(`${this.serviceApi}/${this.id}`).subscribe((data) => { this.pessoa = data })
+    }
+
+    if(history.state?.pessoa){
+      this.pessoa = history.state?.pessoa
     }
   }
 }

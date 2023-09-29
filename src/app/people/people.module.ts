@@ -5,12 +5,14 @@ import { PoPageDynamicEditModule, PoPageDynamicTableModule } from '@po-ui/ng-tem
 import { PeopleListComponent } from './people-list/people-list.component'
 import { PeopleNewComponent } from './people-new/people-new.component'
 import { PeopleRoutingModule } from './people-routing.module'
-import { PeopleWidgetComponent } from './people-widget/people-widget.component'
+import { PeopleWidgetComponent } from './people-widget/people-widget.component';
+import { ProfileComponent } from './profile/profile.component'
 @NgModule({
   declarations: [
     PeopleListComponent,
     PeopleNewComponent,
-    PeopleWidgetComponent
+    PeopleWidgetComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
