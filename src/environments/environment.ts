@@ -5,6 +5,6 @@ export const environment = {
   auth: {
     domain: auth_config.domain,
     clientId: auth_config.clientId,
-    redirectUri: 'http://localhost:4200',
+    redirectUri: window.location.origin,
   },
 };
