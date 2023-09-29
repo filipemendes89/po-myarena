@@ -47,8 +47,8 @@ export class PeopleNewComponent {
     { property: 'tipo',divider: 'Tipo', options: ['Aluno', 'Professor'], gridColumns: 3, visible: this.appService.isAdmin() },
     { property: 'nome', divider: 'Dados Pessoais', required: true, label: "Nome" },
     { property: 'dtNascimento', label: 'Dt. Nascimento', type: 'date' },
-    { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 5, label: "Genero"  },
-    { property: 'nacionalidade', options: ['Brasileiro', 'Estrangeiro'], gridColumns: 6, label: "Nacionalidade"   },
+    { property: 'genero', options: ['Feminino', 'Masculino'], gridColumns: 5, label: "Genero",  required: true  },
+    { property: 'nacionalidade', options: ['Brasileiro', 'Estrangeiro'], gridColumns: 6, label: "Nacionalidade",  required: true   },
     {
       property: 'avatar',
       type: 'upload',
@@ -68,10 +68,11 @@ export class PeopleNewComponent {
       optional: false,
       options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
       optionsMulti: true,
+      required: true
     },
     { property: 'cpf',  required: true, mask: '999.999.999-99', label: "CPF", divider: 'Documentos' },
     { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail', disabled: !this.appService.isAdmin() },
-    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone' },
+    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone', required: true },
     { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram' },
   ];
 
@@ -92,7 +93,7 @@ export class PeopleNewComponent {
 
   onClickSave() {
     this.isHideLoading = false
-
+    
     if(this.id){
       this.peopleService.putPerson(`${this.serviceApi}/${this.id}`, this.pessoa).subscribe(
         {

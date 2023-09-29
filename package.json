@@ -23,6 +23,7 @@
     "@po-ui/ng-templates": "16.1.0",
     "@totvs-supply/sl-base-foundation": "^5.0.0",
     "axios": "^1.5.1",
+    "moment": "^2.29.4",
     "rxjs": "~7.5.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.3"

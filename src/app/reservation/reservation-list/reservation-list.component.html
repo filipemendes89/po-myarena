@@ -1,0 +1,34 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+    <po-datepicker
+      class="po-md-4 po-m-1"
+      [p-auto-focus]="true"
+      (p-change)="getReservationByDate($event)"
+      p-label="Data da reserva"
+    ></po-datepicker>
+    <po-list-view
+      class="po-md-12"
+      p-property-title="sport"
+      [p-items]="reservations"
+      [p-actions]="actionsView"
+    >
+      <ng-template p-list-view-content-template let-item>
+        <div class="po-row">
+          <po-avatar [p-src]="item.avatar"></po-avatar>
+          <po-info
+            class="po-md-3 po-ml-5"
+            p-label="Data"
+            [p-value]="item.date"
+          ></po-info>
+
+          <po-info
+            class="po-md-3 po-ml-5"
+            p-label="Hora"
+            [p-value]="item.time"
+          ></po-info>
+         
+        </div>
+      </ng-template>
+    </po-list-view>
+  
+  </po-page-default>
+  

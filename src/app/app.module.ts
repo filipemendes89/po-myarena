@@ -20,9 +20,9 @@ import { CourtListComponent } from './court/court-list/court-list.component'
 import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login/login.component'
 import { LogoutComponent } from './logout/logout/logout.component'
-import { ObjectListComponent } from './object/object-list/object-list.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { PeopleService } from './people/people.service'
+import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component'
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent],
@@ -48,7 +48,7 @@ import { PeopleService } from './people/people.service'
           { path: 'class', component: ClassListComponent },
           { path: 'court', component: CourtListComponent },
           { path: 'calendar', component: CalendarListComponent },
-          { path: 'object', component: ObjectListComponent },
+          { path: 'reservation', component: ReservationListComponent },
         ],
       },
     ]),

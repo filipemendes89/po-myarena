@@ -23,7 +23,10 @@ export class ProfileComponent {
   }
 
   ngOnInit() {
-    this.pessoa = this.appService.getPessoa()
+    const pessoaCadastrada = this.appService.getPessoa()
+
+    if(pessoaCadastrada)
+      this.pessoa = pessoaCadastrada
   }
 
   editPeople(event: any) {

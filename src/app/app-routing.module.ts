@@ -7,8 +7,8 @@ import { CourtModule } from './court/court.module'
 import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login/login.component'
 import { LogoutComponent } from './logout/logout/logout.component'
-import { ObjectModule } from './object/object.module'
 import { PeopleModule } from './people/people.module'
+import { ReservationModule } from './reservation/reservation.module'
 import { UnitModule } from './unit/unit.module'
 
 const routes: Routes = [
@@ -38,8 +38,8 @@ const routes: Routes = [
         loadChildren: () => CalendarModule,
       },
       {
-        path: 'object',
-        loadChildren: () => ObjectModule,
+        path: 'reservation',
+        loadChildren: () => ReservationModule,
       },
     ],
   },
