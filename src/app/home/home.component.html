@@ -1,5 +1,11 @@
 <div class="po-wrapper">
-  
+  <po-toolbar
+  p-title="MyArena"
+  [p-profile]="profile"
+  [p-profile-actions]="profileActions"
+  >
+
+  </po-toolbar>
   <po-menu
     [p-collapsed]="false"
     p-logo="../assets/logo.png"
@@ -7,10 +13,8 @@
     [p-menus]="menus"
   >
   </po-menu>
-
   <router-outlet></router-outlet>
-
-  <po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+  <po-page-default [p-breadcrumb]="breadcrumb">
     <div class="po-row">
         <po-widget
           class="po-lg-6 po-mt-2"
