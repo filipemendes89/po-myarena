@@ -101,11 +101,20 @@ export class PeopleNewComponent {
 
   onClickSave() {
     this.isHideLoading = false
+    this.id ??= this.pessoa._id
     
     if(this.id){
       this.peopleService.putPerson(`${this.serviceApi}/${this.id}`, this.pessoa).subscribe(
         {
-          complete: this.onActionComplete,
+          complete: () => {
+            
+            if(!this.appService.isAdmin()){
+              this.appService.setPessoa()
+            }
+
+            this.onActionComplete()
+            
+          },
           error: (error) => this.onActionError(error)
         }
       );

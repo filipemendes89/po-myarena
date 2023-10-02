@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { PoInfoOrientation } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoInfoOrientation } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
 import { PeopleService } from '../people.service'
 
@@ -15,6 +15,9 @@ export class ProfileComponent {
   }
 
   public readonly orientationInfo: PoInfoOrientation = PoInfoOrientation.Horizontal
+  public readonly breadcrumb: PoBreadcrumb = {
+    items: [{ label: 'Home', link: '/' }, { label: 'Profile' }]
+  }
   public readonly serviceApi = 'https://myarenaapi.azurewebsites.net/api/people';
   pessoa:any = {
     email: localStorage.getItem('email'),

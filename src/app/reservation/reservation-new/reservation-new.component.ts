@@ -41,6 +41,7 @@ export class ReservationNewComponent {
         { property: 'cpf'}
         
       ],
+      disabled: !this.appService.isAdmin()
     },
   ];
 

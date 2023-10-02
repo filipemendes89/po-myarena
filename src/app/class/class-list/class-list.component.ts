@@ -34,7 +34,10 @@ export class ClassListComponent {
     {
       label: this.labelButtonAdd,
       action: (e: any) => {
-        this.peopleList = e.peopleList;
+        this.peopleList = e.peopleList.map((pessoa:any, index: number) => {
+          pessoa.status = index + 1 <= e.people  ? 'available' : 'reserved'
+          return pessoa
+        });
         this.class = e;
         this.openPageSlide()
       },
@@ -75,7 +78,14 @@ export class ClassListComponent {
   class: any;
   lookupDisabled: boolean = false;
 
-  peopleColumns = [{ property: 'nome' }, { property: 'level', label: 'Nivel' }];
+  peopleColumns = [{ property: 'nome' }, { property: 'level', label: 'Nivel' }, {
+    property: 'status',
+    type: 'label',
+    labels: [
+      { value: 'available', color: 'color-11', label: 'Confirmado' },
+      { value: 'reserved', color: 'color-08', label: 'Em espera' }
+    ]
+  }];
 
   constructor(
     private classService: ClassService,
@@ -122,10 +132,11 @@ export class ClassListComponent {
     this.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
       ? null
       : this.peopleList.push(novaPessoa);
-    this.class.peopleList = this.peopleList.map((people: any) => ({
+    this.class.peopleList = this.peopleList.map((people: any, index: number) => ({
       _id: people._id,
       nome: people.nome,
       level: people.level,
+      status: index + 1 <= this.class.people ? 'available' : 'reserved'
     }));
   }
 

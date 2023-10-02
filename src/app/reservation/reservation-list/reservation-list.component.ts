@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PoBreadcrumb, PoListViewAction, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDialogService, PoListViewAction, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 import * as moment from 'moment'
 import { AppService } from 'src/app/app.service'
 import { ReservationService } from '../reservation.service'
@@ -10,7 +10,12 @@ import { ReservationService } from '../reservation.service'
   styleUrls: ['./reservation-list.component.css']
 })
 export class ReservationListComponent {
-  constructor(private appService: AppService, private reservationService: ReservationService, private poNotification: PoNotificationService) { }
+  constructor(
+    private appService: AppService, 
+    private reservationService: ReservationService, 
+    private poNotification: PoNotificationService,
+    private poDialogService: PoDialogService
+    ) { }
   public readonly actions: PoPageAction[] = [
     {
       icon: 'po-icon-plus',
@@ -22,7 +27,9 @@ export class ReservationListComponent {
   readonly actionsView: Array<PoListViewAction> = [
     {
       label: 'Excluir',
-      action: (e: any) => this.deleteReservation(e._id), //Excluir reserva no backend
+      action: (e: any) => {
+        this.poDialogService.alert({ title: 'Excluir', message: 'Tem certeza que deseja excluir esta reserva?', ok: () => this.deleteReservation(e._id) })
+      },
       icon: 'po-icon-delete',
       type: 'danger'
     }
@@ -61,6 +68,7 @@ export class ReservationListComponent {
   }
 
   deleteReservation(id: string){
+    console.log(this)
     this.isHideLoading = false
     this.reservationService.deleteReservations(id).subscribe({
       complete: () => {
