@@ -33,7 +33,7 @@ export class ReservationNewComponent {
       gridColumns: 4, 
       required: true, 
       readonly: !this.appService.isAdmin(), 
-      searchService: 'htts://myarenaapi.azurewebsites.net/api/people', 
+      searchService: 'https://myarenaapi.azurewebsites.net/api/people', 
       fieldLabel: 'nome', 
       fieldValue: '_id',
       columns: [

@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     --color-primary: rgb(27, 65, 9);
-    --color-secondary: green;
+    --color-secondary: rgb(83, 178, 0);
     --color-tertiary: blue;
-    --color-quartiary: rgb(229, 241, 228);
-    --color-primary-light-95: rgb(142, 183, 122);
-    --color-primary-light-80: rgb(142, 183, 122);
-    --color-primary-alpha-50: rgb(95, 121, 81);
+    --color-quartiary: rgb(255, 255, 227);
+    --color-primary-light-95: rgb(224, 232, 157);
+    --color-primary-light-80: rgb(255, 255, 255);
+    --color-primary-alpha-50: rgb(255, 255, 255);
   }
 
  .po-menu {
