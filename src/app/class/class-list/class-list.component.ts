@@ -72,7 +72,7 @@ export class ClassListComponent {
     deleteApiError: 'Ocorreu um erro inesperado, tente novamente mais tarde!',
   };
 
-  classApi = 'http://localhost:7071/api/class';
+  classApi = 'https://myarenaapi.azurewebsites.net/api/class';
   isHideLoading = true;
   peopleList: any;
   class: any;
