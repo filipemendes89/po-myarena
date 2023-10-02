@@ -6,9 +6,9 @@
   </form>
   <form [formGroup]="form">
     <div *ngFor="let control of form.controls; let i = index" class="po-md-8" [formGroup]="control">
-      <po-input formControlName="entryTime"  class="po-md-4" p-mask="99:00" p-mask-format-model="true"></po-input>
-      <po-input formControlName="exitTime" class="po-md-4" p-mask="99:00" p-mask-format-model="true"></po-input>
-      <po-button p-kind="tertiary" p-size="large" (p-click)="onClickAdd(i)" p-icon="po-icon-plus"></po-button>
+      <po-input p-help="Hora início" formControlName="entryTime"  class="po-md-4 po-mt-4 po-mt-sm-2" p-mask="99:00" p-mask-format-model="true"></po-input>
+      <po-input p-help="Hora fim" formControlName="exitTime" class="po-md-4 po-mt-4 po-mt-sm-1"  p-mask="99:00" p-mask-format-model="true"></po-input>
+      <po-button class="po-md-1 po-sm-12 po-mt-4 po-mt-sm-1" p-kind="tertiary" p-size="large" (p-click)="onClickAdd(i)" p-icon="po-icon-plus"></po-button>
     </div>
   </form>
 

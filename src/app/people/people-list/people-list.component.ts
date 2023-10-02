@@ -163,9 +163,9 @@ export class PeopleListComponent {
       .map((filter) => encodeURI(`${filter.property}=${filter.value}&`))
       .join('');
     this.isHideLoading = true;
-    console.log(`${this.serviceApi}${filterString}`);
+    console.log(`${this.serviceApi}?${filterString}`);
     this.peopleService
-      .getPeople(`${this.serviceApi}${filterString}`)
+      .getPeople(`${this.serviceApi}?${filterString}`)
       .subscribe((data: any) => (this.pessoas = data.items));
   }
 

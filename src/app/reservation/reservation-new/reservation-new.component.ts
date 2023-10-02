@@ -23,10 +23,25 @@ export class ReservationNewComponent {
   }
 
   readonly detailFields: Array<PoDynamicFormField> = [
-    { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
-    { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
-    { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
-    { property: 'reserverId', label: 'Reservado por', gridColumns: 4, required: true, readonly: !this.appService.isAdmin(), searchService: 'https://myarenaapi.azurewebsites.net/api/people', fieldLabel: 'nome', fieldValue: '_id' },
+    { property: 'date', label: 'Data', gridColumns: 6, gridSmColumns: 8, required: true, readonly: true },
+    { property: 'time', label: 'Horário', gridSmColumns: 4, gridColumns: 2, required: true, readonly: true },
+    { property: 'court', label: 'Quadra', gridSmColumns: 12,gridColumns: 4, required: true, readonly: true },
+    { 
+      property: 'reserverId', 
+      label: 'Reservado por', 
+      gridSmColumns: 12, 
+      gridColumns: 4, 
+      required: true, 
+      readonly: !this.appService.isAdmin(), 
+      searchService: 'http://localhost:7071/api/people', 
+      fieldLabel: 'nome', 
+      fieldValue: '_id',
+      columns: [
+        { property: 'nome' },
+        { property: 'cpf'}
+        
+      ],
+    },
   ];
 
   reserverId = this.appService.getPessoa()?._id

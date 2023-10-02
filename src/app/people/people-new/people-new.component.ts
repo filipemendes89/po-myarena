@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
 
+import { Location } from '@angular/common'
 import { PoPageDynamicEditActions, PoPageDynamicEditLiterals } from '@po-ui/ng-templates'
 import { AppService } from 'src/app/app.service'
 import { PeopleService } from '../people.service'
@@ -71,19 +72,26 @@ export class PeopleNewComponent {
       required: true
     },
     { property: 'cpf',  required: true, mask: '999.999.999-99', label: "CPF", divider: 'Documentos' },
-    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail', disabled: !this.appService.isAdmin() },
-    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone', required: true },
-    { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram' },
+    { property: 'email', divider: 'Contatos', gridColumns: 4, icon: 'po-icon-mail', disabled: !this.appService.isAdmin(), gridSmColumns: 12 },
+    { property: 'phone', mask: '(99) 99999-9999', gridColumns: 3, icon: 'po-icon-telephone', required: true, gridSmColumns: 12 },
+    { property: 'instagram', gridColumns: 3, icon: 'po-icon-social-instagram', gridSmColumns: 12 },
   ];
 
-  constructor(public poNotification: PoNotificationService, public peopleService: PeopleService, private activatedRoute: ActivatedRoute, private _router: Router, private appService: AppService) {
+  constructor(
+    public poNotification: PoNotificationService, 
+    public peopleService: PeopleService, 
+    private activatedRoute: ActivatedRoute, 
+    private _router: Router, 
+    private appService: AppService,
+    private location: Location
+    ) {
   }
 
   private onActionComplete = () => { 
     this.isHideLoading = true
     this.poNotification.success(`Seu registro foi criado com sucesso!`) 
     this.dynamicForm.form.reset()
-    this._router.navigateByUrl('/people')
+    this.location.back()
   }
 
   private onActionError = (error:any) => { 

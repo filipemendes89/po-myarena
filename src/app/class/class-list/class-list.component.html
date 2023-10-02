@@ -1,12 +1,12 @@
 <po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
   <po-datepicker
-    class="po-md-4 po-m-1"
+    class="po-md-4"
     [p-auto-focus]="true"
     (p-change)="getClassByDate($event)"
     p-label="Data da aula"
   ></po-datepicker>
   <po-list-view
-    class="po-md-12"
+    class="po-md-12 po-sm-12"
     p-property-title="sport"
     [p-items]="classes"
     [p-actions]="actionsView"
@@ -14,24 +14,24 @@
   >
     <ng-template p-list-view-content-template let-item>
       <div class="po-row">
-        <po-avatar [p-src]="item.avatar"></po-avatar>
         <po-info
-          class="po-md-3 po-ml-5"
+          class="po-md-3 po-sm-6"
           p-label="Data"
           [p-value]="item.date"
         ></po-info>
         <po-info
-          class="po-md-3"
+          class="po-md-3 po-sm-6"
           p-label="Nivel"
           [p-value]="item.level"
         ></po-info>
         <po-info
-          class="po-md-3"
+          class="po-md-3 po-sm-6"
           p-label="Max. alunos"
           [p-value]="item.people"
         ></po-info>
         <po-switch
           name="active"
+          class="po-md-3 po-sm-6"
           p-label="Espera?"
           [p-value]="item.active"
           [p-disabled]="true"
