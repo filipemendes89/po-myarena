@@ -14,14 +14,10 @@ export class MembersClassListComponent {
   public readonly actions: PoPageAction[] = [
     {
       icon: 'po-icon-plus',
-      label: 'Novo',
-      url: 'class/new',
-      visible: this.appService.isAdmin()
+      label: 'Marcar aula',
+      url: 'class/members/new'
     },
   ];
-
-  private readonly isAdmin = this.appService.isAdmin()
-  private readonly labelButtonAdd: string = this.isAdmin ? 'Alunos': 'Entrar'
   
   public readonly poLabelVagas = ' Vagas'
   public readonly poLabelCheia = ' pessoas na espera'
@@ -29,6 +25,15 @@ export class MembersClassListComponent {
   public readonly poTagSuccess:PoTagType= PoTagType.Success
 
   readonly actionsView: Array<PoListViewAction> = [
+    {
+      label: 'Sair',
+      action: (e: any) => {
+        this.poDialogService.alert({ title: 'Sair', message: 'Tem certeza que deseja sair da aula?', ok: () => this.leaveCLass(e) })
+        return 
+      },
+      icon: 'po-icon-exit',
+      type: 'danger'
+    },
     {
       label: 'Lista',
       action: (e: any) => {
@@ -40,15 +45,6 @@ export class MembersClassListComponent {
         this.openPageSlide()
       },
       icon: 'po-icon-users',
-    },
-    {
-      label: 'Sair',
-      action: (e: any) => {
-        this.poDialogService.alert({ title: 'Sair', message: 'Tem certeza que deseja sair da aula?', ok: () => this.leaveCLass(e) })
-        return 
-      },
-      icon: 'po-icon-exit',
-      type: 'danger'
     }
   ];
 
@@ -105,64 +101,7 @@ export class MembersClassListComponent {
       }
     );
   }
-
-  showDetalhes(evento: any) {
-    console.log(evento);
-  }
-
-  deleteClass(classId: string) {
-    this.isHideLoading = false;
-    this.classService.deleteClass(this.classApi, classId).subscribe({
-      complete: () => {
-        this.poNotification.success('Aula excluída com sucesso.');
-        this.ngOnInit();
-        this.isHideLoading = true;
-      },
-      error: (error) => {
-        this.poNotification.error('Erro na exclusão da aula');
-        this.poNotification.error(error);
-        this.isHideLoading = true;
-      },
-    });
-  }
-
-  public onPessoaSelected(novaPessoa: any) {
-    this.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
-      ? null
-      : this.peopleList.push(novaPessoa);
-    this.class.peopleList = this.peopleList = this.peopleList.map((people: any, index: number) => ({
-      _id: people._id,
-      nome: people.nome,
-      level: people.level,
-      status: index + 1 <= this.class.people ? 'available' : 'reserved'
-    }));
-  }
-
-  public saveClass(event: any) {
-    console.log(event);
-    this.isHideLoading = false;
-    this.classService.updateClass(this.classApi, this.class).subscribe({
-      complete: () => {
-        this.poNotification.success('Aula alterada com sucesso.');
-        this.ngOnInit();
-        this.isHideLoading = true;
-        this.pageSlideAluno.close();
-      },
-      error: (error) => {
-        this.poNotification.error('Erro na alteração da aula');
-        this.poNotification.error(error);
-        this.isHideLoading = true;
-      },
-    });
-  }
-
-  public onPessoaDeleted(event: any) {
-    this.class.peopleList = event.map((pessoa: any) => {
-      pessoa.$selected = false;
-      return pessoa;
-    });
-  }
-
+  
   getClassByDate(date: string) {
     this.isHideLoading = false
     this.classService.getClassesByDate(this.classApi, date).subscribe({
@@ -182,12 +121,16 @@ export class MembersClassListComponent {
   }
 
   leaveCLass(selectedClass: any) {
-    selectedClass.peopleList = this.peopleList = selectedClass.peopleList.filter((pessoa:any) => pessoa._id !== this.appService.getPessoa()._id)
-    this.class = selectedClass
-    this.openPageSlide()
-  }
-  
-  isAbleToLeave(classSelected: any) {
-    return !this.appService.isAdmin() && classSelected['peopleList']?.some((pessoa:any) => pessoa._id === this.appService.getPessoa()._id)
+    selectedClass.peopleList = selectedClass.peopleList.filter((pessoa:any) => pessoa._id !== this.appService.getPessoa()._id)
+    this.classService.updateClass(this.classApi, selectedClass).subscribe({
+      complete: () => {
+        this.poNotification.success('Aula cancelada com sucesso.');
+        this.ngOnInit();
+      },
+      error: (error) => {
+        this.poNotification.error('Erro na cancelamento da aula');
+        this.poNotification.error(error);
+      },
+    })
   }
 }
