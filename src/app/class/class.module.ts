@@ -6,13 +6,15 @@ import { PoPageDynamicEditModule } from '@po-ui/ng-templates'
 import { PeopleModule } from '../people/people.module'
 import { ClassListComponent } from './class-list/class-list.component'
 import { ClassNewComponent } from './class-new/class-new.component'
-import { ClassRoutingModule } from './class-routing.module'
+import { ClassRoutingModule } from './class-routing.module';
+import { MembersClassListComponent } from './members-class-list/members-class-list.component'
 
 
 @NgModule({
   declarations: [
     ClassNewComponent,
-    ClassListComponent
+    ClassListComponent,
+    MembersClassListComponent
   ],
   imports: [
     CommonModule,

@@ -31,7 +31,10 @@ export class AppService {
     return [
       { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
       { label: 'Perfil', link: '/people/profile', icon: 'po-icon-user', shortLabel: 'Perfil' },
-      { label: 'Aulas', link: '/class', icon: 'po-icon-calendar', shortLabel: 'Aulas' },
+      { label: 'Aulas', icon: 'po-icon-calendar', shortLabel: 'Aulas', subItems: [
+        { label: 'Minhas aulas', link: '/class/members', icon: 'po-icon-plus', shortLabel: 'Aulas' }, 
+        { label: 'Marcar nova aula', link: '/class/members/new', icon: 'po-icon-plus', shortLabel: '+Aula' }, 
+      ]},
       { label: 'Reservas', link: '/reservation', icon: 'po-icon-calendar-ok', shortLabel: 'Reservas' },
     ]
   }
