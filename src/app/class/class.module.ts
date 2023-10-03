@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 
-import { PoAvatarModule, PoButtonModule, PoContainerModule, PoDynamicModule, PoFieldModule, PoInfoModule, PoListViewModule, PoLoadingModule, PoModalModule, PoPageModule, PoStepperModule, PoTableModule, PoWidgetModule } from '@po-ui/ng-components'
+import { PoAvatarModule, PoButtonModule, PoContainerModule, PoDynamicModule, PoFieldModule, PoInfoModule, PoListViewModule, PoLoadingModule, PoModalModule, PoPageModule, PoStepperModule, PoTableModule, PoTagModule, PoWidgetModule } from '@po-ui/ng-components'
 import { PoPageDynamicEditModule } from '@po-ui/ng-templates'
 import { PeopleModule } from '../people/people.module'
 import { ClassListComponent } from './class-list/class-list.component'
@@ -32,7 +32,8 @@ import { ClassRoutingModule } from './class-routing.module'
     PoInfoModule,
     PeopleModule,
     PoModalModule,
-    PoTableModule
+    PoTableModule,
+    PoTagModule
   ]
 })
 export class ClassModule { }

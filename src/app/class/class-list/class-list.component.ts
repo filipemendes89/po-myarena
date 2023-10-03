@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { PoBreadcrumb, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
 import { ClassService } from '../class.service'
 
@@ -23,6 +23,12 @@ export class ClassListComponent {
 
   private readonly isAdmin = this.appService.isAdmin()
   private readonly labelButtonAdd: string = this.isAdmin ? 'Alunos': 'Entrar'
+  
+  public readonly poLabelVagas = ' Vagas'
+  public readonly poLabelCheia = ' pessoas na espera'
+  public readonly poTagWarning:PoTagType= PoTagType.Warning
+  public readonly poTagSuccess:PoTagType= PoTagType.Success
+
   readonly actionsView: Array<PoListViewAction> = [
     {
       label: 'Excluir',
@@ -30,6 +36,16 @@ export class ClassListComponent {
       icon: 'po-icon-delete',
       type: 'danger',
       visible: this.appService.isAdmin()
+    },
+    {
+      label: 'Sair',
+      action: (e: any) => {
+        this.poDialogService.alert({ title: 'Sair', message: 'Tem certeza que deseja sair da aula?', ok: () => this.leaveCLass(e) })
+        return 
+      },
+      icon: 'po-icon-exit',
+      type: 'danger',
+      disabled: this.isAbleToLeave.bind(this)
     },
     {
       label: this.labelButtonAdd,
@@ -90,7 +106,8 @@ export class ClassListComponent {
   constructor(
     private classService: ClassService,
     private poNotification: PoNotificationService,
-    private appService: AppService
+    private appService: AppService,
+    private poDialogService: PoDialogService
   ) {}
   classes: any;
 
@@ -98,7 +115,14 @@ export class ClassListComponent {
     this.isHideLoading = false;
     this.classService.getClass(this.classApi).subscribe(
       (data: any) => {
-        this.classes = data.items;
+        this.classes = data.items.map(
+          (classFound:any) => {
+            const people = classFound.people - classFound.peopleList.length
+            classFound.poType = classFound.isItFull ? this.poTagWarning : this.poTagSuccess
+            classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
+            return classFound
+          }
+        );
         this.isHideLoading = true;
       },
       (error) => {
@@ -132,7 +156,7 @@ export class ClassListComponent {
     this.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
       ? null
       : this.peopleList.push(novaPessoa);
-    this.class.peopleList = this.peopleList.map((people: any, index: number) => ({
+    this.class.peopleList = this.peopleList = this.peopleList.map((people: any, index: number) => ({
       _id: people._id,
       nome: people.nome,
       level: people.level,
@@ -179,11 +203,23 @@ export class ClassListComponent {
     });
   }
 
-  openPageSlide(){
+  openPageSlide(leave?:boolean){
     if(this.isAdmin)
       return this.pageSlide.open()
     
-    this.onPessoaSelected(this.appService.getPessoa())
+    if(!leave)
+      this.onPessoaSelected(this.appService.getPessoa())
+      
     return this.pageSlideAluno.open()
+  }
+
+  leaveCLass(selectedClass: any) {
+    selectedClass.peopleList = this.peopleList = selectedClass.peopleList.filter((pessoa:any) => pessoa._id !== this.appService.getPessoa()._id)
+    this.class = selectedClass
+    this.openPageSlide(true)
+  }
+  
+  isAbleToLeave(classSelected: any) {
+    return !this.appService.isAdmin() && classSelected['peopleList']?.some((pessoa:any) => pessoa._id === this.appService.getPessoa()._id)
   }
 }
