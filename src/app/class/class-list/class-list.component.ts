@@ -182,7 +182,9 @@ export class ClassListComponent {
 
   getClassByDate(date: string) {
     this.isHideLoading = false
-    this.classService.getClassesByDate(date).subscribe({
+    const params = date ? { date } : {}
+    
+    this.classService.getClass(params).subscribe({
       next: (data) => {
         this.classes = data.items;
         this.isHideLoading = true;

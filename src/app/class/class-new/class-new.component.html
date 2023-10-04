@@ -17,7 +17,7 @@
     </po-widget>
         
     </po-step>
-    <po-step p-label="Professor e Alunos" [p-can-active-next-step]="activateSecondStep.bind(this, formSecondStep)">
+    <po-step p-label="Professor e Alunos" (p-can-active-next-step)="activateSecondStep.bind(this, formSecondStep)">
         <po-widget
         class="po-md-12"
         p-primary-label="Próximo"

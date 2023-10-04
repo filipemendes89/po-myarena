@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
+import { environment } from 'src/environments/environment'
 import { ReservationService } from '../reservation.service'
 
 @Component({
@@ -33,7 +34,7 @@ export class ReservationNewComponent {
       gridColumns: 4, 
       required: true, 
       readonly: !this.appService.isAdmin(), 
-      searchService: 'https://myarenaapi.azurewebsites.net/api/people', 
+      searchService: `${environment.apiUrl}/people`, 
       fieldLabel: 'nome', 
       fieldValue: '_id',
       columns: [

@@ -7,7 +7,7 @@
     
     <ng-template p-list-view-content-template let-item>
         <div class="po-row">
-          <po-image class="po-md-3 po-sm-6" [p-src]="item.avatar"></po-image>
+          <po-image class="po-md-3 po-sm-6 po-lg-2" [p-src]="item.avatar"></po-image>
           <po-info class="po-md-3 po-sm-12" p-label="Tipo" [p-value]="item.type"></po-info>
           <po-info class="po-md-3 po-sm-6" p-label="Esportes" [p-value]="item.sports"></po-info>
           <po-switch class="po-md-3 po-sm-6" name="active" p-label="Ativa?" [p-value]="item.active" [p-disabled]="true"> </po-switch>

@@ -14,9 +14,9 @@
       <ng-template p-list-view-content-template let-item>
         <div class="po-row">
           <po-info
-            class="po-md-3 po-sm-12"
+            class="po-md-6 po-sm-12"
             p-label="Responsável"
-            [p-value]="item.reserverId"
+            [p-value]="item.reserverId.nome"
           ></po-info>
 
           <po-info

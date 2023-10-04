@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment'
 import { IAvailableCourt, IClass } from '../types/types'
 
 const endpoint = `${environment.apiUrl}/class`
+const endpointAvailableCourts = `${environment.apiUrl}/availabeCourts`
 @Injectable({
   providedIn: 'root'
 })
@@ -13,17 +14,11 @@ export class ClassService {
   constructor(public http: HttpClient) { }
 
   getAvailabeCourts(date: string) {
-    return this.http.get<{items: IAvailableCourt[]}>(`${endpoint}?date=${date}`)
+    return this.http.get<{items: IAvailableCourt[]}>(`${endpointAvailableCourts}?date=${date}`)
   }
 
   getClass(params?: any) {
     return this.http.get<{items: IClass[]}>(endpoint, { params })
-  }
-
-  getClassesByDate(date: string) {
-    return this.http.get<{items: IClass[]}>(endpoint, { params: {
-      date
-    }})
   }
 
   postClass(_class: any) {

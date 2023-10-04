@@ -11,27 +11,34 @@
     [p-items]="classes"
     [p-actions]="actionsView"
     [p-literals]="literals"
+    [p-show-more-disabled]="false"
   >
     <ng-template p-list-view-content-template let-item>
       <div class="po-row">
+        <po-avatar [p-src]="item.teacherId?.avatar"></po-avatar>
         <po-info
           class="po-md-3 po-sm-6"
+          p-label="Professor"
+          [p-value]="item.teacherId?.nome"
+        ></po-info>
+        <po-info
+          class="po-md-2 po-sm-6"
           p-label="Data"
           [p-value]="item.date"
         ></po-info>
         <po-info
-          class="po-md-3 po-sm-6"
+          class="po-md-1 po-sm-6"
           p-label="Nivel"
           [p-value]="item.level"
         ></po-info>
         <po-info
-          class="po-md-3 po-sm-6"
+          class="po-md-2 po-sm-6"
           p-label="Max. alunos"
           [p-value]="item.people"
         ></po-info>
         <po-tag
           name="active"
-          class="po-md-3 po-sm-6"
+          class="po-md-1 po-sm-6"
           p-label="Status"
           [p-value]="item.poValue"
           [p-type]="item.poType"

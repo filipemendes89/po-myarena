@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDynamicFormComponent, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
 import { IAvailableCourt, IHour } from 'src/app/types/types'
 import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
@@ -114,7 +114,7 @@ export class ClassNewComponent {
       return this.detailValue?.time && this.detailValue?.date && this.detailValue?.court
     }
 
-    activateSecondStep(formSecondStep: any) {
+    activateSecondStep(formSecondStep: PoDynamicFormComponent) {
       return formSecondStep?.form?.valid
     }
 
