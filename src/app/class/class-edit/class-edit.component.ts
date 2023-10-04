@@ -20,9 +20,9 @@ export class ClassEditComponent {
   }
   
   readonly detailFields: Array<PoDynamicFormField> = [
-    { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6, required: true },
+    { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6, required: true, options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'], },
     { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
-    { property: 'time', label: 'Horário', gridColumns: 2, required: true },
+    { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
     { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
     { property: 'teacherId', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, optionsService: `${environment.apiUrl}/people?tipo=Professor`, fieldLabel: 'nome', fieldValue: '_id'  },
     { property: 'people', label: 'Max. Alunos', gridSmColumns: 12, gridColumns: 2, required: true },
@@ -41,14 +41,17 @@ export class ClassEditComponent {
 
   class: any
   ngOnInit(){
+    this.isHideLoading = false
     const id = this.activatedRoute.snapshot?.params['id'];
     this.classService.getClassById(id).subscribe({
       next: (data: any) => {
         this.class = data;
+        this.isHideLoading = true
       },
       error: (error) => {
         this.poNotification.error('Erro na busca da aula')
         this.poNotification.error(error)
+        this.isHideLoading = true
       } 
     })
   }
