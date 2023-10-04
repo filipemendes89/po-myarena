@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
 import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
 import { IClass } from 'src/app/types/types'
@@ -34,10 +35,17 @@ export class ClassListComponent {
   readonly actionsView: Array<PoListViewAction> = [
     {
       label: 'Excluir',
-      action: (e: any) => this.deleteClass(e._id), //Excluir reserva no backend
+      action: (e: any) => this.poDialogService.alert({ title: 'Excluir', message: 'Tem certeza que deseja excluir a aula?', ok: () => this.deleteClass(e._id) }), 
       icon: 'po-icon-delete',
       type: 'danger',
       visible: this.appService.isAdmin()
+    },
+    {
+      label: 'Editar',
+      action: (e: any) => {
+        this._router.navigateByUrl(`class/edit/${e._id}`)
+      },
+      icon: 'po-icon-edit',
     },
     {
       label: this.labelButtonAdd,
@@ -98,7 +106,8 @@ export class ClassListComponent {
     private classService: ClassService,
     private poNotification: PoNotificationService,
     private appService: AppService,
-    private poDialogService: PoDialogService
+    private poDialogService: PoDialogService,
+    private _router: Router
   ) {}
   classes: IClass[] = []
 

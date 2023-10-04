@@ -21,6 +21,10 @@ export class ClassService {
     return this.http.get<{items: IClass[]}>(endpoint, { params })
   }
 
+  getClassById(id: string,params?: any) {
+    return this.http.get<IClass>(`${endpoint}/${id}`, { params })
+  }
+
   postClass(_class: any) {
     return this.http.post<IClass>(endpoint, _class)
   }

@@ -1,0 +1,17 @@
+<po-page-default [p-breadcrumb]="breadcrumb">
+<po-stepper #stepper [p-orientation]="orientation" [p-step-icons]="true">
+    <po-step p-label="Alteração">
+        <po-widget
+        class="po-md-12"
+        p-primary-label="Finalizar"
+        p-title="Dados da aula"
+        (p-primary-action)="onFinish()"
+        [p-disabled]="formDetails.form.invalid ?? true"
+        >
+            <po-dynamic-form #formDetails [p-fields]="detailFields" [p-value]="class">
+
+            </po-dynamic-form>
+        </po-widget>
+    </po-step>
+</po-stepper>
+</po-page-default>

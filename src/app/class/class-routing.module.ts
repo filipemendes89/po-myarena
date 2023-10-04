@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { ClassEditComponent } from './class-edit/class-edit.component'
 import { ClassListComponent } from './class-list/class-list.component'
 import { ClassNewComponent } from './class-new/class-new.component'
 import { ClassGuard } from './class.guard'
@@ -26,6 +27,11 @@ const routes: Routes = [{
   path: 'members/new',
   component: MembersClassNewComponent,
   canActivate: [MembersClassGuard]
+},
+{
+  path: 'edit/:id',
+  component: ClassEditComponent,
+  canActivate: [ClassGuard]
 }];
 
 @NgModule({

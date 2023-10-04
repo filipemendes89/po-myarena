@@ -8,7 +8,8 @@ import { ClassListComponent } from './class-list/class-list.component'
 import { ClassNewComponent } from './class-new/class-new.component'
 import { ClassRoutingModule } from './class-routing.module';
 import { MembersClassListComponent } from './members-class-list/members-class-list.component';
-import { MembersClassNewComponent } from './members-class-new/members-class-new.component'
+import { MembersClassNewComponent } from './members-class-new/members-class-new.component';
+import { ClassEditComponent } from './class-edit/class-edit.component'
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MembersClassNewComponent } from './members-class-new/members-class-new.
     ClassNewComponent,
     ClassListComponent,
     MembersClassListComponent,
-    MembersClassNewComponent
+    MembersClassNewComponent,
+    ClassEditComponent
   ],
   imports: [
     CommonModule,
