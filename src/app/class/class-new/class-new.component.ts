@@ -48,6 +48,7 @@ export class ClassNewComponent {
       property: 'level',
       label: 'Nível',
       gridColumns: 6,
+      gridSmColumns: 6,
       options: ['Estrente', 'Iniciante', 'Intermediário', 'Avançado', 'Particular'],
       required: true
     },
@@ -56,6 +57,7 @@ export class ClassNewComponent {
       label: 'Max. Alunos',
       type: 'number',
       gridColumns: 2,
+      gridSmColumns: 6,
       minValue: 1,
       maxValue: 10000,
       errorMessage: 'Invalid number.', 
@@ -69,8 +71,8 @@ export class ClassNewComponent {
     { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
     { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
     { property: 'teacherId', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, readonly: true },
-    { property: 'people', label: 'Max. Alunos', gridColumns: 2, required: true, readonly: true },
-    { property: 'level', label: 'Nível', gridColumns: 4, required: true, readonly: true },
+    { property: 'people', label: 'Max. Alunos', gridSmColumns: 12, gridColumns: 2, required: true, readonly: true },
+    { property: 'level', label: 'Nível', gridSmColumns: 12, required: true, readonly: true },
   ];
 
   detailValue: any = {}
