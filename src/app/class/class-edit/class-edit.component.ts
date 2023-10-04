@@ -56,7 +56,7 @@ export class ClassEditComponent {
   onFinish = () => {
     this.isHideLoading = false
 
-    this.classService.postClass(this.class).subscribe(
+    this.classService.updateClass(this.class).subscribe(
       (data) => {
         this.poNotification.success('Aula alterada com sucesso.')
         this._router.navigateByUrl('/class')
