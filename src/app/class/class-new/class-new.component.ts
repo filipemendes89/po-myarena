@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
-import { IAvailableCourt } from 'src/app/types/types'
+import { IAvailableCourt, IHour } from 'src/app/types/types'
 import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
 
@@ -110,7 +110,7 @@ export class ClassNewComponent {
       this.detailValue = { ...this.valueSecondStep, ...this.detailValue }
     }
 
-    canActivateNextStep(currentStep: any) { 
+    canActivateNextStep() { 
       return this.detailValue?.time && this.detailValue?.date && this.detailValue?.court
     }
 
@@ -120,16 +120,16 @@ export class ClassNewComponent {
 
     constructor (private classService: ClassService, private _router: Router, private poNotification: PoNotificationService) {}
 
-    getAvailabeCourts = (evento: any) => {
-      this.detailValue =  { date: evento } 
+    getAvailabeCourts = (date: string) => {
+      this.detailValue =  { date } 
       this.isHideLoading = false
-      this.classService.getAvailabeCourts(evento).subscribe(
+      this.classService.getAvailabeCourts(date).subscribe(
         (data) => this.availabeCourts = data.items,
         () => this.isHideLoading = true,
         () => this.isHideLoading = true)
     }
 
-    onSelectHour = (time:any, item:any) => {
+    onSelectHour = (time: IHour, item: IAvailableCourt) => {
       this.detailValue = { courtId: item.courtId, court: item.courtName, time: time.entryTime, ...this.detailValue }
     }
 }

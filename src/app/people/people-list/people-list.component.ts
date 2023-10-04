@@ -97,7 +97,7 @@ export class PeopleListComponent {
   ngOnInit() {
     this.isHideLoading = false;
     this.peopleService.getPeople().subscribe(
-      (data: any) => (this.pessoas = data.items),
+      (data) => (this.pessoas = data.items),
       () => {
         this.poNotification.error('Erro na busca de pessoas.');
         this.isHideLoading = true;
@@ -162,7 +162,7 @@ export class PeopleListComponent {
     this.isHideLoading = true;
 
     this.peopleService
-      .getPeople(undefined,params)
+      .getPeople(params)
       .subscribe((data: any) => (this.pessoas = data.items));
   }
 

@@ -65,7 +65,7 @@ export class CourtNewComponent {
     this.id = this.activatedRoute.snapshot?.params['id']
     if (this.id) {
       this.isHideLoading = false
-      this.courtService.getCourt(this.id).subscribe((data:any) => this.court = data,
+      this.courtService.getCourtById(this.id).subscribe((data) => this.court = data,
       () => {
         this.poNotification.error(`Erro na busca da quadra. Id: ${this.id}`);
         this.isHideLoading = true;

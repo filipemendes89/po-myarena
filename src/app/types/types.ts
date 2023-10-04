@@ -33,13 +33,45 @@ export interface IClass {
     poValue?: string
 }
 
+export type IHour = {
+  entryTime: string;
+  exitTime: string;
+  _id: string;
+}
 export interface IAvailableCourt {
     courtName: string;
-    hours: {
-      entryTime: string;
-      exitTime: string;
-      _id: string;
-    }[];
+    hours: IHour[];
     avatar: string;
     courtId: string;
-  }
+}
+
+export interface IPeople {
+  _id: string;
+  createdAt: string;
+  nome: string;
+  email: string;
+  dtNascimento: string;
+  genero: string;
+  nacionalidade: string;
+  cpf: string;
+  phone: string;
+  avatar: string;
+  sports: string[];
+  tipo: string;
+  instagram: string;
+  tenantId: string;
+  __v: number;
+}
+
+export interface ICourt {
+  _id: string;
+  createdAt: string;
+  name: string;
+  avatar: string;
+  type: string;
+  sports: string[];
+  active: boolean;
+  calendar: string;
+  tenantId: string;
+  __v: number;
+}

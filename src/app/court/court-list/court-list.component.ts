@@ -41,7 +41,7 @@ export class CourtListComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.courtService.getCourt().subscribe((data:any) => this.courts = data.items,
+    this.courtService.getCourt().subscribe((data) => this.courts = data.items,
     () => {
       this.poNotification.error('Erro na busca de quadras.');
       this.isHideLoading = true;
