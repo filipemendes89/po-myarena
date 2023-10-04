@@ -7,14 +7,16 @@ import { PeopleModule } from '../people/people.module'
 import { ClassListComponent } from './class-list/class-list.component'
 import { ClassNewComponent } from './class-new/class-new.component'
 import { ClassRoutingModule } from './class-routing.module';
-import { MembersClassListComponent } from './members-class-list/members-class-list.component'
+import { MembersClassListComponent } from './members-class-list/members-class-list.component';
+import { MembersClassNewComponent } from './members-class-new/members-class-new.component'
 
 
 @NgModule({
   declarations: [
     ClassNewComponent,
     ClassListComponent,
-    MembersClassListComponent
+    MembersClassListComponent,
+    MembersClassNewComponent
   ],
   imports: [
     CommonModule,
