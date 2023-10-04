@@ -58,7 +58,7 @@ export class MembersClassListComponent {
     items: [{ label: 'Home', link: '/' }, { label: 'Members', link: 'class/members' }],
   };
 
-  classApi = 'http://localhost:7071/api/class';
+  classApi = 'https://myarenaapi.azurewebsites.net/api/class';
   isHideLoading = true;
   peopleList: any;
   class: any;
