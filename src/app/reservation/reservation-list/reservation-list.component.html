@@ -14,19 +14,40 @@
       <ng-template p-list-view-content-template let-item>
         <div class="po-row">
           <po-info
-            class="po-md-6 po-sm-12"
+            class="po-md-4 po-sm-6"
             p-label="Responsável"
-            [p-value]="item.reserverId.nome"
+            [p-value]="item.reserverId?.nome"
+            [hidden]="!item.reserverId"
           ></po-info>
 
           <po-info
             class="po-md-3 po-sm-6"
+            p-label="Professor"
+            [p-value]="item.classId?.teacherId?.nome"
+            [hidden]="!item.classId"
+          ></po-info>
+
+          <po-info
+            class="po-md-2 po-sm-6"
+            p-label="Esporte"
+            [p-value]="item.classId?.sport"
+            [hidden]="!item.classId"
+          ></po-info>
+          
+          <po-info
+            class="po-md-3 po-sm-6"
+            p-label="Quadra"
+            [p-value]="item.courtId.name"
+          ></po-info>
+
+          <po-info
+            class="po-md-2 po-sm-6"
             p-label="Data"
             [p-value]="item.date"
           ></po-info>
 
           <po-info
-            class="po-md-3 po-sm-6"
+            class="po-md-2 po-sm-6"
             p-label="Hora"
             [p-value]="item.time"
           ></po-info>
