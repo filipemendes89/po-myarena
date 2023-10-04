@@ -13,7 +13,7 @@ import { AppService } from "../app.service"
 @Injectable({
   providedIn: "root",
 })
-export class ClassGuard implements CanActivate {
+export class MembersClassGuard implements CanActivate {
   constructor(
     private appService: AppService,
     private router: Router,
@@ -30,7 +30,7 @@ export class ClassGuard implements CanActivate {
     | UrlTree {
     // Se o usuário estiver sem sessão,
     // o enviamos para a tela de login
-    if (this.appService.isAdmin()) {
+    if (this.appService.getPessoa()) {
       return true;
     }
 

@@ -4,6 +4,7 @@ import { ClassListComponent } from './class-list/class-list.component'
 import { ClassNewComponent } from './class-new/class-new.component'
 import { ClassGuard } from './class.guard'
 import { MembersClassListComponent } from './members-class-list/members-class-list.component'
+import { MembersClassGuard } from './members-class.guard'
 
 const routes: Routes = [{
   path: 'new',
@@ -18,7 +19,7 @@ const routes: Routes = [{
 {
   path: 'members',
   component: MembersClassListComponent,
-  canActivate: [ClassGuard]
+  canActivate: [MembersClassGuard]
 }];
 
 @NgModule({

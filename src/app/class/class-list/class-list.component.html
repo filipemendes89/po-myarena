@@ -74,29 +74,6 @@
       </po-button>
     </po-container>
   </po-page-slide>
-
-  <po-page-slide #pageSlideAluno p-title="Alunos" p-size="auto">
-    <po-table
-      [p-selectable]="false"
-      [p-striped]="true"
-      [p-columns]="peopleColumns"
-      [p-items]="peopleList"
-      [p-hide-table-search]="true"
-      [p-literals]="literalsTable"
-    >
-    </po-table>
-    <po-container>
-      <po-button
-        class="po-md-12"
-        p-kind="primary"
-        p-label="Salvar"
-        p-icon="po-icon-user-add"
-        (p-click)="saveClass(this)"
-        [p-disabled]="lookupDisabled"
-      >
-      </po-button>
-    </po-container>
-  </po-page-slide>
-
+  
   <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
 </po-page-default>

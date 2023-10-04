@@ -10,7 +10,6 @@ import { ClassService } from '../class.service'
 })
 export class ClassListComponent {
   @ViewChild('pageSlide') pageSlide: any;
-  @ViewChild('pageSlideAluno') pageSlideAluno: any;
 
   public readonly actions: PoPageAction[] = [
     {
@@ -21,8 +20,7 @@ export class ClassListComponent {
     },
   ];
 
-  private readonly isAdmin = this.appService.isAdmin()
-  private readonly labelButtonAdd: string = this.isAdmin ? 'Alunos': 'Entrar'
+  private readonly labelButtonAdd: string = 'Alunos'
   
   public readonly poLabelVagas = ' Vagas'
   public readonly poLabelCheia = ' pessoas na espera'
@@ -36,16 +34,6 @@ export class ClassListComponent {
       icon: 'po-icon-delete',
       type: 'danger',
       visible: this.appService.isAdmin()
-    },
-    {
-      label: 'Sair',
-      action: (e: any) => {
-        this.poDialogService.alert({ title: 'Sair', message: 'Tem certeza que deseja sair da aula?', ok: () => this.leaveCLass(e) })
-        return 
-      },
-      icon: 'po-icon-exit',
-      type: 'danger',
-      disabled: this.isAbleToLeave.bind(this)
     },
     {
       label: this.labelButtonAdd,
@@ -204,22 +192,7 @@ export class ClassListComponent {
   }
 
   openPageSlide(leave?:boolean){
-    if(this.isAdmin)
-      return this.pageSlide.open()
-    
-    if(!leave)
-      this.onPessoaSelected(this.appService.getPessoa())
-      
-    return this.pageSlideAluno.open()
+    return this.pageSlide.open()
   }
 
-  leaveCLass(selectedClass: any) {
-    selectedClass.peopleList = this.peopleList = selectedClass.peopleList.filter((pessoa:any) => pessoa._id !== this.appService.getPessoa()._id)
-    this.class = selectedClass
-    this.openPageSlide(true)
-  }
-  
-  isAbleToLeave(classSelected: any) {
-    return !this.appService.isAdmin() && classSelected['peopleList']?.some((pessoa:any) => pessoa._id === this.appService.getPessoa()._id)
-  }
 }
