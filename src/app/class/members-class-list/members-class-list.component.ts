@@ -58,7 +58,7 @@ export class MembersClassListComponent {
     items: [{ label: 'Home', link: '/' }, { label: 'Members', link: 'class/members' }],
   };
 
-  classApi = 'https://myarenaapi.azurewebsites.net/api/class';
+  classApi = 'http://localhost:7071/api/class';
   isHideLoading = true;
   peopleList: any;
   class: any;
@@ -83,7 +83,7 @@ export class MembersClassListComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.classService.getClass(this.classApi).subscribe(
+    this.classService.getClass(this.classApi, { memberId: this.appService.getPessoa()._id }).subscribe(
       (data: any) => {
         this.classes = data.items.map(
           (classFound:any) => {

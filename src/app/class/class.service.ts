@@ -12,8 +12,8 @@ export class ClassService {
     return this.http.get(`${endpoint}?date=${date}`)
   }
 
-  getClass(endpoint: string) {
-    return this.http.get(endpoint)
+  getClass(endpoint: string, params?: any) {
+    return this.http.get(endpoint, { params })
   }
 
   getClassesByDate(endpoint: string, date: string) {
