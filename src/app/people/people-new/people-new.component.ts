@@ -19,7 +19,6 @@ import { PeopleService } from '../people.service'
 export class PeopleNewComponent {
   @ViewChild('dynamicForm') dynamicForm: any
 
-  public readonly serviceApi = 'https://myarenaapi.azurewebsites.net/api/people';
   public isHideLoading = true
   public readonly actions: PoPageDynamicEditActions = {
     saveNew: '/people/new',
@@ -104,7 +103,7 @@ export class PeopleNewComponent {
     this.id ??= this.pessoa._id
     
     if(this.id){
-      this.peopleService.putPerson(`${this.serviceApi}/${this.id}`, this.pessoa).subscribe(
+      this.peopleService.putPerson(this.pessoa, this.id).subscribe(
         {
           complete: () => {
             
@@ -119,7 +118,7 @@ export class PeopleNewComponent {
         }
       );
     }else{
-      this.peopleService.postPerson(this.serviceApi, this.pessoa).subscribe(
+      this.peopleService.postPerson(this.pessoa).subscribe(
         {
           complete: () => {
             
@@ -140,7 +139,7 @@ export class PeopleNewComponent {
     console.log(this.activatedRoute.snapshot?.params['id'])
     this.id = this.activatedRoute.snapshot?.params['id'];
     if(this.id){
-      this.peopleService.getPeople(`${this.serviceApi}/${this.id}`).subscribe((data) => { this.pessoa = data })
+      this.peopleService.getPeople(this.id).subscribe((data) => { this.pessoa = data })
     }
 
     if(history.state?.pessoa){

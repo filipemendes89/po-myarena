@@ -61,7 +61,7 @@ export class ReservationNewComponent {
     this.detailValue =  { date, ...this.detailValue } 
     this.isHideLoading = false
     this.reservationService.getAvailabeCourts(date).subscribe(
-      (data:any) => this.availabeCourts = data.items,
+      (data) => this.availabeCourts = data.items,
       () => this.isHideLoading = true,
       () => this.isHideLoading = true)
   }
@@ -74,13 +74,13 @@ export class ReservationNewComponent {
     this.isHideLoading = false
 
     this.reservationService.postReservation(this.detailValue).subscribe(
-      (data: any) => {
+      (data) => {
         this.detailValue = { classId: data._id, ...this.detailValue }
         this.poNotification.success('Reserva criada com sucesso.')
         this._router.navigateByUrl('/reservation')
         this.isHideLoading = true
       },
-      (error:any) => {
+      (error) => {
         this.poNotification.error('Erro na criação da reserva')
         this.poNotification.error(error)
         this.isHideLoading = true

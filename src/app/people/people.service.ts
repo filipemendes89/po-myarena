@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { environment } from 'src/environments/environment'
 
+const endpoint:string = `${environment.apiUrl}/people`
 @Injectable()
 export class PeopleService {
   constructor(public http: HttpClient) {}
 
-  public endpoint = 'https://myarenaapi.azurewebsites.net/api/people'
-  postPerson(endpoint: any, pessoa: any) {
+  postPerson(pessoa: any) {
     return this.http.post(endpoint, pessoa)
   }
 
-  putPerson(endpoint: any, pessoa: any) {
-    return this.http.put(endpoint, pessoa)
+  putPerson(pessoa: any, id: string) {
+    return this.http.put(`${endpoint}/${id}`, pessoa)
   }
 
-  getPeople(endpoint:any) {
-    return this.http.get(endpoint)
+  getPeople(id?: string, params?:any) {
+    return this.http.get(`${endpoint}${id ? `/${id}` : ''}`, { params })
   }
 }

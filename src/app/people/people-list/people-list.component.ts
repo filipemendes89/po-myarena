@@ -18,9 +18,6 @@ export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
-  readonly serviceApi =
-    'https://myarenaapi.azurewebsites.net/api/people';
-
   public pessoas: any;
   filteredItems: Array<any> = [];
   filters: Array<PoDisclaimer> = [];
@@ -99,7 +96,7 @@ export class PeopleListComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.peopleService.getPeople(this.serviceApi).subscribe(
+    this.peopleService.getPeople().subscribe(
       (data: any) => (this.pessoas = data.items),
       () => {
         this.poNotification.error('Erro na busca de pessoas.');
@@ -159,13 +156,13 @@ export class PeopleListComponent {
   }
 
   private filter(filters: Array<PoDisclaimer>) {
-    const filterString = filters
-      .map((filter) => encodeURI(`${filter.property}=${filter.value}&`))
-      .join('');
+    const params = {}
+    filters.forEach((filter:any) => Object.assign(params, { [filter.property]: filter.value }));
+
     this.isHideLoading = true;
-    console.log(`${this.serviceApi}?${filterString}`);
+
     this.peopleService
-      .getPeople(`${this.serviceApi}?${filterString}`)
+      .getPeople(undefined,params)
       .subscribe((data: any) => (this.pessoas = data.items));
   }
 

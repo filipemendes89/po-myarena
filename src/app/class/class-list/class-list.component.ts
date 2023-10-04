@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core'
 import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
+import { IClass } from 'src/app/types/types'
+import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
 
 @Component({
@@ -21,6 +23,8 @@ export class ClassListComponent {
   ];
 
   private readonly labelButtonAdd: string = 'Alunos'
+  
+  public readonly filterService = `${environment.apiUrl}/people`
   
   public readonly poLabelVagas = ' Vagas'
   public readonly poLabelCheia = ' pessoas na espera'
@@ -76,7 +80,6 @@ export class ClassListComponent {
     deleteApiError: 'Ocorreu um erro inesperado, tente novamente mais tarde!',
   };
 
-  classApi = 'https://myarenaapi.azurewebsites.net/api/class';
   isHideLoading = true;
   peopleList: any;
   class: any;
@@ -97,14 +100,14 @@ export class ClassListComponent {
     private appService: AppService,
     private poDialogService: PoDialogService
   ) {}
-  classes: any;
+  classes: IClass[] = []
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.classService.getClass(this.classApi).subscribe(
-      (data: any) => {
+    this.classService.getClass().subscribe(
+      (data) => {
         this.classes = data.items.map(
-          (classFound:any) => {
+          (classFound) => {
             const people = classFound.people - classFound.peopleList.length
             classFound.poType = classFound.isItFull ? this.poTagWarning : this.poTagSuccess
             classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
@@ -126,7 +129,7 @@ export class ClassListComponent {
 
   deleteClass(classId: string) {
     this.isHideLoading = false;
-    this.classService.deleteClass(this.classApi, classId).subscribe({
+    this.classService.deleteClass(classId).subscribe({
       complete: () => {
         this.poNotification.success('Aula excluída com sucesso.');
         this.ngOnInit();
@@ -155,7 +158,7 @@ export class ClassListComponent {
   public saveClass(event: any) {
     console.log(event);
     this.isHideLoading = false;
-    this.classService.updateClass(this.classApi, this.class).subscribe({
+    this.classService.updateClass(this.class).subscribe({
       complete: () => {
         this.poNotification.success('Aula alterada com sucesso.');
         this.ngOnInit();
@@ -179,8 +182,8 @@ export class ClassListComponent {
 
   getClassByDate(date: string) {
     this.isHideLoading = false
-    this.classService.getClassesByDate(this.classApi, date).subscribe({
-      next: (data: any) => {
+    this.classService.getClassesByDate(date).subscribe({
+      next: (data) => {
         this.classes = data.items;
         this.isHideLoading = true;
       },
@@ -191,7 +194,7 @@ export class ClassListComponent {
     });
   }
 
-  openPageSlide(leave?:boolean){
+  openPageSlide(){
     return this.pageSlide.open()
   }
 

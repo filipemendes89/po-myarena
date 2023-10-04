@@ -57,7 +57,7 @@
       <po-lookup
         class="po-md-12"
         name="pessoa"
-        p-filter-service="https://myarenaapi.azurewebsites.net/api/people?code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw=="
+        [p-filter-service]="filterService"
         p-label="Inserir Aluno"
         (p-selected)="onPessoaSelected($event)"
       ></po-lookup>

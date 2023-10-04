@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
+import { IAvailableCourt } from 'src/app/types/types'
+import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
 
 @Component({
@@ -26,7 +28,7 @@ export class ClassNewComponent {
       label: 'Professor',
       gridColumns: 8,
       gridSmColumns: 12,
-      optionsService: 'https://myarenaapi.azurewebsites.net/api/people?tipo=Professor&code=u3FbvFbmYspLyHXrquopiRwOpSb5dtzDoLJkkuxvaeT8AzFuNmrNxw==',
+      optionsService: `${environment.apiUrl}/people?tipo=Professor`,
       fieldLabel: 'nome',
       fieldValue: '_id', 
       required: true
@@ -74,9 +76,7 @@ export class ClassNewComponent {
   detailValue: any = {}
   valueSecondStep: any = {}
   isHideLoading = true
-  availabeCourts: any = []
-  serviceApi = 'https://myarenaapi.azurewebsites.net/api/availabeCourts'
-  classApi = 'https://myarenaapi.azurewebsites.net/api/class'
+  availabeCourts: IAvailableCourt[] = []
 
   fields: Array<PoDynamicFormField> = [
     {
@@ -92,8 +92,8 @@ export class ClassNewComponent {
     onFinish = () => {
       this.isHideLoading = false
 
-      this.classService.postClass(this.classApi, this.detailValue).subscribe(
-        (data: any) => {
+      this.classService.postClass(this.detailValue).subscribe(
+        (data) => {
           this.detailValue = { classId: data._id, ...this.detailValue }
           this.poNotification.success('Aula criada com sucesso.')
           this._router.navigateByUrl('/class')
@@ -123,8 +123,8 @@ export class ClassNewComponent {
     getAvailabeCourts = (evento: any) => {
       this.detailValue =  { date: evento } 
       this.isHideLoading = false
-      this.classService.getAvailabeCourts(this.serviceApi, evento).subscribe(
-        (data:any) => this.availabeCourts = data.items,
+      this.classService.getAvailabeCourts(evento).subscribe(
+        (data) => this.availabeCourts = data.items,
         () => this.isHideLoading = true,
         () => this.isHideLoading = true)
     }

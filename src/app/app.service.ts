@@ -44,7 +44,7 @@ export class AppService {
   }
 
   setPessoa(){
-    this.peopleService.getPeople(`${this.peopleService.endpoint}?email=${localStorage.getItem('email')}`).subscribe((data:any) => { 
+    this.peopleService.getPeople(undefined,{ email: localStorage.getItem('email') }).subscribe((data:any) => { 
       if(Object.keys(data).length > 0) {
         this.pessoa = data
       }

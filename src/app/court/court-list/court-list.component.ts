@@ -33,8 +33,6 @@ export class CourtListComponent {
   public readonly literals: PoListViewLiterals = {
     showDetails: 'Mostrar agenda',
   }
-  
-  private serviceApi:string = 'https://myarenaapi.azurewebsites.net/api/court'
 
   courts: any = []
   isHideLoading = true
@@ -43,7 +41,7 @@ export class CourtListComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.courtService.getCourt(this.serviceApi).subscribe((data:any) => this.courts = data.items,
+    this.courtService.getCourt().subscribe((data:any) => this.courts = data.items,
     () => {
       this.poNotification.error('Erro na busca de quadras.');
       this.isHideLoading = true;

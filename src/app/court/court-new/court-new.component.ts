@@ -1,7 +1,8 @@
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components';
-import { CourtService } from '../court.service';
+import { Component, Inject } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/ng-components'
+import { environment } from 'src/environments/environment'
+import { CourtService } from '../court.service'
 @Component({
   selector: 'app-court-new',
   templateUrl: './court-new.component.html',
@@ -11,7 +12,6 @@ import { CourtService } from '../court.service';
 
 @Inject(ActivatedRoute)
 export class CourtNewComponent {
-  public readonly serviceApi = 'https://myarenaapi.azurewebsites.net/api/court';
   public isHideLoading = true
   public id: any
   public readonly breadcrumb: PoBreadcrumb = {
@@ -52,7 +52,7 @@ export class CourtNewComponent {
       property: 'calendar',
       gridColumns: 6,
       gridSmColumns: 12,
-      optionsService: 'https://myarenaapi.azurewebsites.net/api/calendar',
+      optionsService: `${environment.apiUrl}/calendar`,
       fieldLabel: 'name',
       fieldValue: '_id',
     },
@@ -65,7 +65,7 @@ export class CourtNewComponent {
     this.id = this.activatedRoute.snapshot?.params['id']
     if (this.id) {
       this.isHideLoading = false
-      this.courtService.getCourt(`${this.serviceApi}/${this.id}`,).subscribe((data:any) => this.court = data,
+      this.courtService.getCourt(this.id).subscribe((data:any) => this.court = data,
       () => {
         this.poNotification.error(`Erro na busca da quadra. Id: ${this.id}`);
         this.isHideLoading = true;
@@ -91,7 +91,7 @@ export class CourtNewComponent {
   }
 
   postCourt() {
-    this.courtService.postCourt(this.serviceApi, this.court).subscribe(
+    this.courtService.postCourt(this.court).subscribe(
       {
         complete: this.onActionComplete,
         error: (error) => this.onActionError(error)
@@ -100,7 +100,7 @@ export class CourtNewComponent {
   }
 
   putCourt() {
-    this.courtService.putCourt(`${this.serviceApi}/${this.id}`, this.court).subscribe(
+    this.courtService.putCourt(this.id, this.court).subscribe(
       {
         complete: this.onActionComplete,
         error: (error) => this.onActionError(error)

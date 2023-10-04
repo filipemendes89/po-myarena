@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
 import { PoBreadcrumb, PoDialogService, PoListViewAction, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
-import * as moment from 'moment'
 import { AppService } from 'src/app/app.service'
 import { ReservationService } from '../reservation.service'
 
@@ -46,17 +45,20 @@ export class ReservationListComponent {
 
   ngOnInit(){
     this.isHideLoading = false
-    this.getReservationByDate(moment(new Date()).format('DD/MM/YYYY'))
+    this.getReservationByDate()
   }
-  getReservationByDate(date: string){
-    const params: { date: string, reserverId?: string } = { date }
+  
+  getReservationByDate(date?: string){
+    const params: { date?: string, reserverId?: string } = {}
 
+    date ? params.date = date : null
+    
     if(this.reserverId)
       params.reserverId = this.reserverId
       
     this.isHideLoading = false
     this.reservationService.getReservations(params).subscribe({
-      next: (data: any) => {
+      next: (data) => {
         this.reservations = data.items;
         this.isHideLoading = true;
       },

@@ -18,7 +18,7 @@ export class ProfileComponent {
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/' }, { label: 'Profile' }]
   }
-  public readonly serviceApi = 'https://myarenaapi.azurewebsites.net/api/people';
+  
   pessoa:any = {
     email: localStorage.getItem('email'),
     nome: localStorage.getItem('name'),

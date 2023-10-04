@@ -30,7 +30,7 @@ export class MembersClassGuard implements CanActivate {
     | UrlTree {
     // Se o usuário estiver sem sessão,
     // o enviamos para a tela de login
-    if (this.appService.getPessoa()) {
+    if (this.appService.getPessoa() || this.appService.isAdmin()) {
       return true;
     }
 

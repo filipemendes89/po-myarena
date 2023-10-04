@@ -19,8 +19,8 @@ export class MembersClassListComponent {
     },
   ];
   
-  public readonly poLabelVagas = ' Vagas'
-  public readonly poLabelCheia = ' pessoas na espera'
+  public readonly poLabelVagas = 'Confirmado'
+  public readonly poLabelCheia = 'Na espera'
   public readonly poTagWarning:PoTagType= PoTagType.Warning
   public readonly poTagSuccess:PoTagType= PoTagType.Success
 
@@ -58,7 +58,6 @@ export class MembersClassListComponent {
     items: [{ label: 'Home', link: '/' }, { label: 'Members', link: 'class/members' }],
   };
 
-  classApi = 'https://myarenaapi.azurewebsites.net/api/class';
   isHideLoading = true;
   peopleList: any;
   class: any;
@@ -83,13 +82,16 @@ export class MembersClassListComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.classService.getClass(this.classApi, { memberId: this.appService.getPessoa()._id }).subscribe(
-      (data: any) => {
+    this.classService.getClass({ memberId: this.appService.getPessoa()._id }).subscribe(
+      (data) => {
         this.classes = data.items.map(
-          (classFound:any) => {
+          (classFound) => {
             const people = classFound.people - classFound.peopleList.length
             classFound.poType = classFound.isItFull ? this.poTagWarning : this.poTagSuccess
-            classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
+            classFound.poValue = classFound.isItFull && classFound.peopleList.findIndex(
+              (pessoa: any) => 
+              pessoa._id === this.appService.getPessoa()._id
+              ) > people ? this.poLabelCheia : this.poLabelVagas
             return classFound
           }
         );
@@ -104,7 +106,7 @@ export class MembersClassListComponent {
   
   getClassByDate(date: string) {
     this.isHideLoading = false
-    this.classService.getClassesByDate(this.classApi, date).subscribe({
+    this.classService.getClassesByDate(date).subscribe({
       next: (data: any) => {
         this.classes = data.items;
         this.isHideLoading = true;
@@ -122,7 +124,7 @@ export class MembersClassListComponent {
 
   leaveCLass(selectedClass: any) {
     selectedClass.peopleList = selectedClass.peopleList.filter((pessoa:any) => pessoa._id !== this.appService.getPessoa()._id)
-    this.classService.updateClass(this.classApi, selectedClass).subscribe({
+    this.classService.updateClass(selectedClass).subscribe({
       complete: () => {
         this.poNotification.success('Aula cancelada com sucesso.');
         this.ngOnInit();

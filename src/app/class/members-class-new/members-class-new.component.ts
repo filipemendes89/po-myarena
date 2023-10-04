@@ -67,7 +67,6 @@ export class MembersClassNewComponent {
     deleteApiError: 'Ocorreu um erro inesperado, tente novamente mais tarde!',
   };
 
-  classApi = 'https://myarenaapi.azurewebsites.net/api/class';
   isHideLoading = true;
   peopleList: any;
   class: any;
@@ -94,7 +93,7 @@ export class MembersClassNewComponent {
 
   ngOnInit() {
     this.isHideLoading = false;
-    this.classService.getClass(this.classApi).subscribe(
+    this.classService.getClass().subscribe(
       (data: any) => {
         this.classes = data.items.map(
           (classFound:any) => {
@@ -127,7 +126,7 @@ export class MembersClassNewComponent {
   public saveClass(event: any) {
     console.log(event);
     this.isHideLoading = false;
-    this.classService.updateClass(this.classApi, this.class).subscribe({
+    this.classService.updateClass(this.class).subscribe({
       complete: () => {
         this.poNotification.success('Aula alterada com sucesso.');
         this.ngOnInit();
@@ -152,7 +151,7 @@ export class MembersClassNewComponent {
     this.sport = filter === 'sports' ? value : this.sport 
     this.sport ? params.sport = this.sport : null
     
-    this.classService.getClass(this.classApi, params).subscribe({
+    this.classService.getClass(params).subscribe({
       next: (data: any) => {
     
         this.classes = data.items.map(

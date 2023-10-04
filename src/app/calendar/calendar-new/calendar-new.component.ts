@@ -18,8 +18,6 @@ export class CalendarNewComponent {
   });
   public form = <any>this.formBuilder.array([this.createCalendarForm()]);
 
-  endpoint =
-    'https://myarenaapi.azurewebsites.net/api/calendar';
   desc: string = '';
   id: any;
   isHideLoading = true;
@@ -57,7 +55,7 @@ export class CalendarNewComponent {
     this.id = this.activatedRoute.snapshot?.params['id'];
     if (this.id) {
       this.isHideLoading = false;
-      this.calendarService.getCalendar(`${this.endpoint}/${this.id}`).subscribe(
+      this.calendarService.getCalendar(this.id).subscribe(
         (data: any) => {
           this.descForm = <any>this.formBuilder.group({
             desc: [data.name, [Validators.required]],
@@ -101,7 +99,6 @@ export class CalendarNewComponent {
 
     this.calendarService
       .postCalendar(
-        this.endpoint,
         {
           name: this.desc,
           times: this.times,

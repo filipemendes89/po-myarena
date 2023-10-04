@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PoBreadcrumb, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
+import { environment } from 'src/environments/environment'
 import { CalendarService } from '../calendar.service'
 
 @Component({
@@ -17,7 +18,8 @@ export class CalendarListComponent {
     }
   ]
 
-  serviceApi = 'https://myarenaapi.azurewebsites.net/api/calendar'
+  serviceApi = `${environment.apiUrl}/calendar`
+  
   public readonly breadcrumb: PoBreadcrumb = {
       items: [{ label: 'Home', link: '/' }, { label: 'Calendario' }]
   }
@@ -29,7 +31,7 @@ export class CalendarListComponent {
   }
 
   ngOnInit(): void {
-    this.calendarService.getCalendar(this.serviceApi).subscribe(
+    this.calendarService.getCalendar().subscribe(
       (data:any) => {
         data.items.map((item:any) => {
           item.times.sort((itemA:any, itemB:any) => Number(new Date(`2023-01-01 ${itemA.entryTime}`)) - Number(new Date(`2023-01-01 ${itemB.entryTime}`))) 
@@ -44,7 +46,7 @@ export class CalendarListComponent {
   }
 
   onClickDelete(item:any){
-    this.calendarService.deleteCalendar(this.serviceApi, item).subscribe({
+    this.calendarService.deleteCalendar(item).subscribe({
       complete: () => { 
         this.poNotification.information('Registro deletado com sucesso')
         this.ngOnInit()
