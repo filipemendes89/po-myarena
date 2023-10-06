@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { PoInfoOrientation, PoNotificationService, PoToasterType } from '@po-ui/ng-components'
+import { PoDynamicViewField, PoInfoOrientation, PoNotificationService, PoToasterType } from '@po-ui/ng-components'
 import { PeopleService } from '../people.service'
 
 enum Level {
@@ -17,6 +17,8 @@ enum Level {
 })
 export class PeopleWidgetComponent {
   @ViewChild('pageSlideNivel') pageSlideNivel: any
+  @ViewChild('dynamicForm') dynamicForm: any
+
   public pessoa: any
   public readonly orientationInfo: PoInfoOrientation = PoInfoOrientation.Horizontal
   constructor(private _router:Router, private peopleService: PeopleService, private poNotification: PoNotificationService){}
@@ -27,6 +29,13 @@ export class PeopleWidgetComponent {
     { label: 'Intermediário', value: Level.Intermediário },
     { label: 'Avançado', value: Level.Avançado },
   ]
+
+  public readonly fields: Array<PoDynamicViewField> = [
+    { property: 'email',divider:'Contatos', icon: 'po-icon-mail', gridColumns: 6,  gridSmColumns: 12 },
+    { property: 'phone', format: '(99) 99999-9999', gridColumns: 6, icon: 'po-icon-telephone', gridSmColumns: 12 },
+    { property: 'instagram', gridColumns: 6, icon: 'po-icon-social-instagram', gridSmColumns: 12,  },
+    { property: 'sports', gridColumns: 12, label: "", divider: 'Esportes' },
+  ];
   editPeople(event: any) {
     this._router.navigateByUrl(`/people/edit/${event.pessoa._id}`)
   }

@@ -157,7 +157,7 @@ export class PeopleListComponent {
 
   private filter(filters: Array<PoDisclaimer>) {
     const params = {}
-    filters.forEach((filter:any) => Object.assign(params, { [filter.property]: filter.value }));
+    filters.forEach((filter:any) => Object.assign(params, { filter: filter.value }));
 
     this.isHideLoading = true;
 

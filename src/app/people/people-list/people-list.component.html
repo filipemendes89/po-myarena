@@ -2,7 +2,7 @@
 
   <po-container [p-no-border]="true">
     <form #formData p-title="Filtros">
-      <po-input #nome class="po-md-4" name="nome" p-help="Com o nome" p-label="Nome"
+      <po-input #nome class="po-md-4" name="nome" p-help="Com o nome/cpf" p-label="Nome/CPF"
         (p-change)="addFilter(formData['nome'].value, 'nome')">
       </po-input>
 
