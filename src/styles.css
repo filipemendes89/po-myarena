@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     --color-primary: rgb(27, 65, 9);
-    --color-secondary: rgb(83, 178, 0);
+    --color-secondary: #5d917d;
     --color-tertiary: blue;
-    --color-quartiary: rgb(255, 255, 227);
-    --color-primary-light-95: rgb(224, 232, 157);
+    --color-quartiary: #fff9de;
+    --color-3: #cdd071;
+    --color-primary-light-95: #5d917d;
     --color-primary-light-80: rgb(255, 255, 255);
     --color-primary-alpha-50: rgb(255, 255, 255);
   }
@@ -12,3 +13,8 @@
  .po-menu {
     background-color: var(--color-quartiary);
 }
+
+.po-switch {
+
+  --track-checked: var(--color-3)
+  }

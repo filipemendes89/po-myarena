@@ -22,7 +22,7 @@ const routes: Routes = [
         loadChildren: () => PeopleModule,
       },
       {
-        path: 'unit',
+        path: 'sport',
         loadChildren: () => UnitModule,
       },
       {

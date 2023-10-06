@@ -33,13 +33,13 @@ export class UnitListComponent {
   ]
 
   readonly actions: PoPageDynamicTableActions = {
-    new: 'unit/new',
-    edit: 'unit/edit/:id',
+    new: 'sport/new',
+    edit: 'sport/edit/:id',
     remove: true
   };
 
   readonly breadcrumb: PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'Unit' }]
+    items: [{ label: 'Home', link: '/' }, { label: 'Sport' }]
   };
 
   fields: Array<any> = [

@@ -28,7 +28,7 @@ export class AppService {
         { label: 'Quadras', link: '/court', icon: 'po-icon-target', shortLabel: 'Quadras' },
         { label: 'Calendários', link: '/calendar', icon: 'po-icon-calendar', shortLabel: 'Calendários' },
         { label: 'Reservas', link: '/reservation', icon: 'po-icon-calendar-ok', shortLabel: 'Reservas' },
-        { label: 'Esportes', link: '/sport', icon: 'po-icon-stock', shortLabel: 'Estoque' },
+        { label: 'Esportes', link: '/sport', icon: 'po-icon-like', shortLabel: 'Esportes' },
         { label: 'Sair', link: '/logout', icon: 'po-icon-exit', shortLabel: 'Sair',  }
       ];
     }

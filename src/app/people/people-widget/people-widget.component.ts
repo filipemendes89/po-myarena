@@ -31,6 +31,7 @@ export class PeopleWidgetComponent {
   ]
 
   public readonly fields: Array<PoDynamicViewField> = [
+    { property: 'avatar',  image: true, alt: 'avatar' },
     { property: 'email',divider:'Contatos', icon: 'po-icon-mail', gridColumns: 6,  gridSmColumns: 12 },
     { property: 'phone', format: '(99) 99999-9999', gridColumns: 6, icon: 'po-icon-telephone', gridSmColumns: 12 },
     { property: 'instagram', gridColumns: 6, icon: 'po-icon-social-instagram', gridSmColumns: 12,  },
