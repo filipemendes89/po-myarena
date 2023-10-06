@@ -5,7 +5,7 @@
         class="po-md-12"
         p-title="Dados da aula"
       >
-      <po-datepicker class="po-md-3 po-m-1" [p-auto-focus]="true" (p-change)="getAvailabeCourts($event)" p-label="Data da aula"></po-datepicker>
+      <po-datepicker class="po-md-3 po-m-1" [p-auto-focus]="false" (p-change)="getAvailabeCourts($event)" p-label="Data da aula"></po-datepicker>
       <div class="po-md-12">
         <po-widget 
         *ngFor="let item of availabeCourts" 
