@@ -6,13 +6,14 @@ import {
   PoPageDynamicTableCustomAction,
   PoPageDynamicTableCustomTableAction
 } from '@po-ui/ng-templates'
+import { UnitService } from 'src/app/unit/unit.service'
 import { PeopleService } from '../people.service'
 
 @Component({
   selector: 'app-people-list',
   templateUrl: './people-list.component.html',
   styleUrls: ['./people-list.component.css'],
-  providers: [PeopleService],
+  providers: [PeopleService, UnitService],
 })
 export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
@@ -24,12 +25,7 @@ export class PeopleListComponent {
   nome: string = '';
   comboSports: string = '';
 
-  public sports: PoComboOption[] = [
-    { value: 'Beach Volley' },
-    { value: 'Futevolei' },
-    { value: 'Beach Tennis' },
-    { value: 'Funcional' },
-  ];
+  public sports: PoComboOption[] = [];
 
   detailedUser: any;
   dependents: any;
@@ -91,7 +87,8 @@ export class PeopleListComponent {
 
   constructor(
     private peopleService: PeopleService,
-    private poNotification: PoNotificationService
+    private poNotification: PoNotificationService,
+    private unitService: UnitService
   ) {}
 
   ngOnInit() {
@@ -104,6 +101,12 @@ export class PeopleListComponent {
       },
       () => (this.isHideLoading = true)
     );
+    this.unitService.getSports().subscribe(
+      (data) => {
+        this.sports = data.items.map((sport: any) => ({ label: sport.name, value: sport.name }));
+        this.isHideLoading = true;
+      }
+    )
   }
 
   isUserInactive(person: any) {
