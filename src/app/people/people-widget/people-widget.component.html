@@ -2,8 +2,9 @@
       class="po-sm-12 po-md-12"
       [p-title]="pessoa.nome"
       p-primary-label="Editar"
-      p-secondary-label="Aulas/Reservas"
+      p-secondary-label="Níveis do Aluno"
       (p-primary-action)="editPeople(this)"
+      (p-secondary-action)="openPageSlide()"
     >
       <po-avatar class="po-md-4 po-sm-12" p-size="lg" [p-src]="pessoa.avatar"> </po-avatar>
   
@@ -14,4 +15,12 @@
         <po-switch class="po-sm-12" name="active" p-label="Professor?" [p-value]="pessoa.tipo === 'Professor'" [p-disabled]="true" p-label-on="Sim" p-label-off="Não">
         </po-switch>
       </div>
-    </po-widget>
+</po-widget>
+
+<po-page-slide #pageSlideNivel p-size="auto">
+    <div *ngFor="let item of pessoa.sports">
+      <po-divider class="po-sm-12" [p-label]="item"></po-divider>
+        <po-info class="po-sm-6" p-label="Nivel atual" [p-value]="getNivel(item)"></po-info>
+        <po-combo class="po-sm-6" p-label="Novo Nível" [p-options]="niveis" (p-change)="saveNivel($event, item)"></po-combo>
+    </div>
+</po-page-slide>

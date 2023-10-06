@@ -70,7 +70,6 @@ export class ReservationListComponent {
   }
 
   deleteReservation(id: string){
-    console.log(this)
     this.isHideLoading = false
     this.reservationService.deleteReservations(id).subscribe({
       complete: () => {

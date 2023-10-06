@@ -124,7 +124,6 @@ export class MembersClassNewComponent {
   }
 
   public saveClass(event: any) {
-    console.log(event);
     this.isHideLoading = false;
     this.classService.updateClass(this.class).subscribe({
       complete: () => {

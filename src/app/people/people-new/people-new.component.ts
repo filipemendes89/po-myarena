@@ -136,7 +136,6 @@ export class PeopleNewComponent {
   }
 
   ngOnInit(){
-    console.log(this.activatedRoute.snapshot?.params['id'])
     this.id = this.activatedRoute.snapshot?.params['id'];
     if(this.id){
       this.peopleService.getPeopleById(this.id).subscribe((data) => { this.pessoa = data })

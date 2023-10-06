@@ -26,6 +26,7 @@ export interface IClass {
       nome: string;
       at: string;
       _id: string;
+      status?: string
     }[];
     __v: number;
     isItFull: boolean;

@@ -51,17 +51,16 @@
       ></po-info>
       </div>
     </ng-template>
-  </po-list-view>
 
-  <po-page-slide #pageSlide p-title="Alunos" p-size="auto">
-    <po-table
+    <ng-template p-list-view-detail-template let-item [p-show-detail]="showDetail">
+      <po-table
       [p-selectable]="true"
       [p-single-select]="true"
       [p-striped]="true"
       [p-columns]="peopleColumns"
-      [p-items]="peopleList"
+      [p-items]="item.peopleList"
       [p-hide-table-search]="true"
-      (p-delete-items)="onPessoaDeleted($event)"
+      (p-delete-items)="onPessoaDeleted(item, $event)"
       [p-literals]="literalsTable"
     >
     </po-table>
@@ -69,9 +68,10 @@
       <po-lookup
         class="po-md-12"
         name="pessoa"
+        [p-columns]="lookupColums"
         [p-filter-service]="filterService"
         p-label="Inserir Aluno"
-        (p-selected)="onPessoaSelected($event)"
+        (p-selected)="onPessoaSelected(item, $event)"
       ></po-lookup>
     </po-container>
     <po-container>
@@ -80,12 +80,13 @@
         p-kind="primary"
         p-label="Salvar"
         p-icon="po-icon-user-add"
-        (p-click)="saveClass(this)"
+        (p-click)="saveClass(item)"
         [p-disabled]="lookupDisabled"
       >
       </po-button>
     </po-container>
-  </po-page-slide>
+    </ng-template>
+  </po-list-view>
   
   <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
 </po-page-default>

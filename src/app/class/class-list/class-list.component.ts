@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoLookupColumn, PoNotificationService, PoPageAction, PoTableColumn, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
 import { IClass } from 'src/app/types/types'
 import { environment } from 'src/environments/environment'
@@ -46,21 +46,12 @@ export class ClassListComponent {
         this._router.navigateByUrl(`class/edit/${e._id}`)
       },
       icon: 'po-icon-edit',
-    },
-    {
-      label: this.labelButtonAdd,
-      action: (e: any) => {
-        this.peopleList = e.peopleList.map((pessoa:any, index: number) => {
-          pessoa.status = index + 1 <= e.people  ? 'available' : 'reserved'
-          return pessoa
-        });
-        this.class = e;
-        this.openPageSlide()
-      },
-      icon: 'po-icon-users',
-    },
+    }
   ];
 
+  public showDetail(){
+    return true
+  }
   public readonly literals: PoListViewLiterals = {
     showDetails: 'Lista de alunos',
     hideDetails: 'Fechar',
@@ -89,11 +80,15 @@ export class ClassListComponent {
   };
 
   isHideLoading = true;
-  peopleList: any;
-  class: any;
   lookupDisabled: boolean = false;
 
-  peopleColumns = [{ property: 'nome' }, { property: 'level', label: 'Nivel' }, {
+  lookupColums: PoLookupColumn[] = [
+    { property: 'nome' },
+    { property: 'email' },
+    { property: 'cpf' },
+  ]
+
+  peopleColumns: PoTableColumn[] = [{ property: 'nome' }, { property: 'level', label: 'Nivel' }, {
     property: 'status',
     type: 'label',
     labels: [
@@ -120,6 +115,10 @@ export class ClassListComponent {
             const people = classFound.people - classFound.peopleList.length
             classFound.poType = classFound.isItFull ? this.poTagWarning : this.poTagSuccess
             classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
+            classFound.peopleList =  classFound.peopleList.map((pessoa:any, index: number) => {
+              pessoa.status = index + 1 <= classFound.people  ? 'available' : 'reserved'
+              return pessoa
+            });
             return classFound
           }
         );
@@ -133,7 +132,7 @@ export class ClassListComponent {
   }
 
   showDetalhes(evento: any) {
-    console.log(evento);
+    
   }
 
   deleteClass(classId: string) {
@@ -152,27 +151,27 @@ export class ClassListComponent {
     });
   }
 
-  public onPessoaSelected(novaPessoa: any) {
-    this.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
+  public onPessoaSelected(classS: any, novaPessoa: any) {
+    
+    classS.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
       ? null
-      : this.peopleList.push(novaPessoa);
-    this.class.peopleList = this.peopleList = this.peopleList.map((people: any, index: number) => ({
+      : classS.peopleList.push(novaPessoa);
+    classS.peopleList = classS.peopleList.map((people: any, index: number) => ({
       _id: people._id,
       nome: people.nome,
       level: people.level,
-      status: index + 1 <= this.class.people ? 'available' : 'reserved'
+      status: index + 1 <= classS.people ? 'available' : 'reserved'
     }));
   }
 
-  public saveClass(event: any) {
-    console.log(event);
+  public saveClass(classS: any) {
+    
     this.isHideLoading = false;
-    this.classService.updateClass(this.class).subscribe({
+    this.classService.updateClass(classS).subscribe({
       complete: () => {
         this.poNotification.success('Aula alterada com sucesso.');
         this.ngOnInit();
         this.isHideLoading = true;
-        this.pageSlide.close();
       },
       error: (error) => {
         this.poNotification.error('Erro na alteração da aula');
@@ -182,8 +181,8 @@ export class ClassListComponent {
     });
   }
 
-  public onPessoaDeleted(event: any) {
-    this.class.peopleList = event.map((pessoa: any) => {
+  public onPessoaDeleted(classS: any, event: any) {
+    classS.peopleList = event.map((pessoa: any) => {
       pessoa.$selected = false;
       return pessoa;
     });
@@ -195,7 +194,18 @@ export class ClassListComponent {
     
     this.classService.getClass(params).subscribe({
       next: (data) => {
-        this.classes = data.items;
+        this.classes = data.items.map(
+          (classFound) => {
+            const people = classFound.people - classFound.peopleList.length
+            classFound.poType = classFound.isItFull ? this.poTagWarning : this.poTagSuccess
+            classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
+            classFound.peopleList =  classFound.peopleList.map((pessoa:any, index: number) => {
+              pessoa.status = index + 1 <= classFound.people  ? 'available' : 'reserved'
+              return pessoa
+            });
+            return classFound
+          }
+        );
         this.isHideLoading = true;
       },
       error: (error) => {
@@ -204,9 +214,4 @@ export class ClassListComponent {
       },
     });
   }
-
-  openPageSlide(){
-    return this.pageSlide.open()
-  }
-
 }

@@ -15,7 +15,6 @@ export class AppService {
   private pessoa:any
 
   getMenus(isAdmin: boolean): Array<PoMenuItem> {
-    console.log(isAdmin)
     if(isAdmin) {
       return [
         { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
