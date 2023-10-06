@@ -15,6 +15,7 @@ export class HomeComponent {
   itemsDetails: Array<any> = []
   titleDetailsModal: string = ''
   typeChart: string = 'line';
+  isHideLoading = true
   
   readonly profileActions:PoToolbarAction[] = [
     { label: 'Perfil', url: '/people/profile', icon: 'po-icon-user', type: 'primary' },
@@ -58,7 +59,8 @@ export class HomeComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-      this.auth.user$.subscribe((data:any) => { 
+    this.isHideLoading = false  
+    this.auth.user$.subscribe((data:any) => { 
         this.profile = {
           avatar: data.picture,
           title: data.name,
@@ -72,6 +74,7 @@ export class HomeComponent {
 
         this.appService.setPessoa().add(() => {
           this.menus = this.appService.getMenus()
+          this.isHideLoading = true
         })
       })
   }

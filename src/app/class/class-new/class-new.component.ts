@@ -40,7 +40,9 @@ export class ClassNewComponent {
       gridColumns: 8,
       gridSmColumns: 12,
       optional: false,
-      options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
+      optionsService: `${environment.apiUrl}/sport`,
+      fieldLabel: 'name',
+      fieldValue: 'name',
       optionsMulti: false, 
       required: true
     },

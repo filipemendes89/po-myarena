@@ -6,6 +6,7 @@ import { PoBreadcrumb, PoDynamicFormField, PoNotificationService } from '@po-ui/
 import { Location } from '@angular/common'
 import { PoPageDynamicEditActions, PoPageDynamicEditLiterals } from '@po-ui/ng-templates'
 import { AppService } from 'src/app/app.service'
+import { environment } from 'src/environments/environment'
 import { PeopleService } from '../people.service'
 
 
@@ -66,7 +67,9 @@ export class PeopleNewComponent {
       gridColumns: 6,
       gridSmColumns: 12,
       optional: false,
-      options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
+      optionsService: `${environment.apiUrl}/sport`,
+      fieldLabel: 'name',
+      fieldValue: 'name',
       optionsMulti: true,
       required: true
     },

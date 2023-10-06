@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoModalAction, PoModalComponent, PoNotificationService } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoModalComponent, PoNotificationService } from '@po-ui/ng-components'
 
 import {
   PoPageDynamicTableActions,
-  PoPageDynamicTableCustomAction,
-  PoPageDynamicTableCustomTableAction,
-  PoPageDynamicTableOptions
+  PoPageDynamicTableCustomAction, PoPageDynamicTableOptions
 } from '@po-ui/ng-templates'
+import { environment } from 'src/environments/environment'
 import { UnitService } from '../unit.service'
 
 
@@ -20,7 +19,7 @@ import { UnitService } from '../unit.service'
 export class UnitListComponent {
   @ViewChild('peopleModal') peopleModal!: PoModalComponent;
  
-  readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/unit';
+  readonly serviceApi = `${environment.apiUrl}/sport`;
   
   isHideLoading = true;
   
@@ -29,9 +28,9 @@ export class UnitListComponent {
   unit: any;
   quickSearchWidth: number = 3;
   columns: Array<any> = [
-    { property: 'nome', width: '8%' },
-    { property: 'email' },
-    { property: 'dtNascimento' } ]
+    { property: 'nome' },
+    { property: 'hasClass'}
+  ]
 
   readonly actions: PoPageDynamicTableActions = {
     new: 'unit/new',
@@ -44,97 +43,28 @@ export class UnitListComponent {
   };
 
   fields: Array<any> = [
-    { property: 'id', key: true, visible: false, filter: true },
-    { property: 'grupo', filter: true, gridColumns: 6 },
-    { property: 'torre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
-    { property: 'endereco', filter: true, visible: true },
-    { property: 'numero', filter: true, visible: true }
+    { property: '_id', key: true, visible: false, filter: true },
+    { property: 'name', filter: true, gridColumns: 6 },
+    { property: 'hasClass', filter: true, gridColumns: 6, duplicate: true, sortable: false }
   ];
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
     { label: 'Print', action: this.printPage.bind(this), icon: 'po-icon-print' }
   ];
 
-  tableCustomActions: Array<PoPageDynamicTableCustomTableAction> = [
-    {
-      label: 'Moradores',
-      action: this.onClickDependents.bind(this),
-      icon: 'po-icon-user'
-    }
-  ];
 
   constructor(public poNotification: PoNotificationService,public unitService: UnitService) {}
   onLoad(): PoPageDynamicTableOptions {
     return {
       fields: [
-        { property: 'id', key: true, visible: false, filter: true },
-        { property: 'grupo', filter: true, gridColumns: 6 },
-        { property: 'torre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
-        { property: 'endereco', filter: true, visible: true },
-        { property: 'numero', filter: true, visible: true }
+        { property: '_id', key: true, visible: false, filter: true },
+        { property: 'name', filter: true, gridColumns: 6 },
+        { property: 'hasClass', label: 'Aulas?', format: 'boolean', filter: true, gridColumns: 6, duplicate: true, sortable: false }
       ]
     };
-  }
-
-  isUserInactive(person: any) {
-    return person.status === 'inactive';
   }
 
   printPage() {
     window.print();
   }
-
-  private onClickDependents(user: any) {
-    this.people = user.pessoas.filter(Boolean)
-    this.unit = user
-    this.peopleModal.open();
-  }
-
-  public onPessoaSelected(novaPessoa: any) {
-    this.people.find((pessoa:any) => pessoa.id === novaPessoa.id) ? null : this.people.push(novaPessoa)
-    this.unit.pessoas = this.people
-    //this.unitService.putUnit(novaPessoa.get('novaPessoa'))
-  }
-
-  private onActionComplete = () => { 
-    this.isHideLoading = true
-    this.poNotification.success(`Seu registro foi alterado com sucesso!`) 
-    this.peopleModal.close()
-  }
-
-  private onActionError = (error:any) => { 
-    this.poNotification.error(error)
-    this.isHideLoading = true
-  }
-
-  public onPessoaDeleted(event:any) {
-    this.unit.pessoas = event.map((pessoa:any) => { pessoa.$selected = false; return pessoa })
-    this.unitService.putUnit(this.unit).subscribe(
-      {
-        complete: this.onActionComplete,
-        error: (error) => this.onActionError(error)
-      }
-    );
-  }
-  
-  confirm: PoModalAction = {
-    action: () => {
-      this.isHideLoading = false
-      this.unit.pessoas = this.unit.pessoas.map((pessoa:any) => { pessoa.$selected = false; return pessoa })
-      this.unitService.putUnit(this.unit).subscribe(
-        {
-          complete: this.onActionComplete,
-          error: (error) => this.onActionError(error)
-        }
-      );
-    },
-    label: 'Confirmar'
-  };
-
-  cancel: PoModalAction = {
-    action: () => {
-      this.peopleModal.close()
-    },
-    label: 'Cancelar'
-  };
 }

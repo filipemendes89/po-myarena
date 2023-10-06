@@ -1,22 +1,19 @@
 import { Component, ViewChild } from '@angular/core'
 import { PoBreadcrumb, PoComboOption, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
+import { UnitService } from 'src/app/unit/unit.service'
 import { ClassService } from '../class.service'
 
 @Component({
   selector: 'app-members-class-new',
   templateUrl: './members-class-new.component.html',
-  styleUrls: ['./members-class-new.component.css']
+  styleUrls: ['./members-class-new.component.css'],
+  providers: [UnitService]
 })
 export class MembersClassNewComponent {
   @ViewChild('pageSlide') pageSlide: any;
 
-  public sports: PoComboOption[] = [
-    { value: 'Beach Volley' },
-    { value: 'Futevolei' },
-    { value: 'Beach Tennis' },
-    { value: 'Funcional' },
-  ];
+  public sports: PoComboOption[] = [];
 
   private readonly labelButtonAdd: string = 'Entrar'
   
@@ -87,7 +84,8 @@ export class MembersClassNewComponent {
     private classService: ClassService,
     private poNotification: PoNotificationService,
     private appService: AppService,
-    private poDialogService: PoDialogService
+    private poDialogService: PoDialogService,
+    private unitService: UnitService
   ) {}
   classes: any;
 
@@ -110,6 +108,13 @@ export class MembersClassNewComponent {
         this.isHideLoading = true;
       }
     );
+
+    this.unitService.getSports().subscribe(
+      (data) => {
+        this.sports = data.items.map((sport: any) => ({ label: sport.name, value: sport.name }));
+        this.isHideLoading = true;
+      }
+    )
   }
   public onPessoaSelected(novaPessoa: any) {
     this.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)

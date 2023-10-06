@@ -45,7 +45,9 @@ export class CourtNewComponent {
       gridColumns: 6,
       gridSmColumns: 12,
       optional: false,
-      options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'],
+      optionsService: `${environment.apiUrl}/sport`,
+      fieldLabel: 'name',
+      fieldValue: 'name',
       optionsMulti: true,
     },
     {

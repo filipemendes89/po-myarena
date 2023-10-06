@@ -3,10 +3,9 @@
   [p-auto-router]="true"
   [p-concat-filters]="true"
   [p-keep-filters]="true"
-  p-title="Unidades"
+  p-title="Esportes"
   [p-actions]="actions"
   [p-page-custom-actions]="pageCustomActions"
-  [p-table-custom-actions]="tableCustomActions"
   [p-breadcrumb]="breadcrumb"
   [p-fields]="fields"
   [p-service-api]="serviceApi"
@@ -14,26 +13,3 @@
   [p-load]="onLoad.bind(this)"
 >
 </po-page-dynamic-table>
-
-<po-modal #peopleModal p-title="Moradores" [p-primary-action]="confirm" [p-secondary-action]="cancel" p-size="xl">
-  
-  <po-container>
-    <po-lookup
-  name="pessoa"
-  p-field-label="label"
-  p-field-value="value"
-  p-filter-service="https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people"
-  p-label="Inserir Pessoa"
-  (p-selected)="onPessoaSelected($event)"
-></po-lookup>
-</po-container>
-  <po-table 
-  [p-items]="people"
-  [p-selectable]="true"
-  [p-columns]="columns"
-  (p-delete-items)="onPessoaDeleted($event)"
-  ></po-table>
-
-  <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
-
-</po-modal>

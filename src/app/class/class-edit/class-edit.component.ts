@@ -20,7 +20,7 @@ export class ClassEditComponent {
   }
   
   readonly detailFields: Array<PoDynamicFormField> = [
-    { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6, required: true, options: ['Beach Volley', 'Futevolei', 'Beach Tennis', 'Funcional'], },
+    { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6, required: true, optionsService: `${environment.apiUrl}/sport`, fieldLabel: 'name', fieldValue: 'name', },
     { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
     { property: 'time', label: 'Horário', gridColumns: 2, required: true, readonly: true },
     { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },

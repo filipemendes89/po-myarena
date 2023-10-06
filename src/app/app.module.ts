@@ -23,6 +23,7 @@ import { LogoutComponent } from './logout/logout/logout.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { PeopleService } from './people/people.service'
 import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component'
+import { UnitListComponent } from './unit/unit-list/unit-list.component'
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent],
@@ -49,6 +50,7 @@ import { ReservationListComponent } from './reservation/reservation-list/reserva
           { path: 'court', component: CourtListComponent },
           { path: 'calendar', component: CalendarListComponent },
           { path: 'reservation', component: ReservationListComponent },
+          { path: 'sport', component: UnitListComponent },
         ],
       },
     ]),
