@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core'
 import { PoMenuItem } from '@po-ui/ng-components'
 import { PeopleService } from './people/people.service'
 
+enum tipoPessoa {
+  Teacher = 'Professor',
+  Member = 'Aluno',
+}
+
 enum Roles {
   Admin = 'admin',
   User = 'user',
@@ -14,8 +19,8 @@ export class AppService {
   constructor(private peopleService: PeopleService) { }
   private pessoa:any
 
-  getMenus(isAdmin: boolean): Array<PoMenuItem> {
-    if(isAdmin) {
+  getMenus(): Array<PoMenuItem> {
+    if(this.isAdmin()) {
       return [
         { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
         { label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' },
@@ -27,7 +32,7 @@ export class AppService {
       ];
     }
     
-    return [
+    const menuAlunos:PoMenuItem[] = [
       { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
       { label: 'Perfil', link: '/people/profile', icon: 'po-icon-user', shortLabel: 'Perfil' },
       { label: 'Aulas', icon: 'po-icon-calendar', shortLabel: 'Aulas', subItems: [
@@ -36,6 +41,11 @@ export class AppService {
       ]},
       { label: 'Reservas', link: '/reservation', icon: 'po-icon-calendar-ok', shortLabel: 'Reservas' },
     ]
+
+    if(this.isTeacher())
+      menuAlunos.push({ label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' })
+
+    return menuAlunos
   }
 
   isAdmin(){
@@ -43,7 +53,7 @@ export class AppService {
   }
 
   setPessoa(){
-    this.peopleService.getPeople({ email: localStorage.getItem('email') }).subscribe((data) => { 
+    return this.peopleService.getPeople({ email: localStorage.getItem('email') }).subscribe((data) => { 
       if(Object.keys(data).length > 0) {
         this.pessoa = data
       }
@@ -52,5 +62,9 @@ export class AppService {
 
   getPessoa(){
     return this.pessoa
+  }
+
+  isTeacher(){
+    return this.pessoa?.tipo === tipoPessoa.Teacher
   }
 }

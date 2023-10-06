@@ -8,12 +8,13 @@ import {
 } from "@angular/router"
 import { PoNotificationService } from "@po-ui/ng-components"
 import { Observable } from "rxjs"
-import { AppService } from "../app.service"
+import { AppService } from "./app.service"
+
 
 @Injectable({
   providedIn: "root",
 })
-export class PeopleGuard implements CanActivate {
+export class AppGuardOnlyAdmin implements CanActivate {
   constructor(
     private appService: AppService,
     private router: Router,
@@ -30,7 +31,7 @@ export class PeopleGuard implements CanActivate {
     | UrlTree {
     // Se o usuário estiver sem sessão,
     // o enviamos para a tela de login
-    if (this.appService.isAdmin() || this.appService.isTeacher()) {
+    if (this.appService.isAdmin()) {
       return true;
     }
 

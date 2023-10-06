@@ -70,10 +70,9 @@ export class HomeComponent {
         localStorage.setItem('picture', data.picture)
         localStorage.setItem('role', data['https://myarena/roles']?.[0])
 
-        this.menus = this.appService.getMenus(this.appService.isAdmin())
-
-        if(!this.appService.isAdmin())
-          this.appService.setPessoa()
+        this.appService.setPessoa().add(() => {
+          this.menus = this.appService.getMenus()
+        })
       })
   }
 }

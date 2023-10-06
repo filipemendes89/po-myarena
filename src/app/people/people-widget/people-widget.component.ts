@@ -28,7 +28,6 @@ export class PeopleWidgetComponent {
     { label: 'Avançado', value: Level.Avançado },
   ]
   editPeople(event: any) {
-    (event)
     this._router.navigateByUrl(`/people/edit/${event.pessoa._id}`)
   }
 
