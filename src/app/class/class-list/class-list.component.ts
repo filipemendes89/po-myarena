@@ -89,7 +89,18 @@ export class ClassListComponent {
     { property: 'cpf' },
   ]
 
-  peopleColumns: PoTableColumn[] = [{ property: 'nome' }, { property: 'level', label: 'Nivel' }, {
+  peopleColumns: PoTableColumn[] = [{ property: 'nome' }, 
+  { 
+    property: 'level', 
+    type: 'label',
+    labels: [
+      { value: Level[1], color: `color-0${Level.Estreante}`, label: Level[1] },
+      { value: Level[2], color: `color-0${Level.Iniciante}`, label: Level[2] },
+      { value: Level[3], color: `color-0${Level.Intermediário}`, label: Level[3] },
+      { value: Level[4], color: `color-0${Level.Avançado}`, label: Level[4] }
+    ]
+   }
+  , {
     property: 'status',
     type: 'label',
     labels: [
