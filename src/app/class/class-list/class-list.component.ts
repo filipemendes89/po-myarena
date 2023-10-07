@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoLookupColumn, PoNotificationService, PoPageAction, PoTableColumn, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
+import { Level } from 'src/app/people/people-widget/people-widget.component'
 import { IClass } from 'src/app/types/types'
 import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
@@ -117,6 +118,7 @@ export class ClassListComponent {
             classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
             classFound.peopleList =  classFound.peopleList.map((pessoa:any, index: number) => {
               pessoa.status = index + 1 <= classFound.people  ? 'available' : 'reserved'
+              pessoa.level = Level[pessoa.levels?.find((sport:any) => sport.sport === classFound.sport)?.levelNumber]
               return pessoa
             });
             return classFound
@@ -213,5 +215,9 @@ export class ClassListComponent {
         this.isHideLoading = true;
       },
     });
+  }
+
+  getNivel(item: any) {
+
   }
 }

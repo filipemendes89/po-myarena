@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { PoDynamicViewField, PoInfoOrientation, PoNotificationService, PoToasterType } from '@po-ui/ng-components'
 import { PeopleService } from '../people.service'
 
-enum Level {
+export enum Level {
   Estreante = 1,
   Iniciante = 2,
   Intermediário = 3,
