@@ -14,7 +14,8 @@ export class CalendarListComponent {
   public readonly actions: PoPageAction[] = [
     {
       label: 'Novo',
-      url: '/calendar/new'
+      url: '/calendar/new',
+      icon: 'po-icon-plus'
     }
   ]
 

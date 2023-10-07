@@ -17,7 +17,7 @@ export class PeopleService {
   }
 
   getPeople(params?:any) {
-    return this.http.get<{ items: IPeople[] }>(endpoint, { params })
+    return this.http.get<{ hasNext: boolean, items: IPeople[] }>(endpoint, { params })
   }
 
   getPeopleById(id: string, params?:any) {

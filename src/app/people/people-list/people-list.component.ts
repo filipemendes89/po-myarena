@@ -6,6 +6,7 @@ import {
   PoPageDynamicTableCustomAction,
   PoPageDynamicTableCustomTableAction
 } from '@po-ui/ng-templates'
+import { IPeople } from 'src/app/types/types'
 import { UnitService } from 'src/app/unit/unit.service'
 import { PeopleService } from '../people.service'
 
@@ -19,7 +20,7 @@ export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
-  public pessoas: any;
+  public pessoas:IPeople[] = [];
   filteredItems: Array<any> = [];
   filters: Array<PoDisclaimer> = [];
   nome: string = '';
@@ -91,10 +92,15 @@ export class PeopleListComponent {
     private unitService: UnitService
   ) {}
 
+  hasNext = false
+  page = 1
   ngOnInit() {
     this.isHideLoading = false;
-    this.peopleService.getPeople().subscribe(
-      (data) => (this.pessoas = data.items),
+    this.peopleService.getPeople({ page: this.page, pageSize: 10 }).subscribe(
+      (data) => {
+        this.pessoas = [...this.pessoas,...data.items]
+        this.hasNext = data.hasNext
+      },
       () => {
         this.poNotification.error('Erro na busca de pessoas.');
         this.isHideLoading = true;
@@ -171,5 +177,10 @@ export class PeopleListComponent {
 
   private resetFilters() {
     this.filteredItems = [...(this.pessoas || [])];
+  }
+
+  loadMore(){
+    this.page++
+    this.ngOnInit()
   }
 }

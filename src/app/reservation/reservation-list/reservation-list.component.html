@@ -1,12 +1,12 @@
 <po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
     <po-datepicker
-      class="po-md-4 po-m-1"
+      class="po-md-4 po-sm-12"
       [p-auto-focus]="false"
       (p-change)="getReservationByDate($event)"
       p-label="Data da reserva"
     ></po-datepicker>
     <po-list-view
-      class="po-md-12"
+      class="po-md-12 po-sm-12"
       p-property-title="sport"
       [p-items]="reservations"
       [p-actions]="actionsView"

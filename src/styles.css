@@ -18,3 +18,7 @@
 
   --track-checked: var(--color-3)
   }
+
+  .po-button {
+    --border-radius: 40px;
+  }

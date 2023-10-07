@@ -15,7 +15,7 @@
   <po-disclaimer-group [p-disclaimers]="filters" (p-change)="changeFilters(filters)"
     (p-remove)="ngOnInit();formData.reset()" (p-remove-all)="ngOnInit();formData.reset()"> </po-disclaimer-group>
   
-  <app-people-widget class="po-md-12" *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-people-widget>
+  <app-people-widget class="po-mt-1 po-md-12" *ngFor="let pessoa of pessoas; let i = index" [pessoa]="pessoa"></app-people-widget>
 
   <po-modal #userDetailModal p-title="Detalhes">
     <po-avatar class="po-md-4" p-size="lg" [p-src]="detailedUser?.avatar"></po-avatar>
@@ -28,7 +28,7 @@
   <po-modal #dependentsModal p-title="Dependents" p-size="auto">
     <po-table [p-items]="dependents"> </po-table>
   </po-modal>
-
+  <po-button style="--border-radius: 40px;" class="po-offset-lg-3 po-offset-xl-3 po-xl-6 po-lg-6 po-md-8 po-sm-12" p-label="Carregar mais..." [p-disabled]="!hasNext" [p-loading]="!isHideLoading" (p-click)="loadMore()"></po-button>
   <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
 
 </po-page-default>
