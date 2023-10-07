@@ -29,11 +29,12 @@
           p-label="Professor"
           [p-value]="item.teacherId?.nome"
         ></po-info>
-        <po-info
+        <po-tag
           class="po-md-2 po-sm-6"
           p-label="Nivel"
+          [p-color]="'color-0' + item.level"
           [p-value]="getEnumLevel(item.level)"
-        ></po-info>
+        ></po-tag>
         <po-tag
           name="active"
           class="po-md-4 po-sm-6"
@@ -69,6 +70,7 @@
         [p-items]="peopleList"
         [p-hide-table-search]="true"
         [p-literals]="literalsTable"
+        p-hide-columns-manager="true"
       >
       </po-table>
       <po-container>

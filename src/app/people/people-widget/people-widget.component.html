@@ -19,7 +19,7 @@
       </div>
 </po-widget>
 
-<po-page-slide #pageSlideNivel p-size="auto">
+<po-page-slide #pageSlideNivel p-size="auto" p-title="Níveis do Aluno">
     <div *ngFor="let item of pessoa.sports">
       <po-divider class="po-sm-12" [p-label]="item"></po-divider>
         <po-info class="po-sm-6" p-label="Nivel atual" [p-value]="getNivel(item)"></po-info>

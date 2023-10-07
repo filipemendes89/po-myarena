@@ -35,7 +35,7 @@ export class MembersClassNewComponent {
         this.openPageSlide()
       },
       icon: 'po-icon-users',
-      disabled: (e:any) => this.appService.getPessoa().levels?.find((sport:any) => sport.sport === e.sport)?.levelNumber < e.level
+      disabled: (e:any) => e.level > this.appService.getPessoa().levels?.find((sport:any) => sport.sport === e.sport)?.levelNumber ?? Infinity 
     },
   ];
 

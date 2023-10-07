@@ -73,6 +73,6 @@ export class PeopleWidgetComponent {
   }
 
   getNivel(sport: string){
-    return this.pessoa.levels?.find((n:any) => n.sport === sport)?.levelNumber
+    return Level[this.pessoa.levels?.find((n:any) => n.sport === sport)?.levelNumber]
   }
 }
