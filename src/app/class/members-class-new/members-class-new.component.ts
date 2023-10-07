@@ -35,6 +35,7 @@ export class MembersClassNewComponent {
         this.openPageSlide()
       },
       icon: 'po-icon-users',
+      disabled: (e:any) => this.appService.getPessoa().levels?.find((sport:any) => sport.sport === e.sport)?.levelNumber < e.level
     },
   ];
 
@@ -49,20 +50,11 @@ export class MembersClassNewComponent {
   };
 
   public readonly literalsTable: PoTableLiterals = {
-    noColumns: 'Nenhuma definição de colunas',
-    noData: 'Nenhum dado encontrado',
-    noVisibleColumn: 'Nenhuma coluna visível',
-    noItem: 'Nenhum aluno selecionado',
+    noData: 'Nenhum aluno encontrado.',
     loadingData: 'Carregando',
     loadMoreData: 'Carregar mais resultados',
-    seeCompleteSubtitle: 'Ver legenda completa',
-    completeSubtitle: 'Legenda completa',
-    columnsManager: 'Gerenciador de colunas',
-    bodyDelete: 'Deseja realmente excluir esse aluno?',
     cancel: 'Cancelar',
-    delete: 'Excluir',
-    deleteSuccessful: 'Alunos removidos com sucesso',
-    deleteApiError: 'Ocorreu um erro inesperado, tente novamente mais tarde!',
+    delete: 'Excluir'
   };
 
   isHideLoading = true;
