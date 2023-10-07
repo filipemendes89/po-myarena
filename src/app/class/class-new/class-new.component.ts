@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { PoBreadcrumb, PoDynamicFormComponent, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDynamicFormComponent, PoDynamicFormField, PoNotificationService, PoSelectOption, PoStepperOrientation } from '@po-ui/ng-components'
+import { Level } from 'src/app/people/people-widget/people-widget.component'
 import { IAvailableCourt, IHour } from 'src/app/types/types'
 import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
@@ -21,6 +22,14 @@ export class ClassNewComponent {
       { label: 'New' }
     ]
   }
+
+  public readonly optionsLevel: PoSelectOption[] = [
+    { label: 'Estreante', value: Level.Estreante },
+    { label: 'Iniciante', value: Level.Iniciante },
+    { label: 'Intermediario', value: Level.Intermediário },
+    { label: 'Avançado', value: Level.Avançado },
+    { label: 'Particular', value: 5 }
+  ]
 
   public readonly fieldsSecondStep: Array<PoDynamicFormField> = [
     {
@@ -51,7 +60,7 @@ export class ClassNewComponent {
       label: 'Nível',
       gridColumns: 6,
       gridSmColumns: 6,
-      options: ['Estrente', 'Iniciante', 'Intermediário', 'Avançado', 'Particular'],
+      options: this.optionsLevel,
       required: true
     },
     {
@@ -74,7 +83,7 @@ export class ClassNewComponent {
     { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
     { property: 'teacherId', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, readonly: true },
     { property: 'people', label: 'Max. Alunos', gridSmColumns: 12, gridColumns: 2, required: true, readonly: true },
-    { property: 'level', label: 'Nível', gridSmColumns: 12, required: true, readonly: true },
+    { property: 'level', label: 'Nível', gridSmColumns: 12, required: true, readonly: true, options: this.optionsLevel },
   ];
 
   detailValue: any = {}

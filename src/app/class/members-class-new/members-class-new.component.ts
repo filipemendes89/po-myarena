@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core'
 import { PoBreadcrumb, PoComboOption, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoTableLiterals, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
+import { Level } from 'src/app/people/people-widget/people-widget.component'
 import { UnitService } from 'src/app/unit/unit.service'
 import { ClassService } from '../class.service'
 
@@ -123,7 +124,7 @@ export class MembersClassNewComponent {
     this.class.peopleList = this.peopleList = this.peopleList.map((people: any, index: number) => ({
       _id: people._id,
       nome: people.nome,
-      level: people.level,
+      level: people.level ?? Level[people.levels?.find((sport:any) => sport.sport === this.class.sport)?.levelNumber],
       status: index + 1 <= this.class.people ? 'available' : 'reserved'
     }));
   }
@@ -180,4 +181,7 @@ export class MembersClassNewComponent {
     return this.pageSlide.open()
   }
 
+  getEnumLevel(nivel: any) {
+    return Level[nivel]
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core'
 import { PoBreadcrumb, PoDialogService, PoListViewAction, PoListViewLiterals, PoNotificationService, PoPageAction, PoTagType } from '@po-ui/ng-components'
 import { AppService } from 'src/app/app.service'
+import { Level } from 'src/app/people/people-widget/people-widget.component'
 import { ClassService } from '../class.service'
 
 @Component({
@@ -136,5 +137,9 @@ export class MembersClassListComponent {
         this.poNotification.error(error);
       },
     })
+  }
+
+  getEnumLevel(nivel: any) {
+    return Level[nivel]
   }
 }

@@ -118,7 +118,6 @@ export class ClassListComponent {
             classFound.poValue = classFound.isItFull ? `${Math.abs(people)}${this.poLabelCheia}` : `${people}${this.poLabelVagas}`
             classFound.peopleList =  classFound.peopleList.map((pessoa:any, index: number) => {
               pessoa.status = index + 1 <= classFound.people  ? 'available' : 'reserved'
-              pessoa.level = Level[pessoa.levels?.find((sport:any) => sport.sport === classFound.sport)?.levelNumber]
               return pessoa
             });
             return classFound
@@ -154,14 +153,13 @@ export class ClassListComponent {
   }
 
   public onPessoaSelected(classS: any, novaPessoa: any) {
-    
     classS.peopleList.find((pessoa: any) => pessoa._id === novaPessoa._id)
       ? null
       : classS.peopleList.push(novaPessoa);
     classS.peopleList = classS.peopleList.map((people: any, index: number) => ({
       _id: people._id,
       nome: people.nome,
-      level: people.level,
+      level: Level[people.levels?.find((sport:any) => sport.sport === classS.sport)?.levelNumber],
       status: index + 1 <= classS.people ? 'available' : 'reserved'
     }));
   }
@@ -217,7 +215,7 @@ export class ClassListComponent {
     });
   }
 
-  getNivel(item: any) {
-
+  getEnumLevel(nivel: any) {
+    return Level[nivel]
   }
 }

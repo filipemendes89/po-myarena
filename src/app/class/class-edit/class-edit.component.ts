@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoStepperOrientation } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoDynamicFormField, PoNotificationService, PoSelectOption, PoStepperOrientation } from '@po-ui/ng-components'
+import { Level } from 'src/app/people/people-widget/people-widget.component'
 import { environment } from 'src/environments/environment'
 import { ClassService } from '../class.service'
 
@@ -19,6 +20,15 @@ export class ClassEditComponent {
     ]
   }
   
+  
+  public readonly optionsLevel: PoSelectOption[] = [
+    { label: 'Estreante', value: Level.Estreante },
+    { label: 'Iniciante', value: Level.Iniciante },
+    { label: 'Intermediario', value: Level.Intermediário },
+    { label: 'Avançado', value: Level.Avançado },
+    { label: 'Particular', value: 5 }
+  ]
+
   readonly detailFields: Array<PoDynamicFormField> = [
     { property: 'sport', label: 'Esporte', divider: 'Dados da Aula', gridColumns: 6, required: true, optionsService: `${environment.apiUrl}/sport`, fieldLabel: 'name', fieldValue: 'name', },
     { property: 'date', label: 'Data', gridColumns: 6, required: true, readonly: true },
@@ -26,11 +36,11 @@ export class ClassEditComponent {
     { property: 'court', label: 'Quadra', gridColumns: 4, required: true, readonly: true },
     { property: 'teacherId', divider: 'Detalhes', label: 'Professor', gridColumns: 6, required: true, optionsService: `${environment.apiUrl}/people?tipo=Professor`, fieldLabel: 'nome', fieldValue: '_id'  },
     { property: 'people', label: 'Max. Alunos', gridSmColumns: 12, gridColumns: 2, required: true },
-    { property: 'level', label: 'Nível', gridSmColumns: 12, required: true },
+    { property: 'level', label: 'Nível', gridSmColumns: 12, required: true, options: this.optionsLevel },
   ];
 
   isHideLoading = true
-  
+
   public readonly orientation:PoStepperOrientation = PoStepperOrientation.Horizontal
   constructor(
     private classService: ClassService,
