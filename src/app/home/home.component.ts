@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { AuthService } from '@auth0/auth0-angular'
-import { PoBreadcrumb, PoMenuItem, PoTableColumn, PoToolbarAction } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoChartSerie, PoChartType, PoMenuItem, PoTableColumn, PoToolbarAction } from '@po-ui/ng-components'
 import { AppService } from '../app.service'
 
 @Component({
@@ -9,7 +9,9 @@ import { AppService } from '../app.service'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  
+  sportByPeopleChartType: PoChartType = PoChartType.Donut;
+  sportsByPeople: Array<PoChartSerie> = []
+
   constructor(private auth: AuthService, private appService: AppService) {}
   paymentLink: string = 'https://www.google.com.br/search?q=days+to+payment';
   itemsDetails: Array<any> = []
@@ -77,5 +79,8 @@ export class HomeComponent {
           this.isHideLoading = true
         })
       })
+    this.appService.getStatistics().subscribe((data:any) => {
+      this.sportsByPeople = data.sportByPeople
+    })
   }
 }

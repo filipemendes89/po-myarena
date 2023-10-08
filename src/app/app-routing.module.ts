@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { AuthGuard } from '@auth0/auth0-angular'
+import { AppGuardOnlyAdmin } from './app.guard'
 import { CalendarModule } from './calendar/calendar.module'
 import { ClassModule } from './class/class.module'
 import { CourtModule } from './court/court.module'
@@ -9,6 +10,7 @@ import { LoginComponent } from './login/login/login.component'
 import { LogoutComponent } from './logout/logout/logout.component'
 import { PeopleModule } from './people/people.module'
 import { ReservationModule } from './reservation/reservation.module'
+import { StatisticsComponent } from './statistics/statistics.component'
 import { UnitModule } from './unit/unit.module'
 
 const routes: Routes = [
@@ -40,11 +42,12 @@ const routes: Routes = [
       {
         path: 'reservation',
         loadChildren: () => ReservationModule,
-      },
+      }
     ],
   },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'statistics', component: StatisticsComponent, canActivate:[AppGuardOnlyAdmin] },
 ];
 
 @NgModule({

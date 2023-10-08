@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterModule } from '@angular/router'
 import { AuthModule } from '@auth0/auth0-angular'
-import { PoLoadingModule, PoModule } from '@po-ui/ng-components'
+import { PoChartModule, PoLoadingModule, PoModule } from '@po-ui/ng-components'
 import {
   PoPageDynamicTableModule,
   PoPageLoginModule,
@@ -23,10 +23,11 @@ import { LogoutComponent } from './logout/logout/logout.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
 import { PeopleService } from './people/people.service'
 import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component'
-import { UnitListComponent } from './unit/unit-list/unit-list.component'
+import { UnitListComponent } from './unit/unit-list/unit-list.component';
+import { StatisticsComponent } from './statistics/statistics.component'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent, StatisticsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -58,7 +59,8 @@ import { UnitListComponent } from './unit/unit-list/unit-list.component'
     PoPageDynamicTableModule,
     BrowserAnimationsModule,
     PoPageLoginModule,
-    PoLoadingModule
+    PoLoadingModule,
+    PoChartModule
   ],
   providers: [PeopleService],
   bootstrap: [AppComponent],

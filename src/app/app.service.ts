@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { PoMenuItem } from '@po-ui/ng-components'
+import { environment } from 'src/environments/environment'
 import { PeopleService } from './people/people.service'
 
 enum tipoPessoa {
@@ -11,12 +13,14 @@ enum Roles {
   Admin = 'admin',
   User = 'user',
 }
+
+const endpointStatistics = `${environment.apiUrl}/statistics`
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  constructor(private peopleService: PeopleService) { }
+  constructor(private http: HttpClient,private peopleService: PeopleService) { }
   private pessoa:any
 
   getMenus(): Array<PoMenuItem> {
@@ -29,6 +33,7 @@ export class AppService {
         { label: 'Calendários', link: '/calendar', icon: 'po-icon-calendar', shortLabel: 'Calendários' },
         { label: 'Reservas', link: '/reservation', icon: 'po-icon-calendar-ok', shortLabel: 'Reservas' },
         { label: 'Esportes', link: '/sport', icon: 'po-icon-like', shortLabel: 'Esportes' },
+        { label: 'Estatisticas', link: '/statistics', icon: 'po-icon po-icon-chart-area', shortLabel: 'Estatisticas' },
         { label: 'Sair', link: '/logout', icon: 'po-icon-exit', shortLabel: 'Sair',  }
       ];
     }
@@ -68,4 +73,9 @@ export class AppService {
   isTeacher(){
     return this.pessoa?.tipo === tipoPessoa.Teacher
   }
+
+  getStatistics(){
+    return this.http.get(endpointStatistics)
+  }
+
 }
