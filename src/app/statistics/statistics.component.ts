@@ -10,7 +10,9 @@ import { AppService } from '../app.service'
 })
 export class StatisticsComponent {
   sportByPeopleChartType: PoChartType = PoChartType.Donut;
+  reservationType: PoChartType = PoChartType.Bar
   sportsByPeople: Array<PoChartSerie> = []
+  reservationsLastMonths: Array<PoChartSerie> = []
 
   constructor(private auth: AuthService, private appService: AppService) {}
   paymentLink: string = 'https://www.google.com.br/search?q=days+to+payment';
@@ -19,6 +21,7 @@ export class StatisticsComponent {
   typeChart: string = 'line';
   isHideLoading = true
   profile:any
+
   
   readonly profileActions:PoToolbarAction[] = [
     { label: 'Perfil', url: '/people/profile', icon: 'po-icon-user', type: 'primary' },
@@ -45,6 +48,7 @@ export class StatisticsComponent {
     this.isHideLoading = false  
     this.appService.getStatistics().subscribe((data:any) => {
       this.sportsByPeople = data.sportByPeople
+      this.reservationsLastMonths = data.reservationByMonth
       this.isHideLoading = true
     })
   }

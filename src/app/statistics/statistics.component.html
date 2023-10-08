@@ -17,12 +17,19 @@
     <po-page-default [p-breadcrumb]="breadcrumb">
       <div class="po-row">
         <po-chart
-        class="po-lg-6 po-mt-2"
-        p-title="Pessoas x Esporte"
-        [p-series]="sportsByPeople"
-        [p-type]="sportByPeopleChartType"
-      >
-      </po-chart>
+            class="po-lg-6 po-mt-2"
+            p-title="Pessoas x Esporte"
+            [p-series]="sportsByPeople"
+            [p-type]="sportByPeopleChartType"
+        >
+        </po-chart>
+        <po-chart
+            class="po-lg-6 po-mt-2"
+            p-title="Reservas Ult. 12 Meses"
+            [p-series]="reservationsLastMonths"
+            [p-type]="reservationType"
+        >
+        </po-chart>
       </div>  
       </po-page-default>
       <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
