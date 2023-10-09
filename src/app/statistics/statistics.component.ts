@@ -11,8 +11,13 @@ import { AppService } from '../app.service'
 export class StatisticsComponent {
   sportByPeopleChartType: PoChartType = PoChartType.Donut;
   reservationType: PoChartType = PoChartType.Bar
+  classType: PoChartType = PoChartType.Line
+  
   sportsByPeople: Array<PoChartSerie> = []
   reservationsLastMonths: Array<PoChartSerie> = []
+  classLastYear: Array<PoChartSerie> = []
+
+  classCategories: Array<any> = []
 
   constructor(private auth: AuthService, private appService: AppService) {}
   paymentLink: string = 'https://www.google.com.br/search?q=days+to+payment';
@@ -49,6 +54,8 @@ export class StatisticsComponent {
     this.appService.getStatistics().subscribe((data:any) => {
       this.sportsByPeople = data.sportByPeople
       this.reservationsLastMonths = data.reservationByMonth
+      this.classLastYear = data.getMembersInClass
+      this.classCategories = data.categories
       this.isHideLoading = true
     })
   }

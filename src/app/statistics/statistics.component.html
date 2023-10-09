@@ -25,9 +25,17 @@
         </po-chart>
         <po-chart
             class="po-lg-6 po-mt-2"
-            p-title="Reservas Ult. 12 Meses"
+            p-title="Reservas Ult. 6 Meses"
             [p-series]="reservationsLastMonths"
             [p-type]="reservationType"
+        >
+        </po-chart>
+        <po-chart
+            class="po-lg-12 po-mt-2"
+            p-title="Qtd Alunos x Aula"
+            [p-series]="classLastYear"
+            [p-type]="classType"
+            [p-categories]="classCategories"
         >
         </po-chart>
       </div>  
