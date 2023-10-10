@@ -14,7 +14,7 @@
   >
   </po-menu>
   <router-outlet></router-outlet>
-  <po-page-default>
+  <po-page-default p-title="{{ 'Bem vindo ao MyArena - ' + profile?.title }}">
     </po-page-default>
     <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
 </div>

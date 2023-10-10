@@ -43,9 +43,9 @@ export class StatisticsComponent {
 
   ngOnInit(): void {    
     this.profile = {
-      avatar: this.appService.getPessoa().avatar,
-      title: this.appService.getPessoa().name,
-      subtitle: this.appService.getPessoa().email
+      avatar: this.appService.getPessoa()?.avatar,
+      title: this.appService.getPessoa()?.name,
+      subtitle: this.appService.getPessoa()?.email
     }
 
     this.menus = this.appService.getMenus()
@@ -54,9 +54,19 @@ export class StatisticsComponent {
     this.appService.getStatistics().subscribe((data:any) => {
       this.sportsByPeople = data.sportByPeople
       this.reservationsLastMonths = data.reservationByMonth
-      this.classLastYear = data.getMembersInClass
+            
+      this.classLastYear = this.tratarRetornoClass(data.getMembersInClass)
       this.classCategories = data.categories
       this.isHideLoading = true
     })
+  }
+
+  tratarRetornoClass(data:any){
+    data.forEach((classNumber: any) => {
+      classNumber.data.sort((a: any, b: any) => a.date > b.date ? 1 : -1)
+      classNumber.data = <any>classNumber.data.map((dados: any) => dados.total).flat(3)
+    })
+
+    return data
   }
 }
