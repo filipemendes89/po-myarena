@@ -14,7 +14,12 @@
   >
   </po-menu>
   <router-outlet></router-outlet>
-  <po-page-default p-title="{{ 'Bem vindo ao MyArena - ' + profile?.title }}">
-    </po-page-default>
-    <po-loading-overlay [hidden]="isHideLoading" p-text="Aguarde...Carregando os dados do usuário..."></po-loading-overlay>
+  <po-page-default>
+    <div class="po-visible-sm po-md-2 po-sm-12" *ngFor="let item of menus">
+      <po-widget (p-click)="goTo(item.link)">
+        <po-button class="po-md-12 po-sm-12" [p-label]="item.label" p-icon="{{item.icon}}" ></po-button>       
+      </po-widget>
+    </div>
+  </po-page-default>
+  <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando os dados do usuário..."></po-loading-overlay>
 </div>

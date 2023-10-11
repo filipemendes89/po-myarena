@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
+import { Router } from '@angular/router'
 import { AuthService } from '@auth0/auth0-angular'
-import { PoBreadcrumb, PoChartSerie, PoChartType, PoMenuItem, PoTableColumn, PoToolbarAction } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoChartSerie, PoChartType, PoTableColumn, PoToolbarAction } from '@po-ui/ng-components'
 import { AppService } from '../app.service'
 
 @Component({
@@ -12,7 +13,7 @@ export class HomeComponent {
   sportByPeopleChartType: PoChartType = PoChartType.Donut;
   sportsByPeople: Array<PoChartSerie> = []
 
-  constructor(private auth: AuthService, private appService: AppService) {}
+  constructor(private auth: AuthService, private appService: AppService, private router: Router) {}
   paymentLink: string = 'https://www.google.com.br/search?q=days+to+payment';
   itemsDetails: Array<any> = []
   titleDetailsModal: string = ''
@@ -24,7 +25,7 @@ export class HomeComponent {
     { label: 'Logout', url: '/logout', icon: 'po-icon-exit', type: 'danger' }
   ];
   
-  public menus: Array<PoMenuItem> = [
+  public menus: Array<any> = [
     { label: 'Inicio', link: '/', icon: 'po-icon-home', shortLabel: 'Início' },
   ]
 
@@ -82,5 +83,9 @@ export class HomeComponent {
     this.appService.getStatistics().subscribe((data:any) => {
       this.sportsByPeople = data.sportByPeople
     })
+  }
+
+  goTo(link: string) {
+    this.router.navigate([link])
   }
 }

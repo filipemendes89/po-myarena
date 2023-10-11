@@ -53,7 +53,7 @@ export class StatisticsComponent {
     this.isHideLoading = false  
     this.appService.getStatistics().subscribe((data:any) => {
       this.sportsByPeople = data.sportByPeople
-      this.reservationsLastMonths = data.reservationByMonth
+      this.reservationsLastMonths = data.reservationByMonth.sort((a: any, b: any) => a.date > b.date ? 1 : -1)
             
       this.classLastYear = this.tratarRetornoClass(data.getMembersInClass)
       this.classCategories = data.categories
@@ -61,7 +61,7 @@ export class StatisticsComponent {
     })
   }
 
-  tratarRetornoClass(data:any){
+  tratarRetornoClass(data:Array<any>){
     data.forEach((classNumber: any) => {
       classNumber.data.sort((a: any, b: any) => a.date > b.date ? 1 : -1)
       classNumber.data = <any>classNumber.data.map((dados: any) => dados.total).flat(3)
