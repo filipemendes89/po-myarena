@@ -51,6 +51,7 @@ export class AppService {
     if(this.isTeacher())
       menuAlunos.push({ label: 'Pessoas', link: '/people', icon: 'po-icon-user', shortLabel: 'Pessoas' })
 
+    menuAlunos.push({ label: 'Sair', link: '/logout', icon: 'po-icon-exit', shortLabel: 'Sair',  })
     return menuAlunos
   }
 
