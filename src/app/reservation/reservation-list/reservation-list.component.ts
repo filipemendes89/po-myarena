@@ -42,6 +42,7 @@ export class ReservationListComponent {
   isHideLoading = true
 
   reserverId = this.appService.getPessoa()?._id
+  isAdmin = this.appService.isAdmin()
 
   ngOnInit(){
     this.isHideLoading = false
@@ -53,7 +54,7 @@ export class ReservationListComponent {
 
     date ? params.date = date : null
     
-    if(this.reserverId)
+    if(this.reserverId && !this.isAdmin)
       params.reserverId = this.reserverId
       
     this.isHideLoading = false
