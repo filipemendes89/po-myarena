@@ -7,4 +7,6 @@ export interface ICourt {
     active: boolean
     id: string
     calendar: string
+    events?: any
+    _id?: string
 }

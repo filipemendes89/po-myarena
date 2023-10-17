@@ -109,6 +109,7 @@ export interface IPeople {
 }
 
 export interface ICourt {
+  events?: any
   _id: string;
   createdAt: string;
   name: string;

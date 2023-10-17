@@ -14,9 +14,15 @@
         </div>
       </ng-template>
       <ng-template p-list-view-detail-template let-item [p-show-detail]="showDetail">
-        <div class="po-row">
-          <p>Mostra agenda componente</p>
-        </div>
+        <po-container>
+          <h1 class="center text-center po-font-subtitle">Agenda de hoje</h1>
+          <mwl-calendar-day-view
+            [viewDate]="viewDate"
+            [events]="item.events"
+            [refresh]="refresh"
+          >
+          </mwl-calendar-day-view>
+        </po-container>
       </ng-template>
 </po-list-view>
 <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
