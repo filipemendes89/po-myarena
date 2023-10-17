@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "./node_modules/@po-ui/style/css/po-theme-default.min.css",
               "src/styles.css"
             ],
@@ -94,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "./node_modules/@po-ui/style/css/po-theme-default.min.css",
               "src/styles.css"
             ],

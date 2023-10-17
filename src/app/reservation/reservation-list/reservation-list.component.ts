@@ -21,6 +21,11 @@ export class ReservationListComponent {
       label: 'Nova',
       url: 'reservation/new'
     },
+    {
+      icon: 'po-icon-calendar-ok',
+      label: 'Calendário',
+      url: 'reservation/calendar'
+    }
   ];
 
   readonly actionsView: Array<PoListViewAction> = [

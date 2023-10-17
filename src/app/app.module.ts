@@ -11,6 +11,8 @@ import {
   PoPageLoginModule,
   PoTemplatesModule
 } from '@po-ui/ng-templates'
+import { CalendarModule, DateAdapter } from 'angular-calendar'
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'
 import { environment as env } from '../environments/environment'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -60,7 +62,8 @@ import { UnitListComponent } from './unit/unit-list/unit-list.component'
     BrowserAnimationsModule,
     PoPageLoginModule,
     PoLoadingModule,
-    PoChartModule
+    PoChartModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [PeopleService],
   bootstrap: [AppComponent],

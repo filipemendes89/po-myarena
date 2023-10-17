@@ -1,12 +1,56 @@
 export interface IReservation {
     _id: string;
     createdAt: string;
-    courtId: string;
+    courtId: {
+        _id: string;
+        createdAt: string;
+        name: string;
+        avatar: string;
+        courtId: string;
+    };
     time: string;
-    classId: string;
+    classId: {
+        _id: string;
+        createdAt: string;
+        sport: string;
+        teacherId: {
+            _id: string;
+            createdAt: string;
+            nome: string;
+            email: string;
+            dtNascimento: string;
+            genero: string;
+            nacionalidade: string;
+            cpf: string;
+            phone: string;
+            avatar: string;
+            sports: string[];
+            tipo: string;
+            instagram: string;
+            tenantId: string;
+            __v: number;
+        }
+    };
     date: string;
     active: boolean;
     tenantId: string;
+    reserverId?: {
+        _id: string;
+        createdAt: string;
+        nome: string;
+        email: string;
+        dtNascimento: string;
+        genero: string;
+        nacionalidade: string;
+        cpf: string;
+        phone: string;
+        avatar: string;
+        sports: string[];
+        tipo: string;
+        instagram: string;
+        tenantId: string;
+        __v: number;
+    };
     __v: number;
   };
 

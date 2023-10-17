@@ -1,0 +1,93 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+  <div class="row text-center">
+    <po-container class="po-md-6">
+      <po-button
+        class="po-md-4"
+        p-size="small"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        p-label="Anterior"
+      >
+      </po-button>
+      <po-button
+        class="po-md-4"
+        p-size="small"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+        p-label="Hoje"
+      >
+      </po-button>
+
+      <po-button
+        class="po-md-4"
+        p-size="small"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        p-label="Próximo"
+      >
+      </po-button>
+    </po-container>
+  </div>
+  <po-container class="po-md-6">
+    
+      <po-button
+        class="po-md-4"
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
+        p-label="Mês"
+        p-size="small"
+      >
+      </po-button>
+      <po-button
+        class="po-md-4"
+        (click)="setView(CalendarView.Week)"
+        [class.active]="view === CalendarView.Week"
+        p-label="Semana"
+        p-size="small"
+      >
+      </po-button>
+      <po-button
+        class="po-md-4"
+        (click)="setView(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day"
+        p-label="Dia"
+        p-size="small"
+      >
+      </po-button>
+    
+  </po-container>
+  <po-container [p-no-border]="true" class="po-md-12">
+    <h3 class="text-center po-font-display">{{ viewDate | calendarDate : view + "ViewTitle" : "en" }}</h3>
+  </po-container>
+  <br />
+  <po-container [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+    >
+    </mwl-calendar-day-view>
+  </po-container>
+  <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+</po-page-default>
