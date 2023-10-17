@@ -10,6 +10,7 @@ import {
 } from 'date-fns'
 import * as moment from 'moment'
 import { Subject } from 'rxjs'
+import { AppService } from 'src/app/app.service'
 import { IReservation } from 'src/app/types/types'
 import { ReservationService } from '../reservation.service'
 
@@ -63,11 +64,19 @@ export class ReservationCalendarComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private reservationService: ReservationService, private poNotification: PoNotificationService, private poDialogService: PoDialogService) {}
+  reserverId = this.appService.getPessoa()?._id
+  isAdmin = this.appService.isAdmin()
+
+  constructor(private reservationService: ReservationService, private poNotification: PoNotificationService, private poDialogService: PoDialogService, private appService: AppService) {}
 
   ngOnInit() {
+    const params: { date?: string, reserverId?: string } = {}
     this.isHideLoading = false
-    this.reservationService.getReservations({}).subscribe((data) => {
+    
+    if(this.reserverId && !this.isAdmin)
+      params.reserverId = this.reserverId
+
+    this.reservationService.getReservations(params).subscribe((data) => {
       this.events = data.items.sort((a:any, b:any) => {
         return moment(`${a.date} ${a.time}`, 'DD/MM/YYYY HH:mm' ).diff(moment(`${b.date} ${b.time}`, 'DD/MM/YYYY HH:mm'))
       }).map((item) => {
