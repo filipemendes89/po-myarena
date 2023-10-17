@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 
-import { PoAvatarModule, PoButtonModule, PoDatepickerModule, PoDynamicModule, PoInfoModule, PoListViewModule, PoLoadingModule, PoPageModule, PoStepperModule, PoWidgetModule } from '@po-ui/ng-components'
+import { PoAvatarModule, PoButtonModule, PoDatepickerModule, PoDynamicModule, PoInfoModule, PoListViewModule, PoLoadingModule, PoPageModule, PoStepperModule, PoTabsModule, PoWidgetModule } from '@po-ui/ng-components'
 import { ReservationListComponent } from './reservation-list/reservation-list.component'
 import { ReservationNewComponent } from './reservation-new/reservation-new.component'
 import { ReservationRoutingModule } from './reservation-routing.module'
@@ -24,7 +24,8 @@ import { ReservationRoutingModule } from './reservation-routing.module'
     PoLoadingModule,
     PoStepperModule,
     PoButtonModule,
-    PoDynamicModule
+    PoDynamicModule,
+    PoTabsModule
   ]
 })
 export class ReservationModule { }
