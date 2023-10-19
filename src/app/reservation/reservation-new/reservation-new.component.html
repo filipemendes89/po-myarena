@@ -1,0 +1,35 @@
+<po-page-default [p-breadcrumb]="breadcrumb">
+    <po-stepper #stepper [p-orientation]="orientation" [p-step-icons]="true" [p-step-size]="32">
+        <po-step p-label="Quadra" [p-can-active-next-step]="canActivateNextStep.bind(this)">
+            <po-widget
+            class="po-md-12"
+            p-title="Dados da reserva"
+          >
+          <po-datepicker class="po-md-3 po-m-1" [p-auto-focus]="false" (p-change)="getAvailabeCourts($event)" p-label="Data da reserva"></po-datepicker>
+          <div class="po-md-12">
+            <po-widget 
+            *ngFor="let item of availabeCourts" 
+            class="po-md-12 po-mb-1" 
+            p-title="{{item.courtName}}">
+                <po-button class="po-m-1" *ngFor="let time of item.hours" [p-label]="time.entryTime" (p-click)="onSelectHour(time, item);stepper.next()" p-size="small"></po-button>
+            </po-widget>
+        </div>
+        </po-widget>
+            
+        </po-step>
+        <po-step p-label="Confirmação">
+            <po-widget
+            class="po-md-12"
+            p-primary-label="Finalizar"
+            p-title="Dados da reserva"
+            (p-primary-action)="onFinish()"
+            [p-disabled]="formDetails.form.invalid ?? true"
+            >
+                <po-dynamic-form #formDetails [p-fields]="detailFields" [p-value]="detailValue">
+    
+                </po-dynamic-form>
+            </po-widget>
+        </po-step>
+    </po-stepper>
+    <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+</po-page-default>

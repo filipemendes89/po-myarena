@@ -1,46 +1,26 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { environment } from 'src/environments/environment'
+import { IPeople } from '../types/types'
 
+const endpoint:string = `${environment.apiUrl}/people`
 @Injectable()
 export class PeopleService {
   constructor(public http: HttpClient) {}
 
-  downloadCsv(endpoint: any) {
-    this.http.get(endpoint).subscribe((data: any) => {
-      const csvStr = this.parseJsonToCsv(data['items']);
-      const dataUri = 'data:text/csv;charset=utf-8,' + csvStr;
-
-      const exportFileDefaultName = 'data.csv';
-
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
-    });
+  postPerson(pessoa: any) {
+    return this.http.post<IPeople>(endpoint, pessoa)
   }
 
-  parseJsonToCsv(jsonData = []) {
-    if (!jsonData.length) {
-      return '';
-    }
+  putPerson(pessoa: any, id: string) {
+    return this.http.put<IPeople>(`${endpoint}/${id}`, pessoa)
+  }
 
-    const keys = Object.keys(jsonData[0]);
-    const columnDelimiter = ',';
-    const lineDelimiter = '\n';
-    const csvColumnHeader = keys.join(columnDelimiter);
+  getPeople(params?:any) {
+    return this.http.get<{ hasNext: boolean, items: IPeople[] }>(endpoint, { params })
+  }
 
-    const csvStr = jsonData.reduce((accCsvStr, currentItem) => {
-      keys.forEach((key, index) => {
-        if (index && index < keys.length - 1) {
-          accCsvStr += columnDelimiter;
-        }
-
-        accCsvStr += currentItem[key];
-      });
-
-      return accCsvStr + lineDelimiter;
-    }, csvColumnHeader + lineDelimiter);
-
-    return encodeURIComponent(csvStr);
+  getPeopleById(id: string, params?:any) {
+    return this.http.get<IPeople>(`${endpoint}/${id}`, { params })
   }
 }

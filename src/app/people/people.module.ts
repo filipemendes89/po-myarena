@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoStepperModule, PoTableModule, PoWidgetModule, PoPageModule, PoAvatarModule } from '@po-ui/ng-components'
+import { PoAvatarModule, PoButtonModule, PoContainerModule, PoDisclaimerGroupModule, PoDividerModule, PoDynamicModule, PoFieldModule, PoInfoModule, PoLoadingModule, PoModalModule, PoNotificationModule, PoPageModule, PoStepperModule, PoTableModule, PoWidgetModule } from '@po-ui/ng-components'
 import { PoPageDynamicEditModule, PoPageDynamicTableModule } from '@po-ui/ng-templates'
 import { PeopleListComponent } from './people-list/people-list.component'
 import { PeopleNewComponent } from './people-new/people-new.component'
 import { PeopleRoutingModule } from './people-routing.module'
+import { PeopleWidgetComponent } from './people-widget/people-widget.component'
+import { ProfileComponent } from './profile/profile.component'
 @NgModule({
   declarations: [
     PeopleListComponent,
-    PeopleNewComponent
+    PeopleNewComponent,
+    PeopleWidgetComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +28,12 @@ import { PeopleRoutingModule } from './people-routing.module'
     PoLoadingModule,
     PoPageDynamicEditModule,
     PoPageModule,
-    PoAvatarModule
+    PoAvatarModule,
+    PoButtonModule,
+    PoNotificationModule,
+    PoContainerModule,
+    PoDisclaimerGroupModule,
+    PoDividerModule
   ]
 })
 export class PeopleModule { }

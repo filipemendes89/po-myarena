@@ -1,0 +1,45 @@
+<div class="po-wrapper">
+    <po-toolbar
+    p-title="MyArena"
+    [p-profile]="profile"
+    [p-profile-actions]="profileActions"
+    >
+  
+    </po-toolbar>
+    <po-menu
+      [p-collapsed]="false"
+      p-logo="../assets/logo.png"
+      p-short-logo="../assets/logo_min.png"
+      [p-menus]="menus"
+    >
+    </po-menu>
+    <router-outlet></router-outlet>
+    <po-page-default [p-breadcrumb]="breadcrumb">
+      <div class="po-row">
+        <po-chart
+            class="po-lg-6 po-mt-2"
+            p-title="Pessoas x Esporte"
+            [p-series]="sportsByPeople"
+            [p-type]="sportByPeopleChartType"
+        >
+        </po-chart>
+        <po-chart
+            class="po-lg-6 po-mt-2"
+            p-title="Reservas Ult. 6 Meses"
+            [p-series]="reservationsLastMonths"
+            [p-type]="reservationType"
+        >
+        </po-chart>
+        <po-chart
+            class="po-lg-12 po-mt-2"
+            p-title="Qtd Alunos x Esporte"
+            [p-series]="classLastYear"
+            [p-type]="classType"
+            [p-categories]="classCategories"
+        >
+        </po-chart>
+      </div>  
+      </po-page-default>
+      <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+  </div>
+  

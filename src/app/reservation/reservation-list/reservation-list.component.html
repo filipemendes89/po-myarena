@@ -1,0 +1,85 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+    <po-datepicker
+      class="po-md-4 po-sm-12"
+      [p-auto-focus]="false"
+      (p-change)="getReservationByDate($event)"
+      p-label="Data da reserva"
+    ></po-datepicker>
+    <po-tabs class="po-md-12 po-sm-12">
+    <po-tab
+      *ngFor="let year of getReservationYear(reservations)"
+      p-label="{{ year }}"
+      [p-active]=" year === currentYear"
+    >
+
+    <po-tabs class="po-md-12 po-sm-12">
+      <po-tab
+      *ngFor="let month of getReservationMonth(reservations, year)"
+      p-label="{{ month }}"
+      [p-active]=" month === currentMonth"
+    >
+    <po-tabs [p-small]="true" class="po-md-12 po-sm-12">
+      <po-tab
+      *ngFor="let date of getReservationDate(reservations, month)"
+      p-label="{{ date }}"
+      [p-active]=" date === currentDay"
+    >
+    <po-list-view
+      class="po-md-12 po-sm-12"
+      p-property-title="sport"
+      [p-items]="filterByDate(date)"
+      [p-actions]="actionsView"
+    >
+      <ng-template p-list-view-content-template let-item>
+        <div class="po-row">
+          <po-info
+            class="po-md-4 po-sm-6"
+            p-label="Responsável"
+            [p-value]="item.reserverId?.nome"
+            [hidden]="!item.reserverId"
+          ></po-info>
+
+          <po-info
+            class="po-md-3 po-sm-6"
+            p-label="Professor"
+            [p-value]="item.classId?.teacherId?.nome"
+            [hidden]="!item.classId"
+          ></po-info>
+
+          <po-info
+            class="po-md-2 po-sm-6"
+            p-label="Esporte"
+            [p-value]="item.classId?.sport"
+            [hidden]="!item.classId"
+          ></po-info>
+          
+          <po-info
+            class="po-md-3 po-sm-6"
+            p-label="Quadra"
+            [p-value]="item.courtId.name"
+          ></po-info>
+
+          <po-info
+            class="po-md-2 po-sm-6"
+            p-label="Data"
+            [p-value]="item.date"
+          ></po-info>
+
+          <po-info
+            class="po-md-2 po-sm-6"
+            p-label="Hora"
+            [p-value]="item.time"
+          ></po-info>
+         
+        </div>
+      </ng-template>
+    </po-list-view>
+  </po-tab>
+</po-tabs>
+  </po-tab>
+  </po-tabs>
+    </po-tab>
+    </po-tabs>
+  <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+  </po-page-default>
+  

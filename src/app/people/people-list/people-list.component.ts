@@ -1,110 +1,118 @@
 import { Component, ViewChild } from '@angular/core'
 
-import { PoBreadcrumb, PoDynamicViewField, PoModalComponent } from '@po-ui/ng-components'
+import { PoBreadcrumb, PoComboOption, PoDisclaimer, PoDynamicViewField, PoModalComponent, PoNotificationService, PoPageAction } from '@po-ui/ng-components'
 
 import {
-  PoPageDynamicTableActions,
   PoPageDynamicTableCustomAction,
-  PoPageDynamicTableCustomTableAction,
-  PoPageDynamicTableOptions
+  PoPageDynamicTableCustomTableAction
 } from '@po-ui/ng-templates'
+import { IPeople } from 'src/app/types/types'
+import { UnitService } from 'src/app/unit/unit.service'
 import { PeopleService } from '../people.service'
 
 @Component({
   selector: 'app-people-list',
   templateUrl: './people-list.component.html',
   styleUrls: ['./people-list.component.css'],
-  providers: [PeopleService]
+  providers: [PeopleService, UnitService],
 })
-
 export class PeopleListComponent {
   @ViewChild('userDetailModal') userDetailModal!: PoModalComponent;
   @ViewChild('dependentsModal') dependentsModal!: PoModalComponent;
 
-  readonly serviceApi = 'https://64f38ec0edfa0459f6c6aba4.mockapi.io/condomynium/api/v1/people';
+  public pessoas:IPeople[] = [];
+  filteredItems: Array<any> = [];
+  filters: Array<PoDisclaimer> = [];
+  nome: string = '';
+  comboSports: string = '';
 
-  actionsRight = false;
+  public sports: PoComboOption[] = [];
+
   detailedUser: any;
   dependents: any;
-  quickSearchWidth: number = 3;
-  fixedFilter = false;
 
-  readonly actions: PoPageDynamicTableActions = {
-    new: 'people/new',
-    edit: 'people/edit/:id',
-    remove: true
-  };
+  isHideLoading = true;
 
-  readonly breadcrumb: PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'People' }]
-  };
-
-  readonly cityOptions: Array<object> = [
-    { value: 'São Paulo', label: 'São Paulo' },
-    { value: 'Joinville', label: 'Joinville' },
-    { value: 'São Bento', label: 'São Bento' },
-    { value: 'Araquari', label: 'Araquari' },
-    { value: 'Campinas', label: 'Campinas' },
-    { value: 'Osasco', label: 'Osasco' }
+  public readonly actions: Array<PoPageAction> = [
+    { label: 'Novo', url: '/people/new', icon: 'po-icon-plus' }
   ];
 
+  readonly breadcrumb: PoBreadcrumb = {
+    items: [{ label: 'Home', link: '/' }, { label: 'People' }],
+  };
+
   fields: Array<any> = [
-    { property: 'id', key: true, visible: false, filter: true },
+    { property: '_id', key: true, visible: false, filter: true },
     { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
     { property: 'email', label: 'E-mail', filter: true, gridColumns: 6 },
-    { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true, sortable: false },
-    { property: 'search', filter: true, visible: false }
+    {
+      property: 'genero',
+      label: 'Genre',
+      filter: true,
+      gridColumns: 6,
+      duplicate: true,
+      sortable: false,
+    },
+    { property: 'search', filter: true, visible: false },
   ];
 
   readonly detailFields: Array<PoDynamicViewField> = [
-    { property: 'id', key: true, visible: false },
+    { property: '_id', key: true, visible: false },
     { property: 'nome', label: 'Name', divider: 'Pessoa', gridColumns: 6 },
-    { property: 'genero', label: 'Genre', gridColumns: 6},
+    { property: 'genero', label: 'Genre', gridColumns: 6 },
     {
       property: 'dtNascimento',
       label: 'Birthdate',
       type: 'date',
-      gridColumns: 6
+      gridColumns: 6,
     },
-    { property: 'cpf', divider: 'Documentos', label: 'CPF', gridColumns: 6},
-    { property: 'rg', label: 'RG', gridColumns: 6}
+    { property: 'cpf', divider: 'Documentos', label: 'CPF', gridColumns: 6 },
+    { property: 'rg', label: 'RG', gridColumns: 6 },
   ];
 
   pageCustomActions: Array<PoPageDynamicTableCustomAction> = [
-    { label: 'Print', action: this.printPage.bind(this), icon: 'po-icon-print' },
     {
-      label: 'Download .csv',
-      action: this.usersService.downloadCsv.bind(this.usersService, this.serviceApi),
-      icon: 'po-icon-download'
-    }
+      label: 'Print',
+      action: this.printPage.bind(this),
+      icon: 'po-icon-print',
+    },
   ];
 
   tableCustomActions: Array<PoPageDynamicTableCustomTableAction> = [
     {
       label: 'Details',
       action: this.onClickUserDetail.bind(this),
-      icon: 'po-icon-user'
-    }
+      icon: 'po-icon-user',
+    },
   ];
 
-  constructor(private usersService: PeopleService) {}
+  constructor(
+    private peopleService: PeopleService,
+    private poNotification: PoNotificationService,
+    private unitService: UnitService
+  ) {}
 
-  onLoad(): PoPageDynamicTableOptions {
-    return {
-      fields: [
-        { property: 'id', key: true, visible: true, filter: true },
-        { property: 'nome', label: 'Name', filter: true, gridColumns: 6 },
-        { property: 'genero', label: 'Genre', filter: true, gridColumns: 6, duplicate: true },
-        {
-          property: 'dtNascimento',
-          label: 'Birthdate',
-          type: 'date',
-          gridColumns: 6,
-          visible: false,
-          allowColumnsManager: true
-        }
-      ]
-    };
+  hasNext = false
+  page = 1
+  ngOnInit() {
+    this.isHideLoading = false;
+    this.peopleService.getPeople({ page: this.page, pageSize: 10 }).subscribe(
+      (data) => {
+        this.pessoas = [...this.pessoas,...data.items]
+        this.hasNext = data.hasNext
+      },
+      () => {
+        this.poNotification.error('Erro na busca de pessoas.');
+        this.isHideLoading = true;
+      },
+      () => (this.isHideLoading = true)
+    );
+    this.unitService.getSports().subscribe(
+      (data) => {
+        this.sports = data.items.map((sport: any) => ({ label: sport.name, value: sport.name }));
+        this.isHideLoading = true;
+      }
+    )
   }
 
   isUserInactive(person: any) {
@@ -125,55 +133,54 @@ export class PeopleListComponent {
     this.userDetailModal.open();
   }
 
-  private onClickDependents(user: any) {
-    this.dependents = user.dependents;
+  addFilter(value: any, property: string) {
+    let filter = <any>this.filters.find((item) => item.property === property);
 
-    this.dependentsModal.open();
-  }
-
-  private onClickActionsSide(value: any) {
-    this.actionsRight = !this.actionsRight;
-  }
-
-  private isVisibleActionsRight() {
-    return !this.actionsRight;
-  }
-
-  private isVisibleActionsLeft() {
-    return this.actionsRight;
-  }
-
-  private onClickFixedFilter() {
-    this.fixedFilter = !this.fixedFilter;
-    const fieldsDefault = [...this.fields];
-
-    if (this.fixedFilter) {
-      fieldsDefault
-        .filter(field => field.property === 'search')
-        .map(field => {
-          field.initValue = 'Joinville';
-          field.filter = true;
-          field.fixed = true;
-        });
-
-      this.fields = fieldsDefault;
+    if (!filter) {
+      filter = <any>{ property: property };
     } else {
-      fieldsDefault
-        .filter(field => field.property === 'search')
-        .map(field => {
-          field.initValue = 'São Paulo';
-          field.fixed = false;
-        });
-
-      this.fields = fieldsDefault;
+      this.filters.splice(this.filters.indexOf(filter), 1);
+      filter = Object.assign({}, filter);
     }
+
+    filter.value = value;
+    filter.label = `${
+      property.charAt(0).toUpperCase() + property.slice(1)
+    }: ${value}`;
+    this.filters = [...this.filters, filter];
   }
 
-  private isVisibleFixedFilter() {
-    return !this.fixedFilter;
+  changeFilters(filters: Array<PoDisclaimer>) {
+    filters.length ? this.filter(filters) : this.resetFilters();
+    this.clearFieldsIfNoFilter('nome', 'sports');
   }
 
-  private isVisibleNotFixedFilter() {
-    return this.fixedFilter;
+  private clearFieldsIfNoFilter(...fields: Array<string>) {
+    const fieldHaveNoFilter = (field: any) =>
+      !this.filters.some((filter) => filter.property === field);
+
+    //    const fieldsWithoutFilter = fields.filter((field:any) => this[field] && fieldHaveNoFilter(field));
+
+    //  fieldsWithoutFilter.forEach(field => (this[field] = undefined));
+  }
+
+  private filter(filters: Array<PoDisclaimer>) {
+    const params = {}
+    filters.forEach((filter:any) => Object.assign(params, { filter: filter.value }));
+
+    this.isHideLoading = true;
+
+    this.peopleService
+      .getPeople(params)
+      .subscribe((data: any) => (this.pessoas = data.items));
+  }
+
+  private resetFilters() {
+    this.filteredItems = [...(this.pessoas || [])];
+  }
+
+  loadMore(){
+    this.page++
+    this.ngOnInit()
   }
 }

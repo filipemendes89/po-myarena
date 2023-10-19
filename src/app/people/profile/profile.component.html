@@ -1,0 +1,27 @@
+<po-page-default [p-breadcrumb]="breadcrumb">
+    <po-widget
+    class="po-sm-12 po-md-12"
+    [p-title]="pessoa.nome"
+    p-primary-label="Editar"
+    (p-primary-action)="editPeople(this)"
+    p-secondary-label="Meus Níveis"
+    (p-secondary-action)="pageSlideNivel.open()"
+  >
+    <po-avatar class="po-md-4" p-size="lg" [p-src]="pessoa.avatar"> </po-avatar>
+
+    <div class="po-md-6"> 
+      <po-info p-label="Telefone" [p-value]="pessoa.phone" [p-orientation]="orientationInfo"></po-info>
+      <po-info p-label="Instagram" [p-value]="pessoa.instagram" [p-orientation]="orientationInfo"> </po-info>
+      <po-info p-label="E-mail" [p-value]="pessoa.email" [p-orientation]="orientationInfo"></po-info>
+      <po-info p-label="CPF" [p-value]="pessoa.cpf" [p-orientation]="orientationInfo"></po-info>
+      <po-info p-label="Esportes" [p-value]="pessoa.sports"></po-info>
+    </div>
+  </po-widget>
+
+  <po-page-slide #pageSlideNivel p-size="auto" p-title="Meus Níveis">
+    <div *ngFor="let item of pessoa.sports">
+      <po-divider class="po-sm-12" [p-label]="item"></po-divider>
+        <po-info class="po-sm-6" p-label="Nivel atual" [p-value]="getNivel(item)"></po-info>
+    </div>
+</po-page-slide>
+</po-page-default>

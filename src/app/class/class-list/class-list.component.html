@@ -1,0 +1,93 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actions">
+  <po-datepicker
+    class="po-md-4"
+    [p-auto-focus]="false"
+    (p-change)="getClassByDate($event)"
+    p-label="Data da aula"
+  ></po-datepicker>
+  <po-list-view
+    class="po-md-12 po-sm-12"
+    p-property-title="sport"
+    [p-items]="classes"
+    [p-actions]="actionsView"
+    [p-literals]="literals"
+    [p-show-more-disabled]="false"
+  >
+    <ng-template p-list-view-content-template let-item>
+      <div class="po-row">
+        <po-avatar class="po-md-2" [p-src]="item.teacherId?.avatar"></po-avatar>
+        <po-info
+          class="po-md-4 po-sm-6"
+          p-label="Professor"
+          [p-value]="item.teacherId?.nome"
+        ></po-info>
+        <po-tag
+          class="po-md-2 po-sm-6"
+          p-label="Nivel"
+          [p-color]="'color-0' + item.level"
+          [p-value]="getEnumLevel(item.level)"
+        ></po-tag>
+        <po-tag
+          name="active"
+          class="po-md-4 po-sm-6"
+          p-label="Status"
+          [p-value]="item.poValue"
+          [p-type]="item.poType"
+        >
+        </po-tag>
+        <po-info
+          class="po-md-2 po-sm-6"
+          p-label="Max. alunos"
+          [p-value]="item.people"
+        ></po-info>
+        <po-info
+          class="po-md-4 po-sm-6"
+          p-label="Data"
+          [p-value]="item.date"
+        ></po-info>
+        <po-info
+        class="po-md-4 po-sm-6"
+        p-label="Hora"
+        [p-value]="item.time"
+      ></po-info>
+      </div>
+    </ng-template>
+
+    <ng-template p-list-view-detail-template let-item [p-show-detail]="showDetail">
+      <po-table
+      [p-selectable]="true"
+      [p-single-select]="true"
+      [p-striped]="true"
+      [p-columns]="peopleColumns"
+      [p-items]="item.peopleList"
+      [p-hide-table-search]="true"
+      (p-delete-items)="onPessoaDeleted(item, $event)"
+      [p-literals]="literalsTable"
+    >
+    </po-table>
+    <po-container class="po-ml-5">
+      <po-lookup
+        class="po-md-12"
+        name="pessoa"
+        [p-columns]="lookupColums"
+        [p-filter-service]="filterService"
+        p-label="Inserir Aluno"
+        (p-selected)="onPessoaSelected(item, $event)"
+      ></po-lookup>
+    </po-container>
+    <po-container>
+      <po-button
+        class="po-md-12"
+        p-kind="primary"
+        p-label="Salvar"
+        p-icon="po-icon-user-add"
+        (p-click)="saveClass(item)"
+        [p-disabled]="lookupDisabled"
+      >
+      </po-button>
+    </po-container>
+    </ng-template>
+  </po-list-view>
+  
+  <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+</po-page-default>

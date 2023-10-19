@@ -1,0 +1,20 @@
+<po-page-default [p-breadcrumb]="breadcrumb">
+    <po-dynamic-form
+      #dynamicForm
+      p-auto-focus="name"
+      [p-fields]="fields"
+      [p-value]="court"
+    >
+    </po-dynamic-form>
+  
+    <div class="po-row">
+      <po-button
+        class="po-md-3"
+        p-label="Salvar"      
+        (p-click)="onClickSave(); dynamicForm.form.reset()"
+      >
+      </po-button>
+    </div>
+  
+    <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+  </po-page-default>

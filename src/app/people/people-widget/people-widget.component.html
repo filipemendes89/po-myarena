@@ -1,0 +1,28 @@
+<po-widget
+      class="po-sm-12 po-md-12"
+      [p-title]="pessoa.nome"
+      p-primary-label="Editar"
+      p-secondary-label="Níveis do Aluno"
+      (p-primary-action)="editPeople(this)"
+      (p-secondary-action)="openPageSlide()"
+    >
+      
+  
+      <div class="po-md-8 po-sm-12"> 
+        <po-dynamic-view
+          #dynamicForm
+          p-auto-focus="name"
+          [p-fields]="fields"
+          [p-value]="pessoa"
+        >
+        </po-dynamic-view>
+      </div>
+</po-widget>
+
+<po-page-slide #pageSlideNivel p-size="auto" p-title="Níveis do Aluno">
+    <div *ngFor="let item of pessoa.sports">
+      <po-divider class="po-sm-12" [p-label]="item"></po-divider>
+        <po-info class="po-sm-6" p-label="Nivel atual" [p-value]="getNivel(item)"></po-info>
+        <po-combo class="po-sm-6" p-label="Novo Nível" [p-options]="niveis" (p-change)="saveNivel($event, item)"></po-combo>
+    </div>
+</po-page-slide>

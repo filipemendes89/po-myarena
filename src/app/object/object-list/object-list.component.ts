@@ -8,11 +8,11 @@ import { PoBreadcrumb, PoPageAction } from '@po-ui/ng-components';
 })
 export class ObjectListComponent {
   public readonly breadcrumb:PoBreadcrumb = {
-    items: [{ label: 'Home', link: '/' }, { label: 'Pacotes' }]
+    items: [{ label: 'Home', link: '/' }, { label: 'Estoque' }]
   }
 
   public readonly actions: Array<PoPageAction> = [
-    { label: 'Novo pacote', url: '/documentation' },
-    { label: 'Identificação' }
+    { label: 'Nova entrada', url: '/documentation' },
+    { label: 'Nova Saída' }
   ]
 }

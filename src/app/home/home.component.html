@@ -1,0 +1,25 @@
+<div class="po-wrapper">
+  <po-toolbar
+  p-title="MyArena"
+  [p-profile]="profile"
+  [p-profile-actions]="profileActions"
+  >
+
+  </po-toolbar>
+  <po-menu
+    [p-collapsed]="false"
+    p-logo="../assets/logo.png"
+    p-short-logo="../assets/logo_min.png"
+    [p-menus]="menus"
+  >
+  </po-menu>
+  <router-outlet></router-outlet>
+  <po-page-default>
+    <div class="po-visible-sm po-md-2 po-sm-12" *ngFor="let item of menus">
+      <po-widget (p-click)="goTo(item.link)">
+        <po-button #btnMenu class="po-md-12 po-sm-12" p-kind="tertiary" [p-label]="item.label" p-icon="{{item.icon}}" ></po-button>       
+      </po-widget>
+    </div>
+  </po-page-default>
+  <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando os dados do usuário..."></po-loading-overlay>
+</div>

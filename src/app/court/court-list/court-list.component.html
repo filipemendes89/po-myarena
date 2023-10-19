@@ -1,0 +1,29 @@
+<po-page-default [p-breadcrumb]="breadcrumb" [p-actions]="actionsPage">
+<po-list-view 
+    p-property-title="name"
+    [p-items]="courts"
+    [p-literals]="literals"
+    [p-actions]="actions">
+    
+    <ng-template p-list-view-content-template let-item>
+        <div class="po-row">
+          <po-image class="po-md-3 po-sm-6 po-lg-2" [p-src]="item.avatar"></po-image>
+          <po-info class="po-md-3 po-sm-12" p-label="Tipo" [p-value]="item.type"></po-info>
+          <po-info class="po-md-3 po-sm-6" p-label="Esportes" [p-value]="item.sports"></po-info>
+          <po-switch class="po-md-3 po-sm-6" name="active" p-label="Ativa?" [p-value]="item.active" [p-disabled]="true"> </po-switch>
+        </div>
+      </ng-template>
+      <ng-template p-list-view-detail-template let-item [p-show-detail]="showDetail">
+        <po-container>
+          <h1 class="center text-center po-font-subtitle">Agenda de hoje</h1>
+          <mwl-calendar-day-view
+            [viewDate]="viewDate"
+            [events]="item.events"
+            [refresh]="refresh"
+          >
+          </mwl-calendar-day-view>
+        </po-container>
+      </ng-template>
+</po-list-view>
+<po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+</po-page-default>

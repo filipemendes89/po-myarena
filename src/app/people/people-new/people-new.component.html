@@ -1,11 +1,22 @@
-<po-page-dynamic-edit
-  [p-auto-router]="true"
-  p-title="Pessoa"
-  [p-actions]="actions"
-  [p-breadcrumb]="breadcrumb"
-  [p-fields]="fields"
-  [p-literals]="literals"
-  [p-service-api]="serviceApi"
->
-</po-page-dynamic-edit>
+<po-page-default [p-breadcrumb]="breadcrumb">
+  <po-dynamic-form
+    #dynamicForm
+    p-auto-focus="name"
+    [p-fields]="fields"
+    [p-value]="pessoa"
+    [p-validate]="this.dynamicForm.validate"
+  >
+  </po-dynamic-form>
 
+  <div class="po-row">
+    <po-button
+      class="po-md-12"
+      p-kind="primary"
+      p-label="Salvar"      
+      (p-click)="onClickSave()"
+    >
+    </po-button>
+  </div>
+
+  <po-loading-overlay [hidden]="isHideLoading" p-text="Carregando..."></po-loading-overlay>
+</po-page-default>

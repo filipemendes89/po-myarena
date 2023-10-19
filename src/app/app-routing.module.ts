@@ -1,27 +1,57 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { AuthGuard } from '@auth0/auth0-angular'
+import { AppGuardOnlyAdmin } from './app.guard'
+import { CalendarModule } from './calendar/calendar.module'
+import { ClassModule } from './class/class.module'
+import { CourtModule } from './court/court.module'
+import { HomeComponent } from './home/home.component'
+import { LoginComponent } from './login/login/login.component'
+import { LogoutComponent } from './logout/logout/logout.component'
 import { PeopleModule } from './people/people.module'
-import { UnitModule } from './unit/unit.module';
-import { ObjectModule } from './object/object.module';
+import { ReservationModule } from './reservation/reservation.module'
+import { StatisticsComponent } from './statistics/statistics.component'
+import { UnitModule } from './unit/unit.module'
 
 const routes: Routes = [
-  { 
-    path: 'people', 
-    loadChildren: () => PeopleModule
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'people',
+        loadChildren: () => PeopleModule,
+      },
+      {
+        path: 'sport',
+        loadChildren: () => UnitModule,
+      },
+      {
+        path: 'class',
+        loadChildren: () => ClassModule,
+      },
+      {
+        path: 'court',
+        loadChildren: () => CourtModule,
+      },
+      {
+        path: 'calendar',
+        loadChildren: () => CalendarModule,
+      },
+      {
+        path: 'reservation',
+        loadChildren: () => ReservationModule,
+      }
+    ],
   },
-  { 
-    path: 'unit', 
-    loadChildren: () => UnitModule
-  },
-  { 
-    path: 'object', 
-    loadChildren: () => ObjectModule
-  },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
+  { path: 'statistics', component: StatisticsComponent, canActivate:[AppGuardOnlyAdmin] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}
