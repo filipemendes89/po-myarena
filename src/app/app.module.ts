@@ -20,6 +20,7 @@ import { CalendarListComponent } from './calendar/calendar-list/calendar-list.co
 import { ClassListComponent } from './class/class-list/class-list.component'
 import { CourtListComponent } from './court/court-list/court-list.component'
 import { HomeComponent } from './home/home.component'
+import { InterceptorModule } from './interceptors/interceptor.module'
 import { LoginComponent } from './login/login/login.component'
 import { LogoutComponent } from './logout/logout/logout.component'
 import { PeopleListComponent } from './people/people-list/people-list.component'
@@ -35,6 +36,7 @@ import { UnitListComponent } from './unit/unit-list/unit-list.component'
     AppRoutingModule,
     PoModule,
     HttpClientModule,
+    InterceptorModule,
     AuthModule.forRoot({
       ...env.auth,
       authorizationParams: {

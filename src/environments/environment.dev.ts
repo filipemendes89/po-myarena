@@ -7,5 +7,6 @@ export const environment = {
     clientId: auth_config.clientId,
     redirectUri: window.location.origin,
   },
-  apiUrl: 'http://localhost:7071/api'
+  apiUrl: 'http://localhost:7071/api',
+  apiCode: ''
 };
