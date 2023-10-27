@@ -58,7 +58,8 @@ export class PeopleNewComponent {
       label: 'Avatar',
       optional: true,
       url: 'https://po-sample-api.fly.dev/v1/uploads/addFile',
-      hideSendButton: true
+      hideSendButton: true,
+      visible: false
     },
     {
       property: 'sports',
