@@ -1,0 +1,28 @@
+{
+    "routes": [
+        {
+            "route": "/people/profile",
+            "rewrite": "/people/profile.html"
+        },
+        {
+            "route": "/class/members",
+            "rewrite": "/class/members.html"
+        },
+        {
+            "route": "/class/members/new",
+            "rewrite": "/class/members/new.html"
+        },
+        {
+            "route": "/reservation",
+            "rewrite": "/reservation.html"
+        },
+        {
+            "route": "/people",
+            "rewrite": "/people-list.html"
+        },
+        {
+            "route": "/people/new",
+            "rewrite": "/people/people-new.html"
+        }
+    ]
+}
